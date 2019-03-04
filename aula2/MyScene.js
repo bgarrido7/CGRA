@@ -21,25 +21,13 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.diamond = new MyDiamond(this);
-		this.triangle = new MyTriangle(this);
-		this.paralel = new MyParalel(this);
-		this.triBig = new MyTriangleBig(this);
-		this.triSmall = new MyTriangleSmall(this);
 		this.tangram = new MyTangram(this);
 		this.Cube = new MyCube(this);
 
-
         //Objects connected to MyInterface
-        this.displayAxis = false;
+        this.displayAxis = true;
         this.scaleFactor = 1;
-		this.displayTriangle = false;
-		this.displayDiamond = false;
-		this.displayParalel = false;
-		this.displayTriBig = false;
-		this.displayTriSmall = false;
-		this.displaytangram=false;
-		this.displayCube = true;
+		this.displayCube = false;
 		
     }
     initLights() {
@@ -79,104 +67,19 @@ class MyScene extends CGFscene {
                     0.0, 0.0, this.scaleFactor, 0.0,
                     0.0, 0.0, 0.0, 1.0];
         this.multMatrix(sca);
-
-		var deg;
-		var DEGTORAD = Math.PI/180;
-		var rad;
-		var tx;
-		var ty;
-		var tz;
-		rad = deg*DEGTORAD;
-		
-		//matriz translaçao
-		var trans3 = [1  , 0.0, 0.0 , 0,
-                     0.0, 1  , 0.0 , 0 ,
-                     0.0, 0.0,   1 , 0 ,
-                     0  ,  3 ,   0 , 1.0];
+    
+        // ---- BEGIN Primitive drawing section  
 	
-		var trans1 = [1  , 0.0, 0.0 , 0,
-                     0.0, 1  , 0.0 , 0 ,
-                     0.0, 0.0,   1 , 0 ,
-                     1, 1, 0, 1.0];
-					 
-		var trans2 = [1  , 0.0, 0.0 , 0,
-                     0.0, 1  , 0.0 , 0 ,
-                     0.0, 0.0,   1 , 0 ,
-                     0, 2, 0, 1.0];
-		
-		var rot1 = [Math.cos(Math.PI/2), Math.sin(Math.PI/2), 0.0,0 ,
-                    - Math.sin(Math.PI/2), Math.cos(Math.PI/2), 0.0,0 ,
-                    0.0, 0.0, 1, 0,
-                    0,0,0, 1.0];
-					
-		var rot2 = [Math.cos(-Math.PI/2), Math.sin(-Math.PI/2), 0.0,0 ,
-                    - Math.sin(-Math.PI/2), Math.cos(-Math.PI/2), 0.0,0 ,
-                    0.0, 0.0, 1, 0,
-                    0,0,0, 1.0];
+        this.pushMatrix();
+        this.translate(3,0,-1.5);
+       this.rotate(-Math.PI/2,1,0,0);
+        this.tangram.display();
+        this.popMatrix();
 
-		var rot5 = [Math.cos(-90*Math.PI/180), Math.sin(-90*Math.PI/180), 0.0,0 ,
-                    - Math.sin(-90*Math.PI/180), Math.cos(-90*Math.PI/180), 0.0,0 ,
-                    0.0, 0.0, 1, 0,
-                    0,0,0, 1.0];
-
-		
-		
-		//this.translate(0,3,0);
-		
-
-
-        // ---- BEGIN Primitive drawing section
-		
-		if(this.displayDiamond){
-			this.pushMatrix();
-			
-			this.multMatrix(trans3);  //multiplicar a matriz translaçao pela diamante
-			this.diamond.display();
-			
-			this.popMatrix();
-		}
-	
-		if(this.displayTriangle){
-			this.pushMatrix();
-			
-			this.multMatrix(rot1);
-			this.multMatrix(trans1);
-			this.triangle.display();
-			
-			this.popMatrix();
-			
-			/********TRIANGLE 2********/
-			this.pushMatrix();
-			
-			this.multMatrix(trans2);
-			this.multMatrix(rot2);
-			this.multMatrix(trans1);
-			this.triangle.display();
-			
-			this.popMatrix();
-			
-		}
-		
-		if(this.displayParalel){
-			this.pushMatrix();
-			
-			this.multMatrix(rot5);
-			this.paralel.display();
-			
-			this.popMatrix();
-		}
-		
-		if(this.displayTriSmall)
-			this.triSmall.display();
-		
-		if(this.displayTriBig)
-			this.triBig.display();
-		
-		if(this.displayCube)
-			this.Cube.display();
-		
-	//	if(this.displaytangram)
-	//	this.tangram.display();
+        this.pushMatrix();
+        this.translate(0.5,-0.5,0.5);
+		this.Cube.display();
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }
