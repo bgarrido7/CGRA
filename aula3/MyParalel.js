@@ -32,4 +32,6 @@ class MyParalel extends CGFobject {
 		
 		this.initGLBuffers();
 	}
+
+	
 }

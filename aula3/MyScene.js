@@ -28,18 +28,18 @@ class MyScene extends CGFscene {
         this.tangram = new MyTangram(this);
 		this.Cube = new MyCube(this);
 
-        this.objects = [this.plane, this.pyramid, this.cone];
+        this.objects = [this.plane, this.pyramid, this.cone, this.Cube, this.tangram];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2};
+        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube':3, 'Tangram':4};
 
         //Other variables connected to MyInterface
-        this.selectedObject = 0;
+        this.selectedObject = 4;
         this.selectedMaterial = 0;
         this.displayAxis = true;
         this.displayNormals = false;
         this.objectComplexity = 0.5;
-        this.scaleFactor = 2.0;
+        this.scaleFactor = 1.0;
 		this.AmbientScale = 0.3;
 	
     }
@@ -131,6 +131,49 @@ class MyScene extends CGFscene {
         this.madeira.setSpecular(0.1, 0, 0, 1.0);
         this.madeira.setShininess(10.0);
 
+        this.verde = new CGFappearance(this);
+        this.verde.setAmbient(0, 1, 0,  0.10);
+        this.verde.setDiffuse(0, 1, 0, 0.10);
+        this.verde.setSpecular(0, 1, 0, 1.0);
+		this.verde.setShininess(10.0);
+		
+		this.amarelo = new CGFappearance(this);
+        this.amarelo.setAmbient(1, 1, 0,  0.10);
+        this.amarelo.setDiffuse(1, 1, 0,  0.10);
+        this.amarelo.setSpecular(1, 1, 0, 1.0);
+		this.amarelo.setShininess(10.0);
+
+		this.azul = new CGFappearance(this);
+        this.azul.setAmbient(0, 0, 0.8, 0.1);
+        this.azul.setDiffuse(0, 0, 0.8, 0.1);
+        this.azul.setSpecular(0, 0, 1, 1.0);
+		this.azul.setShininess(10.0);
+
+		this.roxo = new CGFappearance(this);
+        this.roxo.setAmbient(160/255, 32/255, 240/255, 0.10);
+        this.roxo.setDiffuse(160/255, 32/255, 240/255,  0.10);
+        this.roxo.setSpecular(160/255, 32/255, 240/255, 1.0);
+		this.roxo.setShininess(10.0);
+		
+		this.laranja = new CGFappearance(this);
+        this.laranja.setAmbient(255/255, 165/255, 0,  0.10);
+        this.laranja.setDiffuse(255/255, 165/255, 0,  0.10);
+        this.laranja.setSpecular(255/255, 165/255, 0, 1.0);
+		this.laranja.setShininess(10.0);
+		
+		this.rosa = new CGFappearance(this);
+        this.rosa.setAmbient(255/255, 105/255, 180/255,  0.10);
+        this.rosa.setDiffuse(255/255, 105/255, 180/255,  0.10);
+        this.rosa.setSpecular(0, 0, 0, 1.0);
+		this.rosa.setShininess(10.0);
+		
+		this.vermelho = new CGFappearance(this);
+        this.vermelho.setAmbient(1, 0, 0,  0.10);
+        this.vermelho.setDiffuse(1, 0, 0,  0.10);
+        this.vermelho.setSpecular(1, 0, 0, 1.0);
+		this.vermelho.setShininess(10.0);
+
+
         // Custom material (can be changed in the interface)
         // initially midrange values on ambient, diffuse and specular, on R, G and B respectively
 
@@ -144,7 +187,7 @@ class MyScene extends CGFscene {
 
         this.updateCustomMaterial();
 
-        this.materials = [this.material1, this.material2, this.material3, this.madeira, this.customMaterial];
+        this.materials = [this.material1, this.material2, this.material3, this.madeira, this.customMaterial, this.verde, this.amarelo, this.azul, this.roxo, this.laranja, this.rosa, this.vermelho];
 
         // Labels and ID's for object selection on MyInterface
         this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'madeira': 3, 'Custom': 4 };
@@ -168,11 +211,16 @@ class MyScene extends CGFscene {
             this.axis.display();
 
         // ---- BEGIN Primitive drawing section
+      
 
-        this.materials[this.selectedMaterial].apply();
+   //     this.tangram.display();
         
 
         this.pushMatrix();
+
+        
+        this.materials[this.selectedMaterial].apply();
+
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 		
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
@@ -185,8 +233,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
         // ---- END Primitive drawing section
 
-        this.tangram.display();
-        this.Cube.display();
+     //   this.Cube.display();
 
 
     }

@@ -7,6 +7,7 @@
 class MyTangram extends CGFobject {
 	constructor(scene) {
 		super(scene);
+		
 
 		this.diamond = new MyDiamond(this.scene);
 		this.triangle = new MyTriangle(this.scene);
@@ -21,7 +22,10 @@ class MyTangram extends CGFobject {
 		this.triSmall.initBuffers();
 
 	}
+
+
 	display() {
+
 
 	 var trans1 = [1  , 0.0, 0.0 , 0,
 				0.0, 1  , 0.0 , 0 ,
@@ -99,16 +103,23 @@ class MyTangram extends CGFobject {
 			   0.0, 0.0, 1, 0,
 			   0,0,0, 1.0];     
 
+
+			   
+
    /******** DIAMOND ********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans3);  
 		this.scene.multMatrix(sca3); 
+		this.scene.materials[4].apply();
 		this.diamond.display();
 	this.scene.popMatrix();
 
+
+/******** TRIANGLE 1 ********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(rot1);
 		this.scene.multMatrix(trans1);
+		this.scene.materials[7].apply();
 		this.triangle.display();
 	this.scene.popMatrix();
 	
@@ -117,18 +128,23 @@ class MyTangram extends CGFobject {
 		this.scene.multMatrix(trans2);
 		this.scene.multMatrix(rot2);
 		this.scene.multMatrix(trans1);
+		this.scene.materials[9].apply();
 		this.triangle.display();
 	this.scene.popMatrix();
 
+/*********PARALEL*********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans5);
 		this.scene.multMatrix(sca5);
 		this.scene.multMatrix(rot5);
+		this.scene.materials[6].apply();
 		this.paralel.display();
 	this.scene.popMatrix();
 
+	/*********TRINGLE 6*********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans4);
+		this.scene.materials[10].apply();
 		this.triSmall.display();
 	this.scene.popMatrix();
 	
@@ -137,6 +153,7 @@ class MyTangram extends CGFobject {
 		this.scene.multMatrix(trans6);
 		this.scene.multMatrix(sca6);
 		this.scene.multMatrix(rot6);
+		this.scene.materials[8].apply();
 		this.triSmall.display();
 	this.scene.popMatrix();
 
@@ -145,6 +162,7 @@ class MyTangram extends CGFobject {
 		this.scene.multMatrix(trans7);
 		this.scene.multMatrix(sca6);
 		this.scene.multMatrix(rot7);
+		this.scene.materials[11].apply();
 		this.triSmall.display();	
 	this.scene.popMatrix();
 
