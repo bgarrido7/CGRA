@@ -88,7 +88,7 @@ function MytangramDisplay(scene){
 
 		
 			this.scene.pushMatrix();
-			this.scene.multMatrix(trans3);  //multiplicar a matriz translaçao pela diamante
+			this.scene.multMatrix(trans3);  
             this.scene.multMatrix(sca3); 
 
             this.diamond.display();
