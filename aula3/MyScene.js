@@ -34,10 +34,10 @@ class MyScene extends CGFscene {
         this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube':3, 'Tangram':4};
 
         //Other variables connected to MyInterface
-        this.selectedObject = 4;
-        this.selectedMaterial = 0;
+        this.selectedObject = 3;
+        this.selectedMaterial = 3;
         this.displayAxis = true;
-        this.displayNormals = false;
+        this.displayNormals = true;
         this.objectComplexity = 0.5;
         this.scaleFactor = 1.0;
 		this.AmbientScale = 0.3;
