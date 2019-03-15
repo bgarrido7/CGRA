@@ -126,7 +126,7 @@ class MyScene extends CGFscene {
 
         // Red Specular (no ambient, no diffuse)
         this.madeira = new CGFappearance(this);
-        this.madeira.setAmbient(255/255, 228/255, 196/255, 1.0);
+        this.madeira.setAmbient(255/255/10, 228/255/10, 196/255/10, 1.0);
         this.madeira.setDiffuse(255/255, 228/255, 196/255, 1.0);
         this.madeira.setSpecular(0.1, 0, 0, 1.0);
         this.madeira.setShininess(10.0);
