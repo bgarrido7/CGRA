@@ -49,7 +49,7 @@ class MyInterface extends CGFinterface {
         sf2.add(this.scene.lights[1], 'linear_attenuation', 0.0, 1.0).name("Linear Atten.");
         sf2.add(this.scene.lights[1], 'quadratic_attenuation', 0.0, 1.0).name("Quad. Atten.");
 		
-		this.gui.add(this.scene, 'AmbientScale', 0.1, 10.0).name('AmbientLight');
+		this.gui.add(this.scene, 'AmbientScale', 0.1, 1.0).name('AmbientLight');
 	
         // Anothe forlder for grouping the custom material's parameters
         var f2 = this.gui.addFolder('Custom Material');

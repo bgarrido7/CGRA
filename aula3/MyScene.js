@@ -34,8 +34,8 @@ class MyScene extends CGFscene {
         this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube':3, 'Tangram':4};
 
         //Other variables connected to MyInterface
-        this.selectedObject = 4;
-        this.selectedMaterial = 0;
+        this.selectedObject = 3;
+        this.selectedMaterial = 3;
         this.displayAxis = true;
         this.displayNormals = false;
         this.objectComplexity = 0.5;
@@ -126,7 +126,7 @@ class MyScene extends CGFscene {
 
         // Red Specular (no ambient, no diffuse)
         this.madeira = new CGFappearance(this);
-        this.madeira.setAmbient(255/255, 228/255, 196/255, 1.0);
+        this.madeira.setAmbient(255/255/10, 228/255/10, 196/255/10, 1.0);
         this.madeira.setDiffuse(255/255, 228/255, 196/255, 1.0);
         this.madeira.setSpecular(0.1, 0, 0, 1.0);
         this.madeira.setShininess(10.0);
