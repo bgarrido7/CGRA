@@ -37,7 +37,7 @@ class MyScene extends CGFscene {
         this.selectedObject = 3;
         this.selectedMaterial = 3;
         this.displayAxis = true;
-        this.displayNormals = true;
+        this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 1.0;
 		this.AmbientScale = 0.3;

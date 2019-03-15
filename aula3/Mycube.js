@@ -43,6 +43,7 @@ class MyCube extends CGFobject {
 		];
 
 		//Counter-clockwise reference of vertices
+
 		this.indices = [
 		//face tras
 		1, 0, 2,
@@ -60,43 +61,14 @@ class MyCube extends CGFobject {
 		13,14,15,
 		13,15,12,
 
-
 		//face cima
 		17,18,19,
 		16,17,19,
 
-
-
 		//face frente
 		21,20,23,
 		21,23,22,
-
-
-			/*
-			1*3,2*3,3*3,
-			1*3,3*3,0,  //1
-
-			3*3,2*3,5*3,
-			3*3,5*3,4*3,  //2
-
-			2*3,1*3,6*3,
-			2*3,6*3,5*3,  //3
-
-			1*3,0,6*3,
-			6*3,0,7*3,  //4
-
-			0,3*3,4*3,
-			0,4*3,7*3,  //5
-
-			4*3,5*3,6*3,
-			4*3,6*3,7*3,  //6*/
 		];
-
-		//face de tras
-		
-
-
-
 		
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
@@ -138,51 +110,6 @@ class MyCube extends CGFobject {
 			0, 0, 1,
 			0, 0, 1,
 		]
-
-/*
-
-	
-			//face de baixo
-			for(var i = 0 ; i <= 9 ; i+=3){
-				this.normals.push(0, -1, 0);
-			}
-			//face de cima
-			for(var i = 12 ; i <= 21 ; i+=3){
-				this.normals.push(0, 1, 0);
-			}
-
-			//face direita
-			for(var i = 4 ; i <= 7 ; i+=3){
-				this.normals.push(1, 0, 0);
-			}
-			for(var i = 16 ; i <= 19 ; i+=3){
-				this.normals.push(1, 0, 0);
-			}
-
-			//face esquerda
-			for(var i = 1 ; i <= 10 ; i+=9){
-				this.normals.push(-1, 0, 0);
-			}
-			for(var i = 13 ; i <= 22 ; i+=9){
-				this.normals.push(-1, 0, 0);
-			}
-
-			//face tras
-			for(var i = 2 ; i <= 5 ; i+=3){
-				this.normals.push(0, 0, -1);
-			}
-			for(var i = 20 ; i <= 23 ; i+=3){
-				this.normals.push(0, 0, -1);
-			}
-
-			//face frente
-			for(var i = 8 ; i <= 11 ; i+=3){
-				this.normals.push(0, 0, 1);
-			}
-			for(var i = 14 ; i <= 17 ; i+=3){
-				this.normals.push(0, 0, 1);
-			}
-*/
 
 			this.initGLBuffers();
 	}
