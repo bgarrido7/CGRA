@@ -80,7 +80,7 @@ class MyScene extends CGFscene {
 
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
-        this.quadMaterial.setTexture(this.textures[2]);
+        this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
         
     }
 

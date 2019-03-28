@@ -10,41 +10,61 @@ class MyTangram extends CGFobject {
 		
 
 		this.diamond = new MyDiamond(this.scene, [
-			0, 1,
-			1, 1,
-			0, 0,
-			1, 0
+			0, 1/2,
+			1/4, 3/4,
+			1/2, 1/2,
+			1/4, 1/4,
+
 		]);
 		this.triangle = new MyTriangle(this.scene, [
-			0, 1,
-			1, 1,
-			0, 0,
-			1, 0
+			1/2,1/2,
+			1,1,
+			1,0,
 		]);
 		this.paralel = new MyParalel(this.scene, [
-			0, 1,
-			1, 1,
-			0, 0,
-			1, 0
+			1/4,3/4,
+			1/2,1,
+			1,1,
+			3/4,3/4,
 		]);
-		this.triBig = new MyTriangleBig(this.scene, [
-			0, 1,
-			1, 1,
-			0, 0,
-			1, 0
+		this.triRed = new MyTriangleRed(this.scene, [
+			0,0,
+			1/2,1/2,
+			1,0,
+
 		]);
 		this.triSmall = new MyTriangleSmall(this.scene, [
-			0, 1,
-			1, 1,
-			0, 0,
-			1, 0
+			0,1/2,
+			0,1,
+			1/2,1,	
 		]);
 
+		this.triLight = new MyTriangleSmallLight(this.scene, [
+			1/4,3/4,
+			3/4,3/4,
+			1/2,1/2,
+		]);
+
+		this.triDark = new MyTriangleSmallDark(this.scene, [
+			0,0,
+			0, 1/2,
+			1/4,1/4,
+		]);
+
+
 		this.diamond.initBuffers();
+
+		//pink
 		this.triangle.initBuffers();
+
 		this.paralel.initBuffers();
-		this.triBig.initBuffers();
+
+		//green
 		this.triSmall.initBuffers();
+
+		this.triRed.initBuffers();
+		this.triLight.initBuffers();
+		this.triDark.initBuffers();
  /*
 		this.quadMaterial = new CGFappearance(this);
         this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
@@ -150,15 +170,15 @@ class MyTangram extends CGFobject {
 	this.scene.popMatrix();
 
 
-/******** TRIANGLE 1 ********/
+/******** TRIANGLE RED ********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(rot1);
 		this.scene.multMatrix(trans1);
 		//this.scene.materials[7].apply();
-		this.triangle.display();
+		this.triRed.display();
 	this.scene.popMatrix();
 	
-/******** TRIANGLE 2 ********/
+/******** TRIANGLE PINK ********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans2);
 		this.scene.multMatrix(rot2);
@@ -176,29 +196,29 @@ class MyTangram extends CGFobject {
 		this.paralel.display();
 	this.scene.popMatrix();
 
-	/*********TRINGLE 6*********/
+	/*********TRINGLE GREEN*********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans4);
 		//this.scene.materials[10].apply();
 		this.triSmall.display();
 	this.scene.popMatrix();
 	
-	/*********TRINGLE 6*********/
+	/*********TRINGLE LIGHT BLUE*********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans6);
 		this.scene.multMatrix(sca6);
 		this.scene.multMatrix(rot6);
 		//this.scene.materials[8].apply();
-		this.triSmall.display();
+		this.triLight.display();
 	this.scene.popMatrix();
 
-	/*********TRINGLE 6*********/
+	/*********TRINGLE DARK*********/
 	this.scene.pushMatrix();
 		this.scene.multMatrix(trans7);
 		this.scene.multMatrix(sca6);
 		this.scene.multMatrix(rot7);
 		//this.scene.materials[11].apply();
-		this.triSmall.display();	
+		this.triDark.display();	
 	this.scene.popMatrix();
 
 
