@@ -16,6 +16,8 @@ class MyInterface extends CGFinterface {
         
         var obj = this;
 
+        this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');
+
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
 

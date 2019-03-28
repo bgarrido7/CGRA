@@ -1,7 +1,11 @@
 class MyTriangleSmall extends CGFobject {
-	constructor(scene) {
+	constructor(scene, coords) {
 		super(scene);
 		this.initBuffers();
+
+		if (coords != undefined)
+			this.updateTexCoords(coords);
+	
 	}
 	initBuffers() {
 		this.vertices = [
@@ -24,5 +28,9 @@ class MyTriangleSmall extends CGFobject {
 		}
 
 		this.initGLBuffers();
+	}
+	updateTexCoords(coords) {
+		this.texCoords = [...coords];
+		this.updateTexCoordsGLBuffers();
 	}
 }
