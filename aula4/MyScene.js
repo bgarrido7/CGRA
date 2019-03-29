@@ -43,8 +43,11 @@ class MyScene extends CGFscene {
         this.texture2 = new CGFtexture(this, 'images/floor.png');
         this.texture3 = new CGFtexture(this, 'images/window.jpg');
         this.texture4 = new CGFtexture(this, 'images/tangram.png');
+
+      
         //-------
         this.objectIDs = { 'Tangram': 0 , 'Cube': 1 };
+
         //-------Objects connected to MyInterface
         this.selectedObject = 1;
         this.displayAxis = true;
@@ -53,11 +56,11 @@ class MyScene extends CGFscene {
         this.wrapS = 0;
         this.wrapT = 0;
 
-        this.textures = [this.texture1, this.texture2, this.texture3, this.texture4];
+        this.textures = [this.texture1, this.texture2, this.texture3, this.texture4 ];
         this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
         this.wrappingMethods = ['REPEAT', 'CLAMP_TO_EDGE', 'MIRRORED_REPEAT'];
 
-        this.textureIds = { 'Board': 0, 'Floor': 1, 'Window': 2, 'Tangram': 3 };
+        this.textureIds = { 'Board': 0, 'Floor': 1, 'Window': 2, 'Tangram': 3 /*, 'Dirt Block': 4*/};
         this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
         this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
 
@@ -127,15 +130,12 @@ class MyScene extends CGFscene {
         // Uncomment next line for NEAREST when magnifying, or 
         // add a checkbox in the GUI to alternate in real time
         
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+     //   this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
  
+        this.objects[this.selectedObject].display();
 
-   
-     this.objects[this.selectedObject].display();
-
-      
-
+    
         // ---- END Primitive drawing section
     }
 }

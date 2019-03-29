@@ -164,8 +164,7 @@ class MyTangram extends CGFobject {
 		this.scene.multMatrix(trans3);  
 		this.scene.multMatrix(sca3); 
 		//this.scene.materials[4].apply();
-		
-		//this.scene.quadMaterial.apply();
+	
 		this.diamond.display();
 	this.scene.popMatrix();
 
