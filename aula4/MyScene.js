@@ -26,6 +26,8 @@ class MyScene extends CGFscene {
         this.quad = new MyQuad(this);
         this.Tangram = new MyTangram(this);
 
+        this.objects = [this.Tangram,this.quad];
+
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
         this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
@@ -42,8 +44,9 @@ class MyScene extends CGFscene {
         this.texture3 = new CGFtexture(this, 'images/window.jpg');
         this.texture4 = new CGFtexture(this, 'images/tangram.png');
         //-------
-
+        this.objectIDs = { 'Tangram': 0 , 'Cube': 1 };
         //-------Objects connected to MyInterface
+        this.selectedObject = 1;
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.selectedTexture = -1;        
@@ -77,7 +80,9 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-
+    updateObjectComplexity(){
+        this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
+    }
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
         this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
@@ -124,12 +129,12 @@ class MyScene extends CGFscene {
         
         // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
-        this.Tangram.display();
+ 
 
+   
+     this.objects[this.selectedObject].display();
 
-
-
-      // this.quad.display();
+      
 
         // ---- END Primitive drawing section
     }
