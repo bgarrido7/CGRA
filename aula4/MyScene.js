@@ -23,7 +23,7 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.quad = new MyQuad(this);
+        this.quad = new MyUnitCubeQuad(this);
         this.Tangram = new MyTangram(this);
 
         this.objects = [this.Tangram,this.quad];
