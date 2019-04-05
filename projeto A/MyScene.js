@@ -19,6 +19,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+        this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -30,14 +31,18 @@ class MyScene extends CGFscene {
         this.Prism = new MyPrism(this, 30, 1, 1);
         this.Cilinder = new MyCilinder(this,  30, 1, 1);
         this.tree = new MyTree(this, 1,0.7,1,1,1,1);
+		this.Group = new MyTreeGroupPatch(this);
+		this.Row = new MyTreeRowPatch(this);
+        this.House = new MyHouse(this);
+        this.Hill = new MyVoxelHill(this,3);
 
-        this.objects = [this.plane, this.pyramid, this.cone, this.Cube, this.tangram, this.Prism, this.Cilinder, this.tree];
+        this.objects = [this.plane, this.pyramid, this.cone, this.Cube, this.tangram, this.Prism, this.Cilinder, this.tree, this.Group, this.Row, this.House, this.Hill];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube':3, 'Tangram':4, 'Prism': 5, 'Cilinder': 6, 'Tree':7};
+        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube':3, 'Tangram':4, 'Prism': 5, 'Cilinder': 6, 'Tree':7, 'Group': 8, 'Row': 9, 'House': 10, 'Hill': 11};
 
         //Other variables connected to MyInterface
-        this.selectedObject = 7;
+        this.selectedObject = 11;
         this.selectedMaterial = 3;
         this.displayAxis = true;
         this.displayNormals = false;
@@ -176,6 +181,13 @@ class MyScene extends CGFscene {
         this.vermelho.setSpecular(1, 0, 0, 1.0);
 		this.vermelho.setShininess(10.0);
 
+        this.sky = new CGFappearance(this);
+        this.sky.setAmbient(1, 1, 1, 1);
+        this.sky.setDiffuse(0, 0, 0, 1);
+        this.sky.setSpecular(0, 0, 0, 1);
+		this.sky.setShininess(10.0);
+		this.sky.loadTexture('skybox/sky.png');
+        this.sky.setTextureWrap('REPEAT', 'REPEAT');
 
         // Custom material (can be changed in the interface)
         // initially midrange values on ambient, diffuse and specular, on R, G and B respectively
@@ -233,11 +245,44 @@ class MyScene extends CGFscene {
             this.objects[this.selectedObject].disableNormalViz();
         
         this.objects[this.selectedObject].display();
+		
+		
+           
+			
+       
         this.popMatrix();
         // ---- END Primitive drawing section
+/*
+this.pushMatrix();
 
+        
+        this.materials[this.selectedMaterial].apply();
+
+        //this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+		
+        this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
+       // if (this.displayNormals)
+      //      this.objects[this.selectedObject].enableNormalViz();
+       /// else
+        //    this.objects[this.selectedObject].disableNormalViz();
+        
+        //this.objects[this.selectedObject].display();
+		
+		
+            this.translate(0,0,5);
+			this.scale(0.9,1.1,0.9);
+			this.rotate(Math.PI/2,0,1,0);
+            this.Group.display();
+			
+       
+        this.popMatrix();
      //   this.Cube.display();
+*/
 
-
+        this.pushMatrix();
+        this.sky.apply();
+        this.scale(500,500,500);
+        this.Cube.display();
+        this.popMatrix();
     }
 }

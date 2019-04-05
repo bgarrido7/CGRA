@@ -9,7 +9,7 @@ serialInclude(['../lib/CGF.js',
                 'MyCone.js',
                 'MyPyramid.js',
                 'MyTangram.js',
-                'Mycube.js',
+                'MyCube.js',
                 'MyDiamond.js',
                 'MyTriangle.js',
                 'MyParalel.js',
@@ -20,6 +20,11 @@ serialInclude(['../lib/CGF.js',
                 'MyQuad.js',
                 'MyUnitCubeQuad.js',
                 'MyTree.js',
+				'MyTreeGroupPatch.js',
+				'MyTreeRowPatch.js',
+                'MyHouse.js',
+                'MyVoxelHill.js',
+				
          
 
 main=function()
