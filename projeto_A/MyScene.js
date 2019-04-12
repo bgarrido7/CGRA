@@ -149,47 +149,6 @@ class MyScene extends CGFscene {
         this.madeira.setSpecular(0.1, 0, 0, 1.0);
         this.madeira.setShininess(10.0);
 
-        this.verde = new CGFappearance(this);
-        this.verde.setAmbient(0, 1, 0,  0.10);
-        this.verde.setDiffuse(0, 1, 0, 0.10);
-        this.verde.setSpecular(0, 1, 0, 1.0);
-		this.verde.setShininess(10.0);
-		
-		this.amarelo = new CGFappearance(this);
-        this.amarelo.setAmbient(1, 1, 0,  0.10);
-        this.amarelo.setDiffuse(1, 1, 0,  0.10);
-        this.amarelo.setSpecular(1, 1, 0, 1.0);
-		this.amarelo.setShininess(10.0);
-
-		this.azul = new CGFappearance(this);
-        this.azul.setAmbient(0, 0, 0.8, 0.1);
-        this.azul.setDiffuse(0, 0, 0.8, 0.1);
-        this.azul.setSpecular(0, 0, 1, 1.0);
-		this.azul.setShininess(10.0);
-
-		this.roxo = new CGFappearance(this);
-        this.roxo.setAmbient(160/255, 32/255, 240/255, 0.10);
-        this.roxo.setDiffuse(160/255, 32/255, 240/255,  0.10);
-        this.roxo.setSpecular(160/255, 32/255, 240/255, 1.0);
-		this.roxo.setShininess(10.0);
-		
-		this.laranja = new CGFappearance(this);
-        this.laranja.setAmbient(255/255, 165/255, 0,  0.10);
-        this.laranja.setDiffuse(255/255, 165/255, 0,  0.10);
-        this.laranja.setSpecular(255/255, 165/255, 0, 1.0);
-		this.laranja.setShininess(10.0);
-		
-		this.rosa = new CGFappearance(this);
-        this.rosa.setAmbient(255/255, 105/255, 180/255,  0.10);
-        this.rosa.setDiffuse(255/255, 105/255, 180/255,  0.10);
-        this.rosa.setSpecular(0, 0, 0, 1.0);
-		this.rosa.setShininess(10.0);
-		
-		this.vermelho = new CGFappearance(this);
-        this.vermelho.setAmbient(1, 0, 0,  0.10);
-        this.vermelho.setDiffuse(1, 0, 0,  0.10);
-        this.vermelho.setSpecular(1, 0, 0, 1.0);
-		this.vermelho.setShininess(10.0);
 
         this.sky = new CGFappearance(this);
         this.sky.setAmbient(1, 1, 1, 1);
@@ -198,6 +157,33 @@ class MyScene extends CGFscene {
 		this.sky.setShininess(10.0);
 		this.sky.loadTexture('skybox/sky2.jpg');
         this.sky.setTextureWrap('REPEAT', 'REPEAT');
+
+                
+        //1 material especular
+        this.water = new CGFappearance(this);
+        this.water.setAmbient(1, 1, 1, 1);
+        this.water.setDiffuse(0, 0, 0, 1);
+        this.water.setSpecular(0, 0, 0, 1);
+        this.water.setShininess(10.0);
+        this.water.loadTexture('images/water.jpg');
+        this.water.setTextureWrap('REPEAT', 'REPEAT');
+
+       // 2 materiais difusos
+        this.grass = new CGFappearance(this);
+        this.grass.setAmbient(1, 1, 1, 1);
+        this.grass.setDiffuse(0, 0, 0, 1);
+        this.grass.setSpecular(0, 0, 0, 1);
+		this.grass.setShininess(10.0);
+		this.grass.loadTexture('images/grass.jpg');
+        this.grass.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.pool = new CGFappearance(this);
+        this.pool.setAmbient(1, 1, 1, 1);
+        this.pool.setDiffuse(0, 0, 0, 1);
+        this.pool.setSpecular(0, 0, 0, 1);
+		this.pool.setShininess(10.0);
+		this.pool.loadTexture('images/pool.jpg');
+        this.pool.setTextureWrap('REPEAT', 'REPEAT');
 
         // Custom material (can be changed in the interface)
         // initially midrange values on ambient, diffuse and specular, on R, G and B respectively
@@ -248,46 +234,44 @@ class MyScene extends CGFscene {
         else
             this.objects[this.selectedObject].disableNormalViz();
         
-        this.objects[this.selectedObject].display();
-		
-		
-           
-			
+        this.objects[this.selectedObject].display();	
        
         this.popMatrix();
-        // ---- END Primitive drawing section
-/*
-this.pushMatrix();
-
-        
-        this.materials[this.selectedMaterial].apply();
-
-        //this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-		
-        this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
-       // if (this.displayNormals)
-      //      this.objects[this.selectedObject].enableNormalViz();
-       /// else
-        //    this.objects[this.selectedObject].disableNormalViz();
-        
-        //this.objects[this.selectedObject].display();
-		
-		
-            this.translate(0,0,5);
-			this.scale(0.9,1.1,0.9);
+     
+     
+     
+     // POSICIONAMENTO DAS COISAS  		
+     
+        this.pushMatrix();	
+            this.translate(0,0,-7);
+			this.scale(0.5,0.7,0.5);
 			this.rotate(Math.PI/2,0,1,0);
             this.Group.display();
-			
-       
         this.popMatrix();
-*/     
-        this.pushMatrix();
-            this.scale(10,1,10);
+    
+        this.pushMatrix();           
+            this.grass.apply(); 
+            this.scale(20,1,20);
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.quad.display();
         this.popMatrix();
+          
+        this.pushMatrix();           
+            this.pool.apply(); 
+            this.translate(-5,0.01,3);
+            this.scale(5,2,2);
+            this.rotate(-Math.PI/2, 1, 0, 0);
            
+            this.quad.display();
+        this.popMatrix();
 
+        this.pushMatrix();           
+            this.water.apply();             
+            this.translate(-5,0.02,3);
+            this.scale(4.3,1.5,1.5);
+            this.rotate(-Math.PI/2, 1, 0, 0);
+            this.quad.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.sky.apply();
