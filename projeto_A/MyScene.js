@@ -29,8 +29,8 @@ class MyScene extends CGFscene {
 		this.Row = new MyTreeRowPatch(this);
         this.House = new MyHouse(this);
         this.Hill = new MyVoxelHill(this,3);
-        this.Hill2 = new MyVoxelHill(this,3);
         this.quad = new MyQuad(this);
+        this.fireplace = new MyFireplace(this);
 
         this.objects = [
                         this.tree, 
@@ -38,7 +38,8 @@ class MyScene extends CGFscene {
                         this.Row, 
                         this.House, 
                         this.Hill,
-                        this.quad
+                        this.quad,
+                        this.fireplace
                     ];
 
         // Labels and ID's for object selection on MyInterface
@@ -48,7 +49,8 @@ class MyScene extends CGFscene {
                         'Row': 2, 
                         'House': 3, 
                         'Hill': 4,
-                        'Quad':5
+                        'Quad':5,
+                        'Fireplace':6
                         };
 
         //Other variables connected to MyInterface
@@ -166,7 +168,7 @@ class MyScene extends CGFscene {
         this.water.setSpecular(0, 0, 0, 1);
         this.water.setShininess(10.0);
         this.water.loadTexture('images/water.jpg');
-        this.water.setTextureWrap('REPEAT', 'REPEAT');
+        this.water.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
        // 2 materiais difusos
         this.grass = new CGFappearance(this);
@@ -248,6 +250,30 @@ class MyScene extends CGFscene {
 			this.rotate(Math.PI/2,0,1,0);
             this.Group.display();
         this.popMatrix();
+
+        this.pushMatrix();	
+			this.scale(0.5,0.5,0.5);
+            this.rotate(Math.PI/2,0,1,0);
+            this.translate(10,0,-7);
+            this.Row.display();
+        this.popMatrix();
+
+        this.pushMatrix();	
+            //this.scale(,0.5,0.5);
+            this.translate(-8,0,-5);
+            this.Hill.display();
+        this.popMatrix();
+
+        this.pushMatrix();	
+            this.translate(5,0,-5);
+            this.Hill.display();
+        this.popMatrix();
+
+        this.pushMatrix();	
+            this.translate(3,0.02,3);
+			this.scale(0.5,0.5,0.5);
+            this.fireplace.display();
+        this.popMatrix();
     
         this.pushMatrix();           
             this.grass.apply(); 
@@ -261,7 +287,6 @@ class MyScene extends CGFscene {
             this.translate(-5,0.01,3);
             this.scale(5,2,2);
             this.rotate(-Math.PI/2, 1, 0, 0);
-           
             this.quad.display();
         this.popMatrix();
 
