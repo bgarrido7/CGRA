@@ -27,7 +27,7 @@ class MyScene extends CGFscene {
         this.cone = new MyCone(this, 8, 1, 1);
         this.pyramid = new MyPyramid(this, 3, 1);
         this.tangram = new MyTangram(this);
-        this.Cube = new MyCube(this);
+        this.Cube = new MyCubeMap(this);
         this.Prism = new MyPrism(this, 30, 1, 1);
         this.Cilinder = new MyCilinder(this,  30, 1, 1);
         this.tree = new MyTree(this, 1,0.7,1,1,1,1);
@@ -186,7 +186,7 @@ class MyScene extends CGFscene {
         this.sky.setDiffuse(0, 0, 0, 1);
         this.sky.setSpecular(0, 0, 0, 1);
 		this.sky.setShininess(10.0);
-		this.sky.loadTexture('skybox/sky.png');
+		this.sky.loadTexture('skybox/sky2.jpg');
         this.sky.setTextureWrap('REPEAT', 'REPEAT');
 
         // Custom material (can be changed in the interface)
@@ -225,10 +225,11 @@ class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        // ---- BEGIN Primitive drawing section
+        if (this.lights[1])
+            this.axis.display();
       
 
-   //     this.tangram.display();
+  
         
 
         this.pushMatrix();
