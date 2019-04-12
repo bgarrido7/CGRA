@@ -49,7 +49,7 @@ class MyScene extends CGFscene {
         this.objectIDs = { 'Tangram': 0 , 'Cube': 1 };
 
         //-------Objects connected to MyInterface
-        this.selectedObject = 1;
+        this.selectedObject = 0;
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.selectedTexture = -1;        

@@ -30,7 +30,7 @@ class MyScene extends CGFscene {
 
         this.objects = [this.plane, this.pyramid, this.cone, this.Cube, this.tangram];
 
-        // Labels and ID's for object selection on MyInterface
+        // Labels and ID's for object selectiobjectIDson on MyInterface
         this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube':3, 'Tangram':4};
 
         //Other variables connected to MyInterface
