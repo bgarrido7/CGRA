@@ -28,8 +28,10 @@ class MyScene extends CGFscene {
 		this.Group = new MyTreeGroupPatch(this);
 		this.Row = new MyTreeRowPatch(this);
         this.House = new MyHouse(this);
-        this.Hill = new MyVoxelHill(this,3);
-        this.quad = new MyQuad(this);
+        this.Hill1 = new MyVoxelHill(this,3);
+		this.Hill2 = new MyVoxelHill(this,4);
+		this.quadground = new MyQuad(this, [0, 10, 10, 10, 0, 0, 10, 0]);
+		this.quad = new MyQuad(this, [0, 5, 5, 5, 0, 0, 5, 0]);
         this.fireplace = new MyFireplace(this);
 
         this.objects = [
@@ -66,17 +68,17 @@ class MyScene extends CGFscene {
     initLights() {
         this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1.0);
 
-        this.lights[0].setPosition(2.0, 2.0, -1.0, 1.0);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setPosition(0, 20, 0, 1.0);
+        this.lights[0].setDiffuse(255/255, 245/255, 200/255, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].disable();
-        this.lights[0].setVisible(true);
+       // this.lights[0].enable();
+        //this.lights[0].setVisible(true);
         this.lights[0].update();
 
-        this.lights[1].setPosition(0.0, -1.0, 2.0, 1.0);
-        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[1].setSpecular(1.0, 1.0, 0.0, 1.0);
-        this.lights[1].disable();
+        this.lights[1].setPosition(3,0.02,3, 1.0);
+        this.lights[1].setDiffuse(255/800, 165/800, 0, 1.0);
+        this.lights[1].setSpecular(0,0,0, 1.0);
+        this.lights[1].enable();
         this.lights[1].setVisible(true);
         this.lights[1].update();
     }
@@ -105,7 +107,7 @@ class MyScene extends CGFscene {
             ];
         return ret;
     }
-
+/*
     updateCustomMaterial() {
         var rgba;
 
@@ -115,41 +117,19 @@ class MyScene extends CGFscene {
 
         this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
 
-    };
+    };*/
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
     }
 
+	updateTexCoords() {
+        this.quad.updateTexCoords(this.texCoords);
+		this.quad1.updateTexCoords(this.texCoords);
+    }
 
     initMaterials() {
-        // Red Ambient (no diffuse, no specular)
-        this.material1 = new CGFappearance(this);
-        this.material1.setAmbient(1, 0, 0, 1.0);
-        this.material1.setDiffuse(0, 0, 0, 1.0);
-        this.material1.setSpecular(0, 0, 0, 1.0);
-        this.material1.setShininess(10.0);
 
-        // Red Diffuse (no ambient, no specular)
-        this.material2 = new CGFappearance(this);
-        this.material2.setAmbient(0.0, 0.0, 0.0, 1.0);
-        this.material2.setDiffuse(1, 0, 0, 1.0);
-        this.material2.setSpecular(0, 0, 0, 1.0);
-        this.material2.setShininess(10.0);
-
-        // Red Specular (no ambient, no diffuse)
-        this.material3 = new CGFappearance(this);
-        this.material3.setAmbient(0, 0, 0, 1.0);
-        this.material3.setDiffuse(0, 0, 0, 1.0);
-        this.material3.setSpecular(1, 0, 0, 1.0);
-        this.material3.setShininess(10.0);
-
-        // Red Specular (no ambient, no diffuse)
-        this.madeira = new CGFappearance(this);
-        this.madeira.setAmbient(255/255/10, 228/255/10, 196/255/10, 1.0);
-        this.madeira.setDiffuse(255/255, 228/255, 196/255, 1.0);
-        this.madeira.setSpecular(0.1, 0, 0, 1.0);
-        this.madeira.setShininess(10.0);
 
 
         this.sky = new CGFappearance(this);
@@ -163,47 +143,39 @@ class MyScene extends CGFscene {
                 
         //1 material especular
         this.water = new CGFappearance(this);
-        this.water.setAmbient(1, 1, 1, 1);
-        this.water.setDiffuse(0, 0, 0, 1);
-        this.water.setSpecular(0, 0, 0, 1);
+        this.water.setAmbient(0.1, 0.1, 0.1, 1);
+        this.water.setDiffuse(0.3, 0.3, 0.3, 1);
+        this.water.setSpecular(0,0,0, 1);
         this.water.setShininess(10.0);
         this.water.loadTexture('images/water.jpg');
-        this.water.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        this.water.setTextureWrap('REPEAT', 'REPEAT');
 
        // 2 materiais difusos
         this.grass = new CGFappearance(this);
-        this.grass.setAmbient(1, 1, 1, 1);
-        this.grass.setDiffuse(0, 0, 0, 1);
+        this.grass.setAmbient(0.5, 0.5, 0.5, 1);
+        this.grass.setDiffuse(0.6, 0.6, 0.6, 1);
         this.grass.setSpecular(0, 0, 0, 1);
-		this.grass.setShininess(10.0);
+		this.grass.setShininess(1.0);
 		this.grass.loadTexture('images/grass.jpg');
         this.grass.setTextureWrap('REPEAT', 'REPEAT');
 
         this.pool = new CGFappearance(this);
-        this.pool.setAmbient(1, 1, 1, 1);
-        this.pool.setDiffuse(0, 0, 0, 1);
-        this.pool.setSpecular(0, 0, 0, 1);
-		this.pool.setShininess(10.0);
+        this.pool.setAmbient(0.1, 0.1, 0.1, 1);
+        this.pool.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.pool.setSpecular(0,0,0, 1);
+		this.pool.setShininess(1.0);
 		this.pool.loadTexture('images/pool.jpg');
         this.pool.setTextureWrap('REPEAT', 'REPEAT');
+		
+		this.Dirttex = new CGFappearance(this);
+        this.Dirttex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.Dirttex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.Dirttex.setSpecular(0,0,0, 1);
+        this.Dirttex.setShininess(1.0);
+        this.Dirttex.loadTexture('images/dirt.jpg');
+        this.Dirttex.setTextureWrap('REPEAT', 'REPEAT');
 
-        // Custom material (can be changed in the interface)
-        // initially midrange values on ambient, diffuse and specular, on R, G and B respectively
-
-        this.customMaterialValues = {
-            'Ambient': '#0000ff',
-            'Diffuse': '#ff0000',
-            'Specular': '#000000',
-            'Shininess': 10
-        }
-        this.customMaterial = new CGFappearance(this);
-
-        this.updateCustomMaterial();
-
-        this.materials = [this.material1, this.material2, this.material3, this.madeira, this.customMaterial, this.verde, this.amarelo, this.azul, this.roxo, this.laranja, this.rosa, this.vermelho];
-
-        // Labels and ID's for object selection on MyInterface
-        this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'madeira': 3, 'Custom': 4 };
+       
     }
     display() {
         // ---- BEGIN Background, camera and axis setup
@@ -215,7 +187,7 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
+        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.lights[0].update();
         this.lights[1].update();
 
@@ -225,12 +197,12 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
-        
-        this.materials[this.selectedMaterial].apply();
-
-        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-		
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
+      //  this.materials[this.selectedMaterial].apply();
+
+        
+		/*
+        
         if (this.displayNormals)
             this.objects[this.selectedObject].enableNormalViz();
         else
@@ -239,11 +211,18 @@ class MyScene extends CGFscene {
         this.objects[this.selectedObject].display();	
        
         this.popMatrix();
+     */
      
-     
-     
+		
      // POSICIONAMENTO DAS COISAS  		
-     
+		this.pushMatrix();	
+            
+			
+            this.House.display();
+        this.popMatrix();
+	 
+	 
+	 
         this.pushMatrix();	
             this.translate(0,0,-7);
 			this.scale(0.5,0.7,0.5);
@@ -259,14 +238,17 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();	
-            //this.scale(,0.5,0.5);
-            this.translate(-8,0,-5);
-            this.Hill.display();
+            
+            this.translate(-7,0,-5);
+			//this.scale(0.2,0.2,0.2);
+			this.Dirttex.apply();
+            this.Hill1.display();
         this.popMatrix();
 
         this.pushMatrix();	
-            this.translate(5,0,-5);
-            this.Hill.display();
+            this.translate(6,0,-6);
+			this.Dirttex.apply();
+            this.Hill2.display();
         this.popMatrix();
 
         this.pushMatrix();	
@@ -279,7 +261,7 @@ class MyScene extends CGFscene {
             this.grass.apply(); 
             this.scale(20,1,20);
             this.rotate(-Math.PI/2, 1, 0, 0);
-            this.quad.display();
+            this.quadground.display();
         this.popMatrix();
           
         this.pushMatrix();           
