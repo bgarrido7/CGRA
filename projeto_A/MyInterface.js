@@ -16,7 +16,7 @@ class MyInterface extends CGFinterface {
 
         var obj = this;
    
-        this.gui.add(this.scene, 'scaleFactor', 0.1, 1.0).name('Scale');
+        this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
   
         this.gui.add(this.scene.lights[0], 'enabled').name("Day");
 		this.gui.add(this.scene.lights[3], 'enabled').name("Night");
