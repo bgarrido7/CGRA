@@ -14,7 +14,7 @@ class MyInterface extends CGFinterface {
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
 
-        this.gui.add(this.scene, 'displayAxis').name("Display axis");
+     //   this.gui.add(this.scene, 'displayAxis').name("Display axis");
     //    this.gui.add(this.scene, 'displayNormals').name("Display normals");
 
         // example of a dropdown that has numeric ID's associated, 
