@@ -10,7 +10,7 @@ class MyHouse extends CGFobject {
        
 
        
-        this.Cube = new MyUnitCubeQuad(this.scene, [0, 10, 10, 10, 0, 0, 10, 0]);
+        this.Cube = new MyUnitCubeQuad(this.scene, [0, 10, 10, 10, 10, 0, 0, 0]);
 		this.Roof = new MyPyramid(this.scene, 4, 1);
 		this.Column = new MyPrism(this.scene, 8, 1, 1);
 

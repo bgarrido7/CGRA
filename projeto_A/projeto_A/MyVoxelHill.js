@@ -8,7 +8,7 @@ class MyVoxelHill extends CGFobject {
         super(scene);
         this.altura = altura;
        
-        this.Cube = new MyUnitCubeQuad(this.scene, [0.0, 10.0, 10.0, 10.0, 0.0, 0.0, 10.0, 0.0]);
+        this.Cube = new MyUnitCubeQuad(this.scene/*, [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0]*/);
 
     }
     
