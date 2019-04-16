@@ -107,17 +107,6 @@ class MyScene extends CGFscene {
             ];
         return ret;
     }
-/*
-    updateCustomMaterial() {
-        var rgba;
-
-        this.customMaterial.setAmbient(...this.hexToRgbA(this.customMaterialValues['Ambient']));
-        this.customMaterial.setDiffuse(...this.hexToRgbA(this.customMaterialValues['Diffuse']));
-        this.customMaterial.setSpecular(...this.hexToRgbA(this.customMaterialValues['Specular']));
-
-        this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
-
-    };*/
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
@@ -171,7 +160,7 @@ class MyScene extends CGFscene {
         this.Dirttex.setDiffuse(0.9, 0.9, 0.9, 1);
         this.Dirttex.setSpecular(0,0,0, 1);
         this.Dirttex.setShininess(1.0);
-        this.Dirttex.loadTexture('images/dirt.jpg');
+        this.Dirttex.loadTexture('images/hill.jpg');
         this.Dirttex.setTextureWrap('REPEAT', 'REPEAT');
 
        

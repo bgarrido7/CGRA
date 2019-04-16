@@ -15,8 +15,7 @@ class MyUnitCubeQuad extends CGFobject {
         this.unitCubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.unitCubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.unitCubeMaterial.setShininess(10.0);
-    
-
+  
     }
     
     display() {
