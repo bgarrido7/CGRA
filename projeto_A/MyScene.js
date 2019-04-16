@@ -34,7 +34,6 @@ class MyScene extends CGFscene {
 		this.quad = new MyQuad(this, [0, 5, 5, 5, 0, 0, 5, 0]);
         this.fireplace = new MyFireplace(this);
 
-        
         this.objects = [
                         this.tree, 
                         this.Group, 
@@ -58,11 +57,11 @@ class MyScene extends CGFscene {
 
         //Other variables connected to MyInterface
         
+        this.displayAxis = true;
+        this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 1.0;
-        this.AmbientScale = 0.3;
-        
-        this.texEnable = true;
+		this.AmbientScale = 0.3;
 	
     }
     initLights() {
@@ -107,6 +106,17 @@ class MyScene extends CGFscene {
             ];
         return ret;
     }
+/*
+    updateCustomMaterial() {
+        var rgba;
+
+        this.customMaterial.setAmbient(...this.hexToRgbA(this.customMaterialValues['Ambient']));
+        this.customMaterial.setDiffuse(...this.hexToRgbA(this.customMaterialValues['Diffuse']));
+        this.customMaterial.setSpecular(...this.hexToRgbA(this.customMaterialValues['Specular']));
+
+        this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
+
+    };*/
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
@@ -139,6 +149,7 @@ class MyScene extends CGFscene {
         this.water.loadTexture('images/water.jpg');
         this.water.setTextureWrap('REPEAT', 'REPEAT');
 
+       // 2 materiais difusos
         this.grass = new CGFappearance(this);
         this.grass.setAmbient(0.5, 0.5, 0.5, 1);
         this.grass.setDiffuse(0.6, 0.6, 0.6, 1);
@@ -160,7 +171,7 @@ class MyScene extends CGFscene {
         this.Dirttex.setDiffuse(0.9, 0.9, 0.9, 1);
         this.Dirttex.setSpecular(0,0,0, 1);
         this.Dirttex.setShininess(1.0);
-        this.Dirttex.loadTexture('images/hill.jpg');
+        this.Dirttex.loadTexture('images/dirt.jpg');
         this.Dirttex.setTextureWrap('REPEAT', 'REPEAT');
 
        
@@ -179,14 +190,6 @@ class MyScene extends CGFscene {
         this.lights[0].update();
         this.lights[1].update();
 
-
-
-        if(!this.texEnable)
-            this.enableTextures(false);
-       
-        if(this.texEnable)
-            this.enableTextures(true);
-
         // Draw axis
         if (this.displayAxis)
             this.axis.display();        
@@ -194,9 +197,26 @@ class MyScene extends CGFscene {
         this.pushMatrix();
 
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
-      
+      //  this.materials[this.selectedMaterial].apply();
+
+        
+		/*
+        
+        if (this.displayNormals)
+            this.objects[this.selectedObject].enableNormalViz();
+        else
+            this.objects[this.selectedObject].disableNormalViz();
+        
+        this.objects[this.selectedObject].display();	
+       
+        this.popMatrix();
+     */
+     
+		
      // POSICIONAMENTO DAS COISAS  		
-		this.pushMatrix();		
+		this.pushMatrix();	
+            
+			
             this.House.display();
         this.popMatrix();
 	 
@@ -334,7 +354,7 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.sky.apply();
-        this.scale(500,500,500);
+        this.scale(100,100,100);
         this.Cube.display();
         this.popMatrix();
     }

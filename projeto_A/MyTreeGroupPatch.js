@@ -6,9 +6,14 @@ class MyTreeGroupPatch extends CGFobject {
     constructor(scene) {
 
         super(scene);
+        
+       
 
        //scene, trunkHeight, trunkRadius, treeTopHeight, treeTopRadius, trunkTexture, treeTopTexture
         this.Tree = new MyTree(this.scene, 1.5,0.4,1.5,1,1,1);
+		
+		
+
     }
     
 	display() {

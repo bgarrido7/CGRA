@@ -66,17 +66,17 @@ class MyCone extends CGFobject {
 		
         this.normals.push(0,this.stacks,0);
 
-		for(var i = 0; i < this.slices; i++){
-				if(((i)%3) == 2)
+		for(var i = 0; i < (this.slices); i++){
+				if(((i)%2) == 1)
 				this.texCoords.push(2, 0,);
 			
-				if(((i)%3) == 1)
+				if(((i)%2) == 0)
 				this.texCoords.push(2, 2,);
 			
-				if(((i)%3) == 0)
-				this.texCoords.push(0, 1,);
+				
 			}
-        
+		
+				this.texCoords.push(0, 1,);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();

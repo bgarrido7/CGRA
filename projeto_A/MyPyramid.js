@@ -68,9 +68,9 @@ class MyPyramid extends CGFobject {
 		]
 		
 		for(var i = 0; i < this.slices; i++){
-			this.texCoords.push(2, 0,);
-			this.texCoords.push(2, 2,);
-			this.texCoords.push(0, 1,);
+			this.texCoords.push(3, 0,);
+			this.texCoords.push(6, 3,);
+			this.texCoords.push(0, 3,);
 			
 		}
 		

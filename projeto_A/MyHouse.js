@@ -7,10 +7,10 @@ class MyHouse extends CGFobject {
 
         super(scene);
         
-       
+    
 
        
-        this.Cube = new MyUnitCubeQuad(this.scene, [0, 10, 10, 10, 10, 0, 0, 0]);
+        this.Cube = new MyUnitCubeQuad(this.scene, [0, 10, 10, 10, 0, 0, 10, 0]);
 		this.Roof = new MyPyramid(this.scene, 4, 1);
 		this.Column = new MyPrism(this.scene, 8, 1, 1);
 
@@ -144,7 +144,7 @@ class MyHouse extends CGFobject {
 	   this.scene.pushMatrix();
 			//2 vem do x final da casa (0.5*2.2) + o x inicial da garagem (0.5*1.8)
 	   
-			this.scene.translate(-2.1,0.5*0.7,0);
+			this.scene.translate(-2.2,0.5*0.7,0);
 			this.scene.scale(2.2,0.7,1.2);
 			this.Housetex.apply();
             this.Cube.display();
