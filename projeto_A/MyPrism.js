@@ -68,8 +68,8 @@ class MyPrism extends CGFobject {
 		
 		for(var i = 0; i < this.slices; i++){
 			this.texCoords.push(2, 0,);
-			this.texCoords.push(2, 2,);
-			this.texCoords.push(0, 2,);
+			this.texCoords.push(2, 0.5,);
+			this.texCoords.push(0, 0.5,);
 			this.texCoords.push(0, 0,);
 			
 		}

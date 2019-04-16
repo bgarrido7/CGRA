@@ -29,21 +29,11 @@ class MyFireplace extends CGFobject {
         this.log.loadTexture('images/Oak.jpg');
         this.log.setTextureWrap('REPEAT', 'REPEAT');
 
-   //      this.pyramid = new CGFtexture(this.scene, 'images/fire.png');
-
-                              
-        // this.logMaterial = new CGFtexture(this.scene, 'images/Oak.jpg');
-
     }
     
 	display() {
 
-     //   this.fire.setTexture(this.pyramid);
-       // this.log.setTexture(this.logMaterial);
-       
-    //   this.scene.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-    
-    
+
     for(var i=0;i<20;i++){
         this.scene.pushMatrix();
             this.scene.scale(1,0.5,0.5);

@@ -10,7 +10,7 @@ class MyHouse extends CGFobject {
        
 
        
-        this.Cube = new MyUnitCubeQuad(this.scene);
+        this.Cube = new MyUnitCubeQuad(this.scene, [0, 10, 10, 10, 10, 0, 0, 0]);
 		this.Roof = new MyPyramid(this.scene, 4, 1);
 		this.Column = new MyPrism(this.scene, 8, 1, 1);
 
@@ -63,27 +63,30 @@ class MyHouse extends CGFobject {
 
 		
         this.scene.pushMatrix();
+			this.Housetex.apply();
 			this.scene.translate(0,0.5,0);
 			this.scene.scale(2.2,1,1.2);
-			this.Housetex.apply();
+			
             this.Cube.display();
         this.scene.popMatrix();
 		
 		
 		this.scene.pushMatrix();
+			this.Rooftex.apply();
             this.scene.translate(0,0.9,0);
 			this.scene.scale(2.4,1,1.4);
 			this.scene.rotate(Math.PI/4, 0,1,0);
-			this.Rooftex.apply();   //ler como e q se aplica texturas as piramides e cones e cilindros
+			   //ler como e q se aplica texturas as piramides e cones e cilindros
             this.Roof.display();
         this.scene.popMatrix();
 		
 		
 		//colunas
 		this.scene.pushMatrix();
+			this.Pilartex.apply();
             this.scene.translate(1.4,0,0.8);
 			this.scene.scale(0.1,0.9,0.1);
-			this.Pilartex.apply();
+			
             this.Column.display();
         this.scene.popMatrix();
 		

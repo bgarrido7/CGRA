@@ -21,8 +21,6 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        this.texEnable = true;
-
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.Cube = new MyCubeMap(this);
@@ -36,7 +34,7 @@ class MyScene extends CGFscene {
 		this.quad = new MyQuad(this, [0, 5, 5, 5, 0, 0, 5, 0]);
         this.fireplace = new MyFireplace(this);
 
-
+        
         this.objects = [
                         this.tree, 
                         this.Group, 
@@ -59,26 +57,25 @@ class MyScene extends CGFscene {
                         };
 
         //Other variables connected to MyInterface
-        this.selectedObject = 3;
-        this.selectedMaterial = 3;
-        this.displayAxis = false;
-        this.displayNormals = false;
+        
         this.objectComplexity = 0.5;
         this.scaleFactor = 1.0;
         this.AmbientScale = 0.3;
+        
+        this.texEnable = true;
 	
     }
     initLights() {
         this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1.0);
 
-        this.lights[0].setPosition(0, 20, 0, 1.0);
+        this.lights[0].setPosition(0, 20, 10, 1.0);
         this.lights[0].setDiffuse(255/255, 245/255, 200/255, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
-       // this.lights[0].enable();
+		this.lights[0].enable();
         //this.lights[0].setVisible(true);
         this.lights[0].update();
 
-        this.lights[1].setPosition(3,0.02,3, 1.0);
+        this.lights[1].setPosition(3,0.4,3, 1.0);
         this.lights[1].setDiffuse(255/800, 165/800, 0, 1.0);
         this.lights[1].setSpecular(0,0,0, 1.0);
         this.lights[1].enable();
@@ -86,7 +83,7 @@ class MyScene extends CGFscene {
         this.lights[1].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-30, 30, 30), vec3.fromValues(0, 0, 0));
     }
 
     hexToRgbA(hex)
@@ -110,7 +107,17 @@ class MyScene extends CGFscene {
             ];
         return ret;
     }
+/*
+    updateCustomMaterial() {
+        var rgba;
 
+        this.customMaterial.setAmbient(...this.hexToRgbA(this.customMaterialValues['Ambient']));
+        this.customMaterial.setDiffuse(...this.hexToRgbA(this.customMaterialValues['Diffuse']));
+        this.customMaterial.setSpecular(...this.hexToRgbA(this.customMaterialValues['Specular']));
+
+        this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
+
+    };*/
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
@@ -122,6 +129,8 @@ class MyScene extends CGFscene {
     }
 
     initMaterials() {
+
+
 
         this.sky = new CGFappearance(this);
         this.sky.setAmbient(1, 1, 1, 1);
@@ -135,13 +144,12 @@ class MyScene extends CGFscene {
         //1 material especular
         this.water = new CGFappearance(this);
         this.water.setAmbient(0.1, 0.1, 0.1, 1);
-        this.water.setDiffuse(0.3, 0.3, 0.3, 1);
-        this.water.setSpecular(0,0,0, 1);
+        this.water.setDiffuse(0, 0, 0, 1);
+        this.water.setSpecular(0.7,0.7,0.7, 1);
         this.water.setShininess(10.0);
         this.water.loadTexture('images/water.jpg');
         this.water.setTextureWrap('REPEAT', 'REPEAT');
 
-       // 2 materiais difusos
         this.grass = new CGFappearance(this);
         this.grass.setAmbient(0.5, 0.5, 0.5, 1);
         this.grass.setDiffuse(0.6, 0.6, 0.6, 1);
@@ -182,44 +190,113 @@ class MyScene extends CGFscene {
         this.lights[0].update();
         this.lights[1].update();
 
-        if(!this.texEnable)
-          this.enableTextures(false);
-         
-        if(this.texEnable)
-          this.enableTextures(true);
 
-     
+
+        if(!this.texEnable)
+            this.enableTextures(false);
+       
+        if(this.texEnable)
+            this.enableTextures(true);
+
         // Draw axis
         if (this.displayAxis)
-            this.axis.display(); 
-   
+            this.axis.display();        
 
         this.pushMatrix();
 
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
-     
-     
-		
+      
      // POSICIONAMENTO DAS COISAS  		
-		this.pushMatrix();	
-            
-			
+		this.pushMatrix();		
             this.House.display();
         this.popMatrix();
 	 
 	 
 	 
         this.pushMatrix();	
-            this.translate(0,0,-7);
+            this.translate(0.5,0,-8);
 			this.scale(0.5,0.7,0.5);
 			this.rotate(Math.PI/2,0,1,0);
             this.Group.display();
         this.popMatrix();
-
-        this.pushMatrix();	
+		
+		this.pushMatrix();	
+            this.translate(0.5,0,-4);
+			this.scale(0.5,0.7,0.5);
+			this.rotate(Math.PI/2,0,1,0);
+            this.Group.display();
+        this.popMatrix();
+		
+		this.pushMatrix();	
+            this.translate(8,0,7);
+			this.scale(0.5,0.7,0.5);
+			this.rotate(Math.PI,0,0,0);
+            this.Group.display();
+        this.popMatrix();
+		
+		this.pushMatrix();	
+            this.translate(4,0,7);
+			this.scale(0.5,0.7,0.5);
+			this.rotate(Math.PI/2,0,1,0);
+            this.Group.display();
+        this.popMatrix();
+		
+		this.pushMatrix();	
+            this.translate(-4,0,7);
+			this.scale(0.5,0.7,0.5);
+			this.rotate(Math.PI/2,0,0,0);
+            this.Group.display();
+        this.popMatrix();
+		
+		this.pushMatrix();	
+            this.translate(-8,0,7);
+			this.scale(0.5,0.7,0.5);
+			this.rotate(Math.PI,0,1,0);
+            this.Group.display();
+        this.popMatrix();
+		
+		
+		
+		this.pushMatrix();
+			this.translate(9,0,1);		
 			this.scale(0.5,0.5,0.5);
             this.rotate(Math.PI/2,0,1,0);
-            this.translate(10,0,-7);
+            this.Row.display();
+        this.popMatrix();
+		
+		this.pushMatrix();
+			this.translate(8,0,1);		
+			this.scale(0.5,0.5,0.5);
+            this.rotate(Math.PI/2,0,1,0);
+            this.Row.display();
+        this.popMatrix();
+		
+		this.pushMatrix();
+			this.translate(-8,0,1);		
+			this.scale(0.5,0.5,0.5);
+            this.rotate(Math.PI/2,0,1,0);
+            this.Row.display();
+        this.popMatrix();
+		
+		this.pushMatrix();
+			this.translate(-9,0,1);		
+			this.scale(0.5,0.5,0.5);
+            this.rotate(Math.PI/2,0,1,0);
+            this.Row.display();
+        this.popMatrix();
+
+        this.pushMatrix();	
+			this.translate(-2,0,-7);
+			this.scale(0.5,0.5,0.5);
+            this.rotate(3*Math.PI/2,0,1,0);
+            
+            this.Row.display();
+        this.popMatrix();
+		
+		this.pushMatrix();	
+			this.translate(-3.5,0,-7);
+			this.scale(0.5,0.5,0.5);
+            this.rotate(Math.PI/2,0,1,0);
             this.Row.display();
         this.popMatrix();
 

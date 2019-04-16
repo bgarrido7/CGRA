@@ -6,8 +6,8 @@
 class MyUnitCubeQuad extends CGFobject {
 	constructor(scene, coords) {
 		super(scene);
-
-        this.quad = new MyQuad(this.scene, [0, 10, 10, 10, 0, 0, 10, 0]);
+		this.coords = coords;
+        this.quad = new MyQuad(this.scene, this.coords);
         this.quad.initBuffers();
 
         this.unitCubeMaterial = new CGFappearance(this.scene);
@@ -15,29 +15,17 @@ class MyUnitCubeQuad extends CGFobject {
         this.unitCubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.unitCubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.unitCubeMaterial.setShininess(10.0);
-       // this.unitCubeMaterial.loadTexture('images/default.png');
-       // this.unitCubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
-       // this.MineBot = new CGFtexture(this.scene, 'images/mineBottom.png');
-       // this.MineSide = new CGFtexture(this.scene, 'images/mineSide.png');
-       // this.MineTop = new CGFtexture(this.scene, 'images/mineTop.png');
+    
 
     }
     
     display() {
 
-       // this.unitCubeMaterial.setTexture(this.MineSide);
-      //  this.unitCubeMaterial.apply();
-     //   this.scene.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-    
         //face da frente
         this.scene.pushMatrix();
 			this.scene.translate(0,0,0.5);  
-		   // this.unitCubeMaterial.apply();
 			this.quad.display();
 	    this.scene.popMatrix();
-
-       
    
         //face de tras
         this.scene.pushMatrix();
@@ -65,8 +53,6 @@ class MyUnitCubeQuad extends CGFobject {
 		 this.scene.pushMatrix();
 			 this.scene.rotate((Math.PI/2),1,0,0);
 			 this.scene.translate(0,0,0.5);  
-			 //this.unitCubeMaterial.setTexture(this.MineBot);
-			 //this.unitCubeMaterial.apply();
 			 this.quad.display();
 		 this.scene.popMatrix();
 
@@ -74,8 +60,6 @@ class MyUnitCubeQuad extends CGFobject {
 		 this.scene.pushMatrix();
 			 this.scene.rotate(-Math.PI/2,1,0,0);
 			 this.scene.translate(0,0,0.5);  
-			 //this.unitCubeMaterial.setTexture(this.MineTop);
-			 //this.unitCubeMaterial.apply();
 			 this.quad.display();
 		 this.scene.popMatrix();
         }

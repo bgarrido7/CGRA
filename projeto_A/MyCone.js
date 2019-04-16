@@ -60,7 +60,13 @@ class MyCone extends CGFobject {
 
             
         }
-			for(var i = 0; i < this.slices; i++){
+			
+			
+        this.vertices.push(0,this.stacks,0);
+		
+        this.normals.push(0,this.stacks,0);
+
+		for(var i = 0; i < this.slices; i++){
 				if(((i)%3) == 2)
 				this.texCoords.push(2, 0,);
 			
@@ -70,15 +76,6 @@ class MyCone extends CGFobject {
 				if(((i)%3) == 0)
 				this.texCoords.push(0, 1,);
 			}
-			
-			
-		
-		
-		
-        this.vertices.push(0,this.stacks,0);
-		
-        this.normals.push(0,this.stacks,0);
-
         
 
         this.primitiveType = this.scene.gl.TRIANGLES;
