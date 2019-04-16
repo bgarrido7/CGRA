@@ -3,12 +3,16 @@
 * @constructor
 */
 class MyPyramid extends CGFobject {
-    constructor(scene, slices, stacks) {
+    constructor(scene, slices, stacks, coords) {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
         this.initBuffers();
-    }
+		
+		if (coords != undefined)
+			this.updateTexCoords(coords);
+	}
+    
     initBuffers() {
         this.vertices = [];
         this.indices = [];
@@ -57,9 +61,25 @@ class MyPyramid extends CGFobject {
 
             ang+=alphaAng;
         }
+		
+		this.texCoords = [
+			
+			
+		]
+		
+		for(var i = 0; i < this.slices; i++){
+			this.texCoords.push(2, 0,);
+			this.texCoords.push(2, 2,);
+			this.texCoords.push(0, 1,);
+			
+		}
+		
+		
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
+		
+		
     }
     
     updateBuffers(complexity){
@@ -69,6 +89,11 @@ class MyPyramid extends CGFobject {
         this.initBuffers();
         this.initNormalVizBuffers();
     }
+	
+	updateTexCoords(coords) {
+		this.texCoords = [...coords];
+		this.updateTexCoordsGLBuffers();
+	}
 }
 
 

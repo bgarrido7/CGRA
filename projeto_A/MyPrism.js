@@ -63,6 +63,17 @@ class MyPrism extends CGFobject {
             ang+=alphaAng;
         }
 
+		this.texCoords = [	
+		]
+		
+		for(var i = 0; i < this.slices; i++){
+			this.texCoords.push(2, 0,);
+			this.texCoords.push(2, 2,);
+			this.texCoords.push(0, 2,);
+			this.texCoords.push(0, 0,);
+			
+		}
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }

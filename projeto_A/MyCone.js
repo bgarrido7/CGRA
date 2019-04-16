@@ -16,6 +16,8 @@ class MyCone extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+		this.texCoords = [
+		]
 
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
@@ -58,7 +60,23 @@ class MyCone extends CGFobject {
 
             
         }
+			for(var i = 0; i < this.slices; i++){
+				if(((i)%3) == 2)
+				this.texCoords.push(2, 0,);
+			
+				if(((i)%3) == 1)
+				this.texCoords.push(2, 2,);
+			
+				if(((i)%3) == 0)
+				this.texCoords.push(0, 1,);
+			}
+			
+			
+		
+		
+		
         this.vertices.push(0,this.stacks,0);
+		
         this.normals.push(0,this.stacks,0);
 
         

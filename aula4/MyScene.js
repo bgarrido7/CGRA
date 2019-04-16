@@ -49,7 +49,7 @@ class MyScene extends CGFscene {
         this.objectIDs = { 'Tangram': 0 , 'Cube': 1 };
 
         //-------Objects connected to MyInterface
-        this.selectedObject = 0;
+        this.selectedObject = 1;
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.selectedTexture = -1;        
@@ -94,12 +94,12 @@ class MyScene extends CGFscene {
 
     //Function that updates wrapping mode in quadMaterial
     updateTextureWrapping() {
-        this.quadMaterial.setTextureWrap(this.wrappingMethods[this.wrapS], this.wrappingMethods[this.wrapT]);
+     //   this.quadMaterial.setTextureWrap(this.wrappingMethods[this.wrapS], this.wrappingMethods[this.wrapT]);
     }
 
     //Function that updates texture coordinates in MyQuad
     updateTexCoords() {
-        this.quad.updateTexCoords(this.texCoords);
+    //    this.quad.updateTexCoords(this.texCoords);
     }
 
     display() {
@@ -111,7 +111,7 @@ class MyScene extends CGFscene {
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
-        // Apply transformations corresponding to the camera position relative to the origin
+       // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
         // Draw axis
@@ -124,7 +124,7 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        this.quadMaterial.apply();
+      //  this.quadMaterial.apply();
 
         // Default texture filtering in WebCGF is LINEAR. 
         // Uncomment next line for NEAREST when magnifying, or 
