@@ -28,29 +28,17 @@ class MyFireplace extends CGFobject {
         this.log.setShininess(10.0);
         this.log.loadTexture('images/Oak.jpg');
         this.log.setTextureWrap('REPEAT', 'REPEAT');
-
-   //      this.pyramid = new CGFtexture(this.scene, 'images/fire.png');
-
-                              
-        // this.logMaterial = new CGFtexture(this.scene, 'images/Oak.jpg');
-
     }
     
 	display() {
 
-     //   this.fire.setTexture(this.pyramid);
-       // this.log.setTexture(this.logMaterial);
-       
-    //   this.scene.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-    
     
     for(var i=0;i<20;i++){
         this.scene.pushMatrix();
             this.scene.scale(1,0.5,0.5);
             this.scene.rotate(Math.PI/2,0,0,1);
             this.scene.rotate(Math.PI/2+i,1,0,0);
-			//this.log.apply();
-            this.cilinder.display();
+		    this.cilinder.display();
         this.scene.popMatrix();
     }
 		
@@ -58,7 +46,6 @@ class MyFireplace extends CGFobject {
     for(var i=-1;i<1;i+=0.1){
             this.scene.pushMatrix();
                 this.scene.translate(i,0,0);
-          //      this.scene.translate(0,0,j);
                 this.scene.scale(0.5,1,0.5);
                 this.fire.apply();
                 this.pyramid.display();
@@ -68,7 +55,6 @@ class MyFireplace extends CGFobject {
     for(var i=-0.5;i<0.5;i+=0.1){
         this.scene.pushMatrix();
             this.scene.translate(i,0,0.3);
-      //      this.scene.translate(0,0,j);
             this.scene.scale(0.5,1,0.5);
             this.fire.apply();
             this.pyramid.display();
@@ -78,7 +64,6 @@ class MyFireplace extends CGFobject {
 for(var i=-0.5;i<0.5;i+=0.1){
     this.scene.pushMatrix();
         this.scene.translate(i,0,-0.3);
-  //      this.scene.translate(0,0,j);
         this.scene.scale(0.5,1,0.5);
         this.fire.apply();
         this.pyramid.display();

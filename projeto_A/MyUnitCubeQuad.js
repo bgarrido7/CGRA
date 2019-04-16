@@ -21,14 +21,10 @@ class MyUnitCubeQuad extends CGFobject {
     
     display() {
 
-       // this.unitCubeMaterial.setTexture(this.MineSide);
-      //  this.unitCubeMaterial.apply();
-     //   this.scene.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-    
+       
         //face da frente
         this.scene.pushMatrix();
-			this.scene.translate(0,0,0.5);  
-		   // this.unitCubeMaterial.apply();
+			this.scene.translate(0,0,0.5);
 			this.quad.display();
 	    this.scene.popMatrix();
 
@@ -60,8 +56,6 @@ class MyUnitCubeQuad extends CGFobject {
 		 this.scene.pushMatrix();
 			 this.scene.rotate((Math.PI/2),1,0,0);
 			 this.scene.translate(0,0,0.5);  
-			 //this.unitCubeMaterial.setTexture(this.MineBot);
-			 //this.unitCubeMaterial.apply();
 			 this.quad.display();
 		 this.scene.popMatrix();
 
@@ -69,8 +63,6 @@ class MyUnitCubeQuad extends CGFobject {
 		 this.scene.pushMatrix();
 			 this.scene.rotate(-Math.PI/2,1,0,0);
 			 this.scene.translate(0,0,0.5);  
-			 //this.unitCubeMaterial.setTexture(this.MineTop);
-			 //this.unitCubeMaterial.apply();
 			 this.quad.display();
 		 this.scene.popMatrix();
         }

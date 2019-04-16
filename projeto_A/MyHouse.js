@@ -6,10 +6,7 @@ class MyHouse extends CGFobject {
     constructor(scene) {
 
         super(scene);
-        
     
-
-       
         this.Cube = new MyUnitCubeQuad(this.scene, [0, 10, 10, 10, 0, 0, 10, 0]);
 		this.Roof = new MyPyramid(this.scene, 4, 1);
 		this.Column = new MyPrism(this.scene, 8, 1, 1);
@@ -76,8 +73,7 @@ class MyHouse extends CGFobject {
             this.scene.translate(0,0.9,0);
 			this.scene.scale(2.4,1,1.4);
 			this.scene.rotate(Math.PI/4, 0,1,0);
-			   //ler como e q se aplica texturas as piramides e cones e cilindros
-            this.Roof.display();
+			this.Roof.display();
         this.scene.popMatrix();
 		
 		
