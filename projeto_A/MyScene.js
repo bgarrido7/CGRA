@@ -113,16 +113,17 @@ class MyScene extends CGFscene {
 		this.sky.setShininess(10.0);
 		this.sky.loadTexture('skybox/sky2.jpg');
         this.sky.setTextureWrap('REPEAT', 'REPEAT');
-
-                
+  
         //1 material especular
         this.water = new CGFappearance(this);
         this.water.setAmbient(0.1, 0.1, 0.1, 1);
         this.water.setDiffuse(0, 0, 0, 1);
         this.water.setSpecular(0.7,0.7,0.7, 1);
-        this.water.setShininess(10.0);
+        this.water.setShininess(1.0);
         this.water.loadTexture('images/water.jpg');
         this.water.setTextureWrap('REPEAT', 'REPEAT');
+
+
 
         this.grass = new CGFappearance(this);
         this.grass.setAmbient(0.5, 0.5, 0.5, 1);
