@@ -12,8 +12,6 @@ class MyTree extends CGFobject {
             treeTopTexture) {
 
         super(scene);
-        
-       
 
         this.trunkHeight = trunkHeight;
         this.trunkRadius = trunkRadius;

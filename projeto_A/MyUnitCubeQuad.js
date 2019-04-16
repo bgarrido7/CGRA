@@ -10,13 +10,6 @@ class MyUnitCubeQuad extends CGFobject {
         this.quad = new MyQuad(this.scene, coords);
         this.quad.initBuffers();
 
-        this.unitCubeMaterial = new CGFappearance(this.scene);
-        this.unitCubeMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.unitCubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.unitCubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.unitCubeMaterial.setShininess(10.0);
-    
-
     }
     
     display() {

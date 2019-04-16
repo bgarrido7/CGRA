@@ -49,7 +49,6 @@ class MyScene extends CGFscene {
         this.lights[0].setDiffuse(255/255, 245/255, 200/255, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
-        //this.lights[0].setVisible(true);
         this.lights[0].update();
 
         this.lights[1].setPosition(3,0.4,3, 1.0);
@@ -123,7 +122,13 @@ class MyScene extends CGFscene {
         this.water.loadTexture('images/water.jpg');
         this.water.setTextureWrap('REPEAT', 'REPEAT');
 
-
+        this.Housetex = new CGFappearance(this);
+        this.Housetex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.Housetex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.Housetex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.Housetex.setShininess(10.0);
+        this.Housetex.loadTexture('images/house.jpg');
+        this.Housetex.setTextureWrap('REPEAT', 'REPEAT');	
 
         this.grass = new CGFappearance(this);
         this.grass.setAmbient(0.5, 0.5, 0.5, 1);
@@ -179,8 +184,9 @@ class MyScene extends CGFscene {
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
          
 		
-     // POSICIONAMENTO DAS COISAS  		
-		this.pushMatrix();			
+    // POSICIONAMENTO DAS COISAS  	
+
+        this.pushMatrix();
             this.House.display();
         this.popMatrix();
 	 
@@ -269,6 +275,8 @@ class MyScene extends CGFscene {
             this.Row.display();
         this.popMatrix();
 
+
+        //colinas
         this.pushMatrix();	
             
             this.translate(-7,0,-5);
@@ -282,12 +290,16 @@ class MyScene extends CGFscene {
             this.Hill2.display();
         this.popMatrix();
 
+
+        //fogueira
         this.pushMatrix();	
             this.translate(3,0.02,3);
 			this.scale(0.5,0.5,0.5);
             this.fireplace.display();
         this.popMatrix();
     
+
+
         this.pushMatrix();           
             this.grass.apply(); 
             this.scale(20,1,20);
@@ -295,6 +307,8 @@ class MyScene extends CGFscene {
             this.quadground.display();
         this.popMatrix();
           
+
+        //piscina
         this.pushMatrix();           
             this.pool.apply(); 
             this.translate(-5,0.01,3);
@@ -310,6 +324,8 @@ class MyScene extends CGFscene {
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.quad.display();
         this.popMatrix();
+
+
 
         this.pushMatrix();
         this.sky.apply();
