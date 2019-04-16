@@ -21,6 +21,8 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
+        this.texEnable = true;
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.Cube = new MyCubeMap(this);
@@ -33,6 +35,7 @@ class MyScene extends CGFscene {
 		this.quadground = new MyQuad(this, [0, 10, 10, 10, 0, 0, 10, 0]);
 		this.quad = new MyQuad(this, [0, 5, 5, 5, 0, 0, 5, 0]);
         this.fireplace = new MyFireplace(this);
+
 
         this.objects = [
                         this.tree, 
@@ -58,11 +61,11 @@ class MyScene extends CGFscene {
         //Other variables connected to MyInterface
         this.selectedObject = 3;
         this.selectedMaterial = 3;
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 1.0;
-		this.AmbientScale = 0.3;
+        this.AmbientScale = 0.3;
 	
     }
     initLights() {
@@ -107,17 +110,7 @@ class MyScene extends CGFscene {
             ];
         return ret;
     }
-/*
-    updateCustomMaterial() {
-        var rgba;
 
-        this.customMaterial.setAmbient(...this.hexToRgbA(this.customMaterialValues['Ambient']));
-        this.customMaterial.setDiffuse(...this.hexToRgbA(this.customMaterialValues['Diffuse']));
-        this.customMaterial.setSpecular(...this.hexToRgbA(this.customMaterialValues['Specular']));
-
-        this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
-
-    };*/
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
@@ -129,8 +122,6 @@ class MyScene extends CGFscene {
     }
 
     initMaterials() {
-
-
 
         this.sky = new CGFappearance(this);
         this.sky.setAmbient(1, 1, 1, 1);
@@ -191,27 +182,22 @@ class MyScene extends CGFscene {
         this.lights[0].update();
         this.lights[1].update();
 
+        if(!this.texEnable)
+          this.enableTextures(false);
+         
+        if(this.texEnable)
+          this.enableTextures(true);
+
+     
         // Draw axis
         if (this.displayAxis)
-            this.axis.display();        
+            this.axis.display(); 
+   
 
         this.pushMatrix();
 
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
-      //  this.materials[this.selectedMaterial].apply();
-
-        
-		/*
-        
-        if (this.displayNormals)
-            this.objects[this.selectedObject].enableNormalViz();
-        else
-            this.objects[this.selectedObject].disableNormalViz();
-        
-        this.objects[this.selectedObject].display();	
-       
-        this.popMatrix();
-     */
+     
      
 		
      // POSICIONAMENTO DAS COISAS  		
