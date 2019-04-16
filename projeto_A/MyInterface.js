@@ -39,6 +39,7 @@ class MyInterface extends CGFinterface {
   */  
 		 //var f0 = this.gui.addFolder('Light 0 ');
 		this.gui.add(this.scene.lights[0], 'enabled').name("Day");
+		this.gui.add(this.scene.lights[3], 'enabled').name("Night");
 		this.gui.add(this.scene.lights[1], 'enabled').name("Fireplace");
   
   

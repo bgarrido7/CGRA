@@ -80,6 +80,15 @@ class MyScene extends CGFscene {
         this.lights[1].enable();
         this.lights[1].setVisible(true);
         this.lights[1].update();
+		
+		this.lights[0].setPosition(0, 20, 10, 1.0);
+        this.lights[3].setDiffuse(31/255, 41.2/255, 53.3/255, 1.0);
+        this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
+       // this.lights[3].enable();
+        //this.lights[3].setVisible(true);
+        this.lights[3].update();
+		
+		
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-30, 30, 30), vec3.fromValues(0, 0, 0));
@@ -106,17 +115,7 @@ class MyScene extends CGFscene {
             ];
         return ret;
     }
-/*
-    updateCustomMaterial() {
-        var rgba;
 
-        this.customMaterial.setAmbient(...this.hexToRgbA(this.customMaterialValues['Ambient']));
-        this.customMaterial.setDiffuse(...this.hexToRgbA(this.customMaterialValues['Diffuse']));
-        this.customMaterial.setSpecular(...this.hexToRgbA(this.customMaterialValues['Specular']));
-
-        this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
-
-    };*/
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
@@ -189,6 +188,7 @@ class MyScene extends CGFscene {
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.lights[0].update();
         this.lights[1].update();
+		this.lights[3].update();
 
         // Draw axis
         if (this.displayAxis)
