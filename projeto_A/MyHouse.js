@@ -8,7 +8,8 @@ class MyHouse extends CGFobject {
         super(scene);
     
         this.Cube = new MyUnitCubeQuad(this.scene,[0, 3.5, 3.5, 3.5, 0, 0, 3.5, 0]);
-
+        this.Cube2 = new MyUnitCubeQuad(this.scene,[0, 2.5, 2.5, 2.5, 0, 0, 2.5, 0]);
+        this.Cube3 = new MyUnitCubeQuad(this.scene);
         this.Roof = new MyPyramid(this.scene, 4, 1);
         this.Column = new MyPrism(this.scene, 8, 1, 1);
         
@@ -141,7 +142,7 @@ class MyHouse extends CGFobject {
             this.scene.translate(-2.2,0.5*0.7,0);
 			this.scene.scale(2.2,0.7,1.2);
         	this.Housetex.apply();
-            this.Cube.display();
+            this.Cube2.display();
         this.scene.popMatrix();
 		
 		this.scene.pushMatrix();
@@ -158,7 +159,7 @@ class MyHouse extends CGFobject {
 		this.scene.translate(0,0.5*0.8,0.61);
 		this.scene.scale(0.5,0.8,0.05);
 		this.Doortex.apply();
-            this.Cube.display();
+            this.Cube3.display();
         this.scene.popMatrix();
 		
 		//porta da garagem
@@ -166,7 +167,7 @@ class MyHouse extends CGFobject {
 		this.scene.translate(-2.2,0.5*0.6,0.61);
 		this.scene.scale(1.1,0.6,0.05);
 		this.Garagetex.apply();
-            this.Cube.display();
+            this.Cube3.display();
         this.scene.popMatrix();
 
     }
