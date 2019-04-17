@@ -54,20 +54,17 @@ class MyHouse extends CGFobject {
         this.Pilartex.setShininess(10.0);
         this.Pilartex.loadTexture('images/pilar2.jpg');
         this.Pilartex.setTextureWrap('REPEAT', 'REPEAT');
-
-
     }
     
 	display() {
-         
-
-    this.scene.pushMatrix();
-    this.scene.translate(0.05,0.5,0);
-    this.scene.scale(2.3,1,1.2);
-        this.Housetex.apply();
-        this.Cube.display();
-    this.scene.popMatrix();
-  		
+            
+        this.scene.pushMatrix();
+        this.scene.translate(0.05,0.5,0);
+        this.scene.scale(2.3,1,1.2);
+            this.Housetex.apply();
+            this.Cube.display();
+        this.scene.popMatrix();
+            
 		this.scene.pushMatrix();
             this.scene.translate(0,0.9,0);
 			this.scene.scale(2.4,1,1.4);
@@ -139,13 +136,12 @@ class MyHouse extends CGFobject {
        //garagem da casa
 	   this.scene.pushMatrix();
 			//2 vem do x final da casa (0.5*2.2) + o x inicial da garagem (0.5*1.8)
-/////////////////////////////////////////////////////////////////////////
-		this.scene.translate(-2.2,0.5*0.7,0);
+
+            this.scene.translate(-2.2,0.5*0.7,0);
 			this.scene.scale(2.2,0.7,1.2);
         	this.Housetex.apply();
             this.Cube.display();
         this.scene.popMatrix();
-/////////////////////////////////////////////////////////////////////////		
 		
 		this.scene.pushMatrix();
             this.scene.translate(-2.25,0.7,0);

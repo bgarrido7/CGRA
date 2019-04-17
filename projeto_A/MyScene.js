@@ -21,7 +21,7 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        this.cubeEX = new MyUnitCubeQuad(this,[0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]);
+        this.cubeTest = new MyUnitCubeQuad(this,[0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]);
 
         //Initialize scene objects
         this.Cube = new MyCubeMap(this);
@@ -118,7 +118,7 @@ class MyScene extends CGFscene {
         this.water.setSpecular(0.7,0.7,0.7, 1);
         this.water.setShininess(1.0);
         this.water.loadTexture('images/water.jpg');
-        this.water.setTextureWrap('REPEAT', 'REPEAT');
+        this.water.setTextureWrap('MIRRORED_REPEAT', 'MIRRORED_REPEAT');
 
         this.Housetex = new CGFappearance(this);
         this.Housetex.setAmbient(0.1, 0.1, 0.1, 1);
@@ -190,10 +190,21 @@ class MyScene extends CGFscene {
 		
     // POSICIONAMENTO DAS COISAS  	
 
+    this.pushMatrix();
+    this.Housetex.apply();
+
+        this.translate(0,2,0);
+        this.scale(2.3,1,1.2);
+        this.cubeTest.display();
+    this.popMatrix();
+  	
+
         this.pushMatrix();
             this.House.display();
         this.popMatrix();
-	 
+     
+        
+        //arvoredo
         this.pushMatrix();	
             this.translate(0.5,0,-8);
 			this.scale(0.5,0.7,0.5);
@@ -303,7 +314,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
     
 
-
+        //relva no chao
         this.pushMatrix();           
             this.grass.apply(); 
             this.scale(20,1,20);
@@ -330,7 +341,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
 
-
+        //cubo exterior
         this.pushMatrix();
         this.sky.apply();
         this.scale(100,100,100);
