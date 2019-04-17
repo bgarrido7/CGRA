@@ -8,8 +8,6 @@ class MyUnitCubeQuad extends CGFobject {
 		super(scene);
 		
         this.quad = new MyQuad(this.scene, coords);
-        this.quad.initBuffers();
-
     }
     
     display() {

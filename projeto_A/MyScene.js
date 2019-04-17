@@ -21,8 +21,6 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        this.cubeTest = new MyUnitCubeQuad(this,[0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]);
-
         //Initialize scene objects
         this.Cube = new MyCubeMap(this);
         this.tree = new MyTree(this, 1,0.7,1,1,1,1);
@@ -120,14 +118,6 @@ class MyScene extends CGFscene {
         this.water.loadTexture('images/water.jpg');
         this.water.setTextureWrap('MIRRORED_REPEAT', 'MIRRORED_REPEAT');
 
-        this.Housetex = new CGFappearance(this);
-        this.Housetex.setAmbient(0.1, 0.1, 0.1, 1);
-        this.Housetex.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.Housetex.setSpecular(0.1, 0.1, 0.1, 1);
-        this.Housetex.setShininess(10.0);
-        this.Housetex.loadTexture('images/house.jpg');
-        this.Housetex.setTextureWrap('REPEAT', 'REPEAT');	
-
         this.grass = new CGFappearance(this);
         this.grass.setAmbient(0.5, 0.5, 0.5, 1);
         this.grass.setDiffuse(0.6, 0.6, 0.6, 1);
@@ -189,15 +179,6 @@ class MyScene extends CGFscene {
          
 		
     // POSICIONAMENTO DAS COISAS  	
-
-    this.pushMatrix();
-    this.Housetex.apply();
-
-        this.translate(0,2,0);
-        this.scale(2.3,1,1.2);
-        this.cubeTest.display();
-    this.popMatrix();
-  	
 
         this.pushMatrix();
             this.House.display();
