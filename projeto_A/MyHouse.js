@@ -7,7 +7,7 @@ class MyHouse extends CGFobject {
 
         super(scene);
     
-        this.Cube = new MyUnitCubeQuad(this.scene, [0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]);
+        this.Cube = new MyUnitCubeQuad(this.scene,[0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]);
 		this.Roof = new MyPyramid(this.scene, 4, 1);
         this.Column = new MyPrism(this.scene, 8, 1, 1);
         
@@ -61,17 +61,13 @@ class MyHouse extends CGFobject {
 	display() {
          
 
-		
-        this.scene.pushMatrix();
-			this.scene.translate(0,0.5,0);
-            this.scene.scale(2.2,1,1.2);
-            
-            this.Housetex.apply();
-
-            this.Cube.display();
-        this.scene.popMatrix();
-		
-		
+    this.scene.pushMatrix();
+    this.scene.translate(0.05,0.5,0);
+    this.scene.scale(2.3,1,1.2);
+        this.Housetex.apply();
+        this.Cube.display();
+    this.scene.popMatrix();
+  		
 		this.scene.pushMatrix();
             this.scene.translate(0,0.9,0);
 			this.scene.scale(2.4,1,1.4);
@@ -143,13 +139,13 @@ class MyHouse extends CGFobject {
        //garagem da casa
 	   this.scene.pushMatrix();
 			//2 vem do x final da casa (0.5*2.2) + o x inicial da garagem (0.5*1.8)
-
-			this.scene.translate(-2.2,0.5*0.7,0);
+/////////////////////////////////////////////////////////////////////////
+		this.scene.translate(-2.2,0.5*0.7,0);
 			this.scene.scale(2.2,0.7,1.2);
         	this.Housetex.apply();
             this.Cube.display();
         this.scene.popMatrix();
-		
+/////////////////////////////////////////////////////////////////////////		
 		
 		this.scene.pushMatrix();
             this.scene.translate(-2.25,0.7,0);

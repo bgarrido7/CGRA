@@ -21,6 +21,8 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
+        this.cubeEX = new MyUnitCubeQuad(this,[0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]);
+
         //Initialize scene objects
         this.Cube = new MyCubeMap(this);
         this.tree = new MyTree(this, 1,0.7,1,1,1,1);
@@ -40,32 +42,28 @@ class MyScene extends CGFscene {
         this.AmbientScale = 0.3;
         
         this.texEnable=true;
+        this.day=true;
 	
     }
     initLights() {
         this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1.0);
 
+        //light 0 -> day
         this.lights[0].setPosition(0, 20, 10, 1.0);
         this.lights[0].setDiffuse(255/255, 245/255, 200/255, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
-        this.lights[0].update();
 
+        //fireplace light
         this.lights[1].setPosition(3,0.4,3, 1.0);
         this.lights[1].setDiffuse(255/800, 165/800, 0, 1.0);
         this.lights[1].setSpecular(0,0,0, 1.0);
         this.lights[1].enable();
         this.lights[1].setVisible(true);
-        this.lights[1].update();
-		
-		this.lights[0].setPosition(0, 20, 10, 1.0);
-        this.lights[3].setDiffuse(31/255, 41.2/255, 53.3/255, 1.0);
-        this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
-       // this.lights[3].enable();
-        //this.lights[3].setVisible(true);
-        this.lights[3].update();
-		
-		
+    
+        // light 3-> night             
+        this.lights[3].setDiffuse(31/255, 41.2/255, 53.3/255, 1.0);     
+
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-30, 30, 30), vec3.fromValues(0, 0, 0));
@@ -167,20 +165,26 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+    
         this.lights[0].update();
         this.lights[1].update();
-		this.lights[3].update();
+        this.lights[3].update();
+     
+        
+        if(this.day){  
+            this.lights[3].disable();
+            this.lights[0].enable();
+        }
 
-        if(!this.texEnable)
-            this.enableTextures(false);
-    
-        if(this.texEnable)
-            this.enableTextures(true);
+        else {  
+            this.lights[0].disable();
+            this.lights[3].enable();
+        }
 
-           
-
+        this.enableTextures(this.texEnable);
+   
+       
         this.pushMatrix();
-
         this.setGlobalAmbientLight(this.AmbientScale, this.AmbientScale, this.AmbientScale, 1.0);
          
 		
