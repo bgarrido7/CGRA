@@ -7,18 +7,14 @@ class ShaderScene extends CGFscene {
 		// initial configuration of interface
 		this.selectedObject = 0;
 		this.wireframe = false;
-		this.selectedExampleShader = 10;
+		this.selectedExampleShader = 9;
 		this.showShaderCode = false;
 
 		this.scaleFactor = 16.0;
 		
-		
 	}
 
 	init(application) {
-
-
-		var varying=0;
 		// main initialization
 		super.init(application);
 
@@ -57,15 +53,18 @@ class ShaderScene extends CGFscene {
 		this.appearance.setShininess(120);
 
 		this.texture = new CGFtexture(this, "textures/texture.jpg");
-	
+		this.appearance.setTexture(this.texture);
+		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
 
-		this.water1 = new CGFtexture(this, "textures/waterTex.jpg");
-		this.appearance.setTexture(this.water1);
+	////////////////water//////////////////////	
+
+		this.waterTex = new CGFtexture(this, "textures/waterTex.jpg");
+		this.appearance.setTexture(this.waterTex);
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
-		
-		this.water2 = new CGFtexture(this, "textures/waterMap.jpg");
+
+		this.waterMap = new CGFtexture(this, "textures/waterMap.jpg");
 
 		// shaders initialization
 
@@ -79,7 +78,7 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture3anim.vert", "shaders/texture3anim.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
-			new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
+			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
 			new CGFshader(this.gl, "shaders/line.vert", "shaders/line.frag")
 			
 		];
@@ -105,7 +104,6 @@ class ShaderScene extends CGFscene {
 			'Convolution': 8,
 			'Water':9,
 			'Two Colours':10
-			
 		};
 
 		// shader code panels references
@@ -218,8 +216,11 @@ class ShaderScene extends CGFscene {
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
-		//this.texture2.bind(1);
-		this.water2.bind(1);
+		if(this.selectedExampleShader==9)
+			this.waterMap.bind(1);
+		else
+			this.texture2.bind(1);
+
 
 		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
 		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
