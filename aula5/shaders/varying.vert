@@ -16,6 +16,7 @@ varying vec4 normal;
 
 
 void main() {
+
 	vec4 vertex=vec4(aVertexPosition+aVertexNormal*normScale*0.1, 1.0);
 
 	gl_Position = uPMatrix * uMVMatrix * vertex;

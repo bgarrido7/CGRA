@@ -7,13 +7,16 @@ class ShaderScene extends CGFscene {
 		// initial configuration of interface
 		this.selectedObject = 0;
 		this.wireframe = false;
-		this.selectedExampleShader = 0;
+		this.selectedExampleShader = 1;
 		this.showShaderCode = false;
 
 		this.scaleFactor = 16.0;
 	}
 
 	init(application) {
+
+
+		var varying=0;
 		// main initialization
 		super.init(application);
 
@@ -89,7 +92,8 @@ class ShaderScene extends CGFscene {
 			'Multiple textures in VS and FS': 5,
 			'Animation example': 6,
 			'Sepia': 7,
-			'Convolution': 8
+			'Convolution': 8,
+			'Two Colours': 9
 		};
 
 		// shader code panels references
@@ -143,6 +147,9 @@ class ShaderScene extends CGFscene {
 		this.vShaderDiv.innerHTML = "<xmp>" + getStringFromUrl(this.testShaders[v].vertexURL) + "</xmp>";
 		this.fShaderDiv.innerHTML = "<xmp>" + getStringFromUrl(this.testShaders[v].fragmentURL) + "</xmp>";
 
+		if(v==9){
+
+		}
 		// update scale factor
 		this.onScaleFactorChanged(this.scaleFactor);
 	}
@@ -171,7 +178,7 @@ class ShaderScene extends CGFscene {
 	update(t) {
 		// only shader 6 is using time factor
 		if (this.selectedExampleShader == 6)
-			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });
+			this.testShaders[6].setUniformsValues({ timeFactor: t / 200 % 1000 });
 	}
 
 	// main display function
