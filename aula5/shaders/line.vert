@@ -11,8 +11,8 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 uniform float normScale;
-varying vec4 coords;
 
+varying vec4 coords;
 
 
 void main() {
