@@ -5,12 +5,14 @@ class ShaderScene extends CGFscene {
 		this.appearance = null;
 
 		// initial configuration of interface
-		this.selectedObject = 0;
+		this.selectedObject = 1;
 		this.wireframe = false;
-		this.selectedExampleShader = 0;
+		this.selectedExampleShader = 9;
 		this.showShaderCode = false;
 
 		this.scaleFactor = 16.0;
+		
+		
 	}
 
 	init(application) {
@@ -52,10 +54,13 @@ class ShaderScene extends CGFscene {
 		this.appearance.setShininess(120);
 
 		this.texture = new CGFtexture(this, "textures/texture.jpg");
-		this.appearance.setTexture(this.texture);
+		this.water1 = new CGFtexture(this, "textures/waterTex.jpg");
+		this.appearance.setTexture(this.water1);
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
+		
+		this.water2 = new CGFtexture(this, "textures/waterMap.jpg");
 
 		// shaders initialization
 
@@ -68,7 +73,8 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
 			new CGFshader(this.gl, "shaders/texture3anim.vert", "shaders/texture3anim.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
-			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag")
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
+			new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag")
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -76,7 +82,7 @@ class ShaderScene extends CGFscene {
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
-
+		this.testShaders[9].setUniformsValues({ uSampler2: 1 });
 
 		// Shaders interface variables
 
@@ -89,7 +95,8 @@ class ShaderScene extends CGFscene {
 			'Multiple textures in VS and FS': 5,
 			'Animation example': 6,
 			'Sepia': 7,
-			'Convolution': 8
+			'Convolution': 8,
+			'water':9
 		};
 
 		// shader code panels references
@@ -202,7 +209,8 @@ class ShaderScene extends CGFscene {
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
-		this.texture2.bind(1);
+		//this.texture2.bind(1);
+		this.water2.bind(1);
 
 		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
 		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
