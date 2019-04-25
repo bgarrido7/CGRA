@@ -64,7 +64,7 @@ class ShaderScene extends CGFscene {
 		this.appearance.setTexture(this.waterTex);
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-		this.waterMap = new CGFtexture(this, "textures/waterMap.jpg");
+		this.waterBlue = new CGFtexture(this, "textures/waterMap.jpg");
 
 		// shaders initialization
 
@@ -88,7 +88,7 @@ class ShaderScene extends CGFscene {
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
-		this.testShaders[9].setUniformsValues({ uSampler2: 1 });
+		this.testShaders[9].setUniformsValues({ uSampler2: 2 });
 
 		// Shaders interface variables
 
@@ -186,6 +186,9 @@ class ShaderScene extends CGFscene {
 		// only shader 6 is using time factor
 		if (this.selectedExampleShader == 6)
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 200 % 1000 });
+
+		if (this.selectedExampleShader == 9)
+			this.testShaders[9].setUniformsValues({ timeFactor: t / 200 % 1000 });
 	}
 
 	// main display function
@@ -216,15 +219,8 @@ class ShaderScene extends CGFscene {
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
-		if(this.selectedExampleShader==9)
-			this.waterMap.bind(1);
-		else
-			this.texture2.bind(1);
-
-
-		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
-		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
-		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+		this.waterBlue.bind(2);
+		this.texture2.bind(1);
 
 		if (this.selectedObject==0) {
 			// teapot (scaled and rotated to conform to our axis)
