@@ -23,7 +23,7 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.axiom = "F--F--F"; // "X"; //
         this.ruleF = "F+F--F+F"; // "FF"; //
-        //this.ruleX = "F[-X][X]F[-X]+FX";
+        this.ruleX = "F[-X][X]F[-X]+FX";
         this.angle = 60.0;
         this.iterations = 2;
         this.scaleFactor = 1;
@@ -47,7 +47,13 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        
+     
+        this.axiom = "X";
+        this.ruleF = "FF";
+        this.ruleX = "F[-X][X]F[-X]+FX";
+        this.angle = 30.0;
+        this.iterations = 4;
+        this.scaleFactor = 0.5;
     }
 
     initLights() {
