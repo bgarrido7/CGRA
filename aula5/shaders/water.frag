@@ -10,7 +10,7 @@ uniform float timeFactor;
 
 
 void main() {
-	vec4 color = texture2D(uSampler, vTextureCoord+vec2(timeFactor*.01,0.0));
+	vec4 color = texture2D(uSampler, vTextureCoord+vec2(timeFactor*.01,timeFactor*.01));
 
 	gl_FragColor = color;
 

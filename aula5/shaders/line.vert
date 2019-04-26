@@ -16,5 +16,5 @@ void main() {
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition,1.0);
 
-	coords=vec4(aVertexPosition,1.0)/10.0;
+	coords=gl_Position;
 }
