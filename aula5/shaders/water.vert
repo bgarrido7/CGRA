@@ -13,11 +13,11 @@ uniform sampler2D uSampler2;
 uniform float normScale;
 
 void main() {
-	vec3 offset=vec3(0,0,0);
+	vec3 offset=vec3(0.0,0.0,0.0);
 	
 	vTextureCoord = aTextureCoord;
-	vec4 filter = texture2D(uSampler2, vTextureCoord);
-	offset=aVertexNormal*filter.y*0.05*sin(timeFactor);
+	vec4 filter = texture2D(uSampler2, vTextureCoord+vec2(timeFactor*0.05,0));
+	offset=aVertexNormal*filter.y*0.05;
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 }
