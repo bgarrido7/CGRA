@@ -61,8 +61,7 @@ class ShaderScene extends CGFscene {
 	////////////////water//////////////////////	
 
 		this.waterTex = new CGFtexture(this, "textures/waterTex.jpg");
-		this.appearance.setTexture(this.waterTex);
-		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+		
 
 		this.waterBlue = new CGFtexture(this, "textures/waterMap.jpg");
 
@@ -79,7 +78,8 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
-			new CGFshader(this.gl, "shaders/line.vert", "shaders/line.frag")
+			new CGFshader(this.gl, "shaders/line.vert", "shaders/line.frag"),
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grey.frag"),
 			
 		];
 
@@ -104,7 +104,8 @@ class ShaderScene extends CGFscene {
 			'Sepia': 7,
 			'Convolution': 8,
 			'Water':9,
-			'Two Colours':10
+			'Two Colours':10,
+			'grey':11
 		};
 
 		// shader code panels references
@@ -213,6 +214,13 @@ class ShaderScene extends CGFscene {
 		this.axis.display();
 
 		// aplly main appearance (including texture in default texture unit 0)
+		if(this.selectedExampleShader==9){
+		this.appearance.setTexture(this.waterTex);
+		
+		}
+		else{
+			this.appearance.setTexture(this.texture);
+		}
 		this.appearance.apply();
 
 		// activate selected shader
