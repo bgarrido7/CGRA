@@ -21,12 +21,15 @@ class MyLeaf extends CGFobject {
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
-		this.normals = [];
-        for (var i = 0; i <= 2; i++) {
-			this.normals.push(0, 0, 1);
-			//nao sei fazer as normais para o lado de tras
-			//pq ja se usam os pontos 1x 
-		}
+		this.normals = [
+			0, 0, 1,
+			0, 0, 1,
+			0, 0, 1,	
+		];	
+		//a face de tras nao tem luz 
+		//pq nao sei pôr as normais para esse lado
+		//(os pontos já se usam 1x nas normais para a face da frente) 
+		
 		
 		this.initGLBuffers();
 	}
