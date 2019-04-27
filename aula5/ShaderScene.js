@@ -187,13 +187,11 @@ class ShaderScene extends CGFscene {
 		this.axis.display();
 
 		// aplly main appearance (including texture in default texture unit 0)
-		if(this.selectedExampleShader==0){
-		this.appearance.setTexture(this.waterTex);
-		
-		}
-		else{
+		if(this.selectedExampleShader==0)
+			this.appearance.setTexture(this.waterTex);
+		else
 			this.appearance.setTexture(this.texture);
-		}
+		
 		this.appearance.apply();
 
 		// activate selected shader
@@ -202,7 +200,7 @@ class ShaderScene extends CGFscene {
 
 		// bind additional texture to texture unit 1
 		this.waterBlue.bind(2);
-		this.texture2.bind(1);
+
 
 		if (this.selectedObject==0) {
 			// teapot (scaled and rotated to conform to our axis)
