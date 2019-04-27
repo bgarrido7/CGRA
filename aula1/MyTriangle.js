@@ -13,6 +13,8 @@ class MyTriangle extends CGFobject {
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 2, 1,
+	
+		
 		];
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

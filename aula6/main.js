@@ -8,6 +8,8 @@ serialInclude(['../lib/CGF.js',
                 'MyInterface.js', 
                 'MyLSystem.js',
                 'MyLSPlant.js',
+                'MyLeaf.js',
+                'MyBranch.js',
 
 main=function()
 {

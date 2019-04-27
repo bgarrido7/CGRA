@@ -2,12 +2,13 @@
 * MyPyramid
 * @constructor
 */
-class MyCilinder extends CGFobject {
-    constructor(scene, slices,  height, radius) {
+class MyBranch extends CGFobject {
+    constructor(scene/*, slices,  height, radius*/) {
         super(scene);
-        this.slices = slices;
-        this.radius = radius;
-        this.height = height;
+        this.slices = 8;
+        this.radius = 0.4;
+//this.stacks = stacks;
+        this.height = 1.5;
         this.initBuffers();
     }
     initBuffers() {

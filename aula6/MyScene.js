@@ -10,6 +10,7 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
+        this.initMaterials();
 
         //Background color
         this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
@@ -28,6 +29,10 @@ class MyScene extends CGFscene {
         this.iterations = 2;
         this.scaleFactor = 1;
         this.lSystem = new MyLSystem(this);
+        this.lPlant = new MyLSPlant(this);
+
+        this.branchTest= new MyBranch(this);
+        this.leafTest= new MyLeaf(this/*, [1/2,1/2,1,1,1,0,]*/);
 
         this.doGenerate = function () {
             this.lSystem.generate(
@@ -65,6 +70,22 @@ class MyScene extends CGFscene {
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
+
+   initMaterials() {
+
+        this.leaf = new CGFappearance(this);
+        this.leaf.setAmbient(0.0, 1, 0.0, 0.1);
+        this.leaf.setDiffuse(0, 1, 0, 0.1);
+        this.leaf.setSpecular(0, 1, 0, 1.0);
+        this.leaf.setShininess(10.0);
+
+        this.branch = new CGFappearance(this);
+        this.branch.setAmbient(153/255, 76/255, 0, 1.0);
+        this.branch.setDiffuse(153/255, 76/255, 0, 1.0);
+        this.branch.setSpecular(153/255, 76/255, 0, 1.0);
+        this.branch.setShininess(10.0);
+    }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -87,10 +108,23 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
-        // ---- BEGIN Primitive drawing section
+     //   this.lSystem.display();
+    //    this.lPlant.display();
 
-        this.lSystem.display();
+    
+//-----------para testar leaf e branch class--------------
+    this.pushMatrix();
+        this.rotate(Math.PI/4,0,1,0);
+        this.leaf.apply();
+        this.leafTest.display();
+        this.popMatrix();
 
-        // ---- END Primitive drawing section
+    this.pushMatrix();
+        this.translate(0,-3,0);
+        this.branch.apply();
+        this.branchTest.display();    
+    this.popMatrix();
+//------------------------------------------------------
+
     }
 }

@@ -187,7 +187,18 @@ class MyScene extends CGFscene {
 
         this.updateCustomMaterial();
 
-        this.materials = [this.material1, this.material2, this.material3, this.madeira, this.customMaterial, this.verde, this.amarelo, this.azul, this.roxo, this.laranja, this.rosa, this.vermelho];
+        this.materials = [this.material1, 
+                        this.material2, 
+                        this.material3, 
+                        this.madeira, 
+                        this.customMaterial, 
+                        this.verde, 
+                        this.amarelo, 
+                        this.azul, 
+                        this.roxo, 
+                        this.laranja, 
+                        this.rosa, 
+                        this.vermelho];
 
         // Labels and ID's for object selection on MyInterface
         this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'madeira': 3, 'Custom': 4 };
@@ -212,10 +223,6 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
       
-
-   //     this.tangram.display();
-        
-
         this.pushMatrix();
 
         
@@ -232,9 +239,6 @@ class MyScene extends CGFscene {
         this.objects[this.selectedObject].display();
         this.popMatrix();
         // ---- END Primitive drawing section
-
-     //   this.Cube.display();
-
 
     }
 }
