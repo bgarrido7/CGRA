@@ -28,21 +28,35 @@ class MyScene extends CGFscene {
         this.angle = 30.0;
         this.iterations = 5;
         this.scaleFactor = .5;
+        this.leafTest = new MyLeaf(this);
+        this.branchTest = new MyBranch(this);
       
       //  this.lSystem = new MyLSystem(this);
         this.lPlant = new MyLSPlant(this);
-
+       
         this.doGenerate = function () {
             this.lPlant.generate(
                 this.axiom,
                 {
-                    "F": [ this.ruleF ],
-                    "X": [ this.ruleX ]
+                    "F": [ "FF" ],
+                    "X": [ " F[-X][X]F[-X]+X", 
+                            "F[-X][x]+X",
+                            "F[+X]-X", 
+                            "F[/X][X]F[\\X]+X",
+                            "F[\\X][X]/X", 
+                            "F[/X]\\X", 
+                            "F[^X][X]F[&X]^X", 
+                            "F[^X]&X", 
+                            "F[&X]^X" 
+                        ]
                 },
+                
                 this.angle,
                 this.iterations,
                 this.scaleFactor
             );
+                
+
         }
 
         // do initial generation
@@ -101,28 +115,24 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        // Draw axis
-        this.axis.display();
+      //  this.axis.display();
 
         this.setDefaultAppearance();
 
-     //   this.lSystem.display();
         this.lPlant.display();
-
-    
+/*
 //-----------para testar leaf e branch class--------------
-  /*  this.pushMatrix();
+    this.pushMatrix();
         this.rotate(Math.PI/4,0,1,0);
         this.leaf.apply();
         this.leafTest.display();
         this.popMatrix();
-
     this.pushMatrix();
         this.translate(0,-3,0);
         this.branch.apply();
         this.branchTest.display();    
-    this.popMatrix();*/
+    this.popMatrix();
 //------------------------------------------------------
-
+*/
     }
 }
