@@ -75,6 +75,12 @@ class MyBranch extends CGFobject {
         this.initBuffers();
         this.initNormalVizBuffers();
     }
+
+    display(){
+        this.scene.branch.apply();
+        super.display();
+
+    }
 }
 
 

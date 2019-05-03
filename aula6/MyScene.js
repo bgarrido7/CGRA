@@ -22,20 +22,18 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         //Objects connected to MyInterface
-        this.axiom = "F--F--F"; // "X"; //
-        this.ruleF = "F+F--F+F"; // "FF"; //
+        this.axiom =  "X"; //
+        this.ruleF =  "FF"; //
         this.ruleX = "F[-X][X]F[-X]+FX";
-        this.angle = 60.0;
-        this.iterations = 2;
-        this.scaleFactor = 1;
-        this.lSystem = new MyLSystem(this);
+        this.angle = 30.0;
+        this.iterations = 5;
+        this.scaleFactor = .5;
+      
+      //  this.lSystem = new MyLSystem(this);
         this.lPlant = new MyLSPlant(this);
 
-        this.branchTest= new MyBranch(this);
-        this.leafTest= new MyLeaf(this/*, [1/2,1/2,1,1,1,0,]*/);
-
         this.doGenerate = function () {
-            this.lSystem.generate(
+            this.lPlant.generate(
                 this.axiom,
                 {
                     "F": [ this.ruleF ],
@@ -109,11 +107,11 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
      //   this.lSystem.display();
-    //    this.lPlant.display();
+        this.lPlant.display();
 
     
 //-----------para testar leaf e branch class--------------
-    this.pushMatrix();
+  /*  this.pushMatrix();
         this.rotate(Math.PI/4,0,1,0);
         this.leaf.apply();
         this.leafTest.display();
@@ -123,7 +121,7 @@ class MyScene extends CGFscene {
         this.translate(0,-3,0);
         this.branch.apply();
         this.branchTest.display();    
-    this.popMatrix();
+    this.popMatrix();*/
 //------------------------------------------------------
 
     }

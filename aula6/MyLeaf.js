@@ -10,8 +10,8 @@ class MyLeaf extends CGFobject {
 	initBuffers() {
 		this.vertices = [
 			0, 0, 0,	//0
-			0, 1, 0,	//1
-			1, 0, 0,	//2
+			0, 3, 0,	//1
+			3, 0, 0,	//2
 		];
 
 		this.indices = [
@@ -33,8 +33,10 @@ class MyLeaf extends CGFobject {
 		
 		this.initGLBuffers();
 	}
-/*	updateTexCoords(coords) {
-		this.texCoords = [...coords];
-		this.updateTexCoordsGLBuffers();
-	}*/
+
+    display(){
+        this.scene.leaf.apply();
+        super.display();
+
+    }
 }
