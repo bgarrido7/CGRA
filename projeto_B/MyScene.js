@@ -115,9 +115,9 @@ class MyScene extends CGFscene {
         //Apply default appearance
         this.setDefaultAppearance();
 
-        // ---- BEGIN Primitive drawing section
+    // ---- BEGIN Primitive drawing section
         
-	//	this.terrain.display();
+		//	this.terrain.display();
 
         this.pushMatrix();
 			this.sky.apply();
@@ -125,9 +125,11 @@ class MyScene extends CGFscene {
 			this.Cube.display();
         this.popMatrix();
 
-        this.bird.display();
-  //      this.house.display();
-        // ---- END Primitive drawing section
+  		//this.bird.display();
+	   
+		this.house.display();
+	   
+    // ---- END Primitive drawing section
 		
 		
     }
