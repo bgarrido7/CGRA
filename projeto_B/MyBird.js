@@ -15,7 +15,7 @@ class MyBird extends CGFobject {
         this.cube.initBuffers();    
         this.pyramid.initBuffers();
         this.triangle.initBuffers();
-		
+
 		this.bico = new CGFappearance(this.scene);
         this.bico.setAmbient(253/255, 196/255, 39/255, 1);
         this.bico.setDiffuse(253/255, 196/255, 39/255, 1);
@@ -35,9 +35,9 @@ class MyBird extends CGFobject {
         this.olhos.setShininess(10.0);
 
     }
-    
+
 	display() {
-            
+
 
        //corpo 
         this.scene.pushMatrix();
@@ -46,6 +46,7 @@ class MyBird extends CGFobject {
 			this.penas.apply();
             this.cube.display();
         this.scene.popMatrix();
+
 
         //cabeça
         this.scene.pushMatrix();
@@ -88,7 +89,7 @@ class MyBird extends CGFobject {
 			this.penas.apply();
             this.triangle.display();
         this.scene.popMatrix();
-        
+
        //asas 
         this.scene.pushMatrix();
             this.scene.translate(1, 4, 2);
@@ -105,7 +106,7 @@ class MyBird extends CGFobject {
             this.penas.apply();
             this.triangle.display();
         this.scene.popMatrix();
-   
+
         this.scene.pushMatrix();
            this.scene.translate(1,4,-2);
             this.scene.rotate(Math.PI/1.7,1,0,0);
@@ -113,7 +114,7 @@ class MyBird extends CGFobject {
 			this.penas.apply();
             this.quad.display();
         this.scene.popMatrix();
-        
+
         this.scene.pushMatrix();
             this.scene.translate(0.25, 4.4, -3.4);
             this.scene.rotate(-Math.PI/1.5,1,0,0);

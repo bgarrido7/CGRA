@@ -19,9 +19,12 @@ class MyTriangle extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
 		this.normals = [
+			0, 0, 1,
+			0, 0, 1,
+			0, 0, 1,
 			0, 0, -1,
 			0, 0, -1,
-			0, 0, -1,	
+			0, 0, -1,		
 		];	
 		//a face de tras nao tem luz 
 		//pq nao sei pôr as normais para esse lado
