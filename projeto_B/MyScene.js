@@ -7,37 +7,61 @@ class MyScene extends CGFscene {
         super();
     }
     init(application) {
-        super.init(application);
-        this.initCameras();
-        this.initLights();
-        this.initMaterials();
+				super.init(application);
+				this.initCameras();
+				this.initLights();
+				this.initMaterials();
+				
+				this.wireframe = false;
+				this.selectedExampleShader = 0;
+				this.showShaderCode = false;
+				//Background color
+				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-        //Background color
-        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+				this.gl.clearDepth(100.0);
+				this.gl.enable(this.gl.DEPTH_TEST);
+				this.gl.enable(this.gl.CULL_FACE);
+				this.gl.depthFunc(this.gl.LEQUAL);
+				this.enableTextures(true);
+				this.setUpdatePeriod(50);
 
-        this.gl.clearDepth(100.0);
-        this.gl.enable(this.gl.DEPTH_TEST);
-        this.gl.enable(this.gl.CULL_FACE);
-        this.gl.depthFunc(this.gl.LEQUAL);
-        this.enableTextures(true);
-        this.setUpdatePeriod(50);
+				//Initialize scene objects
+				this.Cube = new MyCubeMap(this);
+				this.axis = new CGFaxis(this);
+				this.plane = new Plane(this, 32);
 
-        //Initialize scene objects
-        this.Cube = new MyCubeMap(this);
-        this.axis = new CGFaxis(this);
-        this.plane = new Plane(this, 32);
 
-        this.house = new MyHouse(this);
-        this.bird = new MyBird(this);
+				this.shadersDiv = document.getElementById("shaders");
+				this.vShaderDiv = document.getElementById("vshader");
+				this.fShaderDiv = document.getElementById("fshader");
 
-        //Objects connected to MyInterface
+				this.house = new MyHouse(this);
+				this.bird = new MyBird(this);
+				this.terrain = new MyTerrain(this);
+				
+				
+				this.shadersList = {
+					'Terrain':0, 
+					
+				};
+				
+				this.appearance = new CGFappearance(this);
+				this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+				this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+				this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+				this.appearance.setShininess(120);
+
+
+				
     }
+	
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
+	
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
     }
@@ -51,16 +75,26 @@ class MyScene extends CGFscene {
 		this.sky.loadTexture('skybox/sky2.jpg');
         this.sky.setTextureWrap('REPEAT', 'REPEAT');
 
+		
     }
+	// updates the selected object's wireframe mode
+	onWireframeChanged(v) {
+		if (v)
+			this.terrain.plane.setLineMode();
+		else
+			this.terrain.plane.setFillMode();
 
-    setDefaultAppearance() {
+	}
+	
+	update(t) {
+		
+	}
+	
+	setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
-    }
-    update(t){
-
     }
 
     display() {
@@ -73,7 +107,8 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
+		
+		
         // Draw axis
         this.axis.display();
 
@@ -81,20 +116,19 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-        this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        this.plane.display();
-        this.popMatrix();
+        
+		this.terrain.display();
 
         this.pushMatrix();
-        this.sky.apply();
-        this.scale(100,100,100);
-        this.Cube.display();
+			this.sky.apply();
+			this.scale(100,100,100);
+			this.Cube.display();
         this.popMatrix();
 
-        this.bird.display();
+        /*this.bird.display();*/
   //      this.house.display();
         // ---- END Primitive drawing section
+		
+		
     }
 }
