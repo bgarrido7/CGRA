@@ -125,9 +125,17 @@ class MyScene extends CGFscene {
 			this.Cube.display();
         this.popMatrix();
 
-  		//this.bird.display();
+
+		this.pushMatrix();
+			this.translate(7,9,0)
+			this.scale(0.5, 0.5, 0.5);
+			this.bird.display();
+        this.popMatrix();
 	   
-		this.house.display();
+		  this.pushMatrix();
+			this.scale(7, 7, 7);
+			this.house.display();
+        this.popMatrix();
 	   
     // ---- END Primitive drawing section
 		
