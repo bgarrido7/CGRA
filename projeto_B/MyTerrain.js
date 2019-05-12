@@ -10,9 +10,9 @@ class MyTerrain extends CGFobject {
 
         this.plane.initBuffers();    
         this.selectedExampleShader = 0;
-		this.showShaderCode = false;
 		this.init();
 	}
+
 init(){	
 		//shaders connected
 		this.appearance = new CGFappearance(this.scene);
@@ -24,42 +24,19 @@ init(){
 		this.terrainTex = new CGFtexture(this.scene, "images/terrain.jpg");
 		this.terrainMap = new CGFtexture(this.scene, "images/heightmap.jpg");
 		this.appearance.setTexture(this.terrainTex);
-		this.testShaders = [
-
-			new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
-			//new CGFshader(this.scene.gl, "shaders/line.vert", "shaders/line.frag"),
-			//new CGFshader(this.scene.gl, "shaders/texture1.vert", "shaders/grey.frag"),
-			
-		];
-		// shader code panels references
-		this.shadersDiv = document.getElementById("shaders");
-		this.vShaderDiv = document.getElementById("vshader");
-		this.fShaderDiv = document.getElementById("fshader");
-
 		
+		this.testShaders = [
+			new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
+		];
 		
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
 		this.testShaders[0].setUniformsValues({ uSampler2: 2 });
-		this.testShaders[0].setUniformsValues({ timeFactor: 0.1});
 		
-		
-		this.shadersList = {
-					'Water':0, 
-				};
-				
 				
 		// force initial setup of shader code panels
 
 		//this.onShaderCodeVizChanged(this.showShaderCode);
 		//this.onSelectedShaderChanged(this.selectedExampleShader);
-
-		
-
-		// set the scene update period 
-		// (to invoke the update() method every 50ms or as close as possible to that )
-		this.scene.setUpdatePeriod(50);
-	
-
     }
 	
 	// Show/hide shader code
@@ -79,39 +56,29 @@ init(){
 		// update scale factor
 		this.onScaleFactorChanged(this.scene.scaleFactor);
 	}
-	
-	// called when a new object is selected
-	onSelectedObjectChanged(v) {
-		// update wireframe mode when the object changes
-		this.onWireframeChanged(this.wireframe);
-	}
-	
-	
 		
-	// called when the scale factor changes on the interface
-	onScaleFactorChanged(v) {
-		this.testShaders[this.selectedExampleShader].setUniformsValues({ normScale: this.scaleFactor });
-	}
-
-	// called periodically (as per setUpdatePeriod() in init())
-	update(t) {
-		if (this.selectedExampleShader == 0)
-			this.testShaders[0].setUniformsValues({ timeFactor: t / 200 % 1000 });
-	}
-
-	
 	display() {
-		
+
+		// aplly main appearance
 		this.appearance.apply();
-           this.scene.setActiveShader[this.testShaders[0]]; 
-		  // this.scene.pushMatrix();
-		   this.terrainMap.bind(2);
-		   
-        this.scene.pushMatrix();
+		
+/////////////////////////acho que o problema está aqui///////////
+
+		// activate selected shader
+        this.scene.setActiveShader(this.testShaders[0]); 
+
+		// bind additional texture to texture unit 1
+		this.terrainTex.bind(2);
+
+///////////////mas nao sei arranjar por causa do this.scene/////////		   
+	 
+
+		this.scene.pushMatrix();
 			this.scene.rotate(-0.5*Math.PI, 1, 0, 0);
 			this.scene.scale(60, 60, 1);
 			this.plane.display();
-        this.scene.popMatrix();
+		this.scene.popMatrix();
+		
     }
 
 }

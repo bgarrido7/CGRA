@@ -81,7 +81,6 @@ class MyHouse extends CGFobject {
 			this.Pilartex.apply();
             this.scene.translate(1.4,0,0.8);
 			this.scene.scale(0.1,0.9,0.1);
-			
             this.Column.display();
         this.scene.popMatrix();
 		

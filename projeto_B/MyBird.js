@@ -28,6 +28,14 @@ class MyBird extends CGFobject {
         this.penas.setSpecular(51/255, 1, 1, 1);
         this.penas.setShininess(10.0);
 
+        this.penas_corpo = new CGFappearance(this.scene);
+        this.penas_corpo.setAmbient(0.1, 0.1, 0.1, 1);
+        this.penas_corpo.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.penas_corpo.setSpecular(0.1, 0.1, 0.1, 1);
+        this.penas_corpo.setShininess(10.0);
+        this.penas_corpo.loadTexture('images/penas.jpg');
+        this.penas_corpo.setTextureWrap('REPEAT', 'REPEAT');
+
         this.olhos = new CGFappearance(this.scene);
         this.olhos.setAmbient(64/255, 64/255, 64/255, 1);
         this.olhos.setDiffuse(64/255, 64/255, 64/255, 1);
@@ -43,7 +51,8 @@ class MyBird extends CGFobject {
         this.scene.pushMatrix();
             this.scene.translate(0.7,3,0);
             this.scene.scale(3,3,3);
-			this.penas.apply();
+		//	this.penas_corpo.apply();
+            this.penas.apply();
             this.cube.display();
         this.scene.popMatrix();
 

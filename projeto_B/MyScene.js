@@ -4,17 +4,18 @@
 */
 class MyScene extends CGFscene {
     constructor() {
-        super();
+		super();
+	
+		this.wireframe = false;
+		this.showShaderCode = true;
+		
     }
     init(application) {
 				super.init(application);
 				this.initCameras();
 				this.initLights();
 				this.initMaterials();
-				
-				this.wireframe = false;
-				this.selectedExampleShader = 0;
-				this.showShaderCode = false;
+					
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -22,6 +23,7 @@ class MyScene extends CGFscene {
 				this.gl.enable(this.gl.DEPTH_TEST);
 				this.gl.enable(this.gl.CULL_FACE);
 				this.gl.depthFunc(this.gl.LEQUAL);
+				
 				this.enableTextures(true);
 				this.setUpdatePeriod(50);
 
@@ -37,14 +39,12 @@ class MyScene extends CGFscene {
 
 				this.house = new MyHouse(this);
 				this.bird = new MyBird(this);
-				this.terrain = new MyTerrain(this);
-				
-				
-				this.shadersList = {
-					'Terrain':0, 
-					
-				};
-				
+				this.terrain = new MyTerrain(this);        
+
+				this.nest = new MyPrism(this, 10, 1, 1);
+				//this.nest.initBuffers();
+
+
 				this.appearance = new CGFappearance(this);
 				this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
 				this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
@@ -52,6 +52,13 @@ class MyScene extends CGFscene {
 				this.appearance.setShininess(120);
 
 
+				this.bird_nest = new CGFappearance(this);
+				this.bird_nest.setAmbient(0.1, 0.1, 0.1, 1);
+				this.bird_nest.setDiffuse(0.9, 0.9, 0.9, 1);
+				this.bird_nest.setSpecular(0.1, 0.1, 0.1, 1);
+				this.bird_nest.setShininess(10.0);
+				this.bird_nest.loadTexture('images/birdNest.jpg');
+				this.bird_nest.setTextureWrap('REPEAT', 'REPEAT');
 				
     }
 	
@@ -87,7 +94,30 @@ class MyScene extends CGFscene {
 	}
 	
 	update(t) {
-		
+
+		//dá erro num ; nao sei pq
+
+		/*------------para controlar animação------
+		checkKeys(){
+			var text="Keys pressed: ";
+			var keysPressed=false;
+			
+			// Check for key codes e.g. in ​https://keycode.info/
+			if (this.gui.isKeyPressed("KeyW")) {
+				text+=" W ";
+				keysPressed=true;
+			}
+			
+			if (this.gui.isKeyPressed("KeyS")){
+				text+=" S ";
+				keysPressed=true;
+			}
+			
+			if (keysPressed)
+			console.log(text);
+		}
+	*/
+
 	}
 	
 	setDefaultAppearance() {
@@ -117,7 +147,7 @@ class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
         
-		//	this.terrain.display();
+		this.terrain.display();
 
         this.pushMatrix();
 			this.sky.apply();
@@ -125,18 +155,25 @@ class MyScene extends CGFscene {
 			this.Cube.display();
         this.popMatrix();
 
-
+/*
 		this.pushMatrix();
-			this.translate(7,9,0)
+			this.translate(7,10,0)
 			this.scale(0.5, 0.5, 0.5);
 			this.bird.display();
-        this.popMatrix();
-	   
-		  this.pushMatrix();
+		this.popMatrix();
+		
+		this.pushMatrix();
+			this.translate(7,10,0);
+			this.scale(2, 1.5, 2);
+			this.bird_nest.apply();
+			this.nest.display();
+		this.popMatrix();
+
+		this.pushMatrix();
 			this.scale(7, 7, 7);
 			this.house.display();
         this.popMatrix();
-	   
+*/	   
     // ---- END Primitive drawing section
 		
 		
