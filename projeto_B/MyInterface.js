@@ -16,8 +16,10 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'wireframe').onChange(this.scene.onWireframeChanged.bind(this.scene));
 	//	this.gui.add(this.scene, 'selectedExampleShader', this.scene.shadersList).name('Shader examples').onChange(this.scene.onSelectedShaderChanged.bind(this.scene));
 	//	this.gui.add(this.scene, 'showShaderCode').name('Show Shader Code').onChange(this.scene.onShaderCodeVizChanged.bind(this.scene));
-    
-    /*------------------para controlar animações-------------
+		this.initKeys();
+		return true;
+   }
+    /*------------------para controlar animações-------------*/
     
     //dá erro num ; nao sei pq
     
@@ -49,8 +51,7 @@ class MyInterface extends CGFinterface {
         // returns true if a key is marked as pressed, false otherwise
         return this.activeKeys[keyCode] || false;
     }
-    */
     
-        return true;
-    }
+    
+        
 }
