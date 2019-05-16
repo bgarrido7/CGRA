@@ -15,7 +15,7 @@ class MyScene extends CGFscene {
 				this.initLights();
 				this.initMaterials();
 				this.wireframe = false;
-		this.showShaderCode = true;	
+				this.showShaderCode = true;	
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -31,7 +31,25 @@ class MyScene extends CGFscene {
 				this.Cube = new MyCubeMap(this);
 				this.axis = new CGFaxis(this);
 				this.plane = new Plane(this, 32);
+				
+				
+				//Initialize trees
+				this.axiom =  "X"; //
+				this.ruleF =  "FF"; //
+				this.ruleX = "F[-X][X]F[-X]+FX";
+				this.angle = 30.0;
+				this.iterations = 5;
+				this.scaleFactor = .5;
+				
+				this.leafTest = new MyLeaf(this);
+				this.branchTest = new MyBranch(this);
+				this.lPlant = new MyLSPlant(this);
+				
+				
+				
+				
 
+				this.doGenerate();
 
 				this.shadersDiv = document.getElementById("shaders");
 				this.vShaderDiv = document.getElementById("vshader");
@@ -45,23 +63,11 @@ class MyScene extends CGFscene {
 				//this.nest.initBuffers();
 
 
-				this.appearance = new CGFappearance(this);
-				this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
-				this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-				this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
-				this.appearance.setShininess(120);
-
-
-				this.bird_nest = new CGFappearance(this);
-				this.bird_nest.setAmbient(0.1, 0.1, 0.1, 1);
-				this.bird_nest.setDiffuse(0.9, 0.9, 0.9, 1);
-				this.bird_nest.setSpecular(0.1, 0.1, 0.1, 1);
-				this.bird_nest.setShininess(10.0);
-				this.bird_nest.loadTexture('images/birdNest.jpg');
-				this.bird_nest.setTextureWrap('REPEAT', 'REPEAT');
+			
 				
 					
     }
+	
 	
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -82,9 +88,60 @@ class MyScene extends CGFscene {
 		this.sky.setShininess(10.0);
 		this.sky.loadTexture('skybox/sky2.jpg');
         this.sky.setTextureWrap('REPEAT', 'REPEAT');
+		
+		this.appearance = new CGFappearance(this);
+		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+		this.appearance.setShininess(120);
 
+
+		this.bird_nest = new CGFappearance(this);
+		this.bird_nest.setAmbient(0.1, 0.1, 0.1, 1);
+		this.bird_nest.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.bird_nest.setSpecular(0.1, 0.1, 0.1, 1);
+		this.bird_nest.setShininess(10.0);
+		this.bird_nest.loadTexture('images/birdNest.jpg');
+		this.bird_nest.setTextureWrap('REPEAT', 'REPEAT');
+
+		this.leaf = new CGFappearance(this);
+        this.leaf.setAmbient(0.0, 1, 0.0, 0.1);
+        this.leaf.setDiffuse(0, 1, 0, 0.1);
+        this.leaf.setSpecular(0, 1, 0, 1.0);
+        this.leaf.setShininess(10.0);
+
+        this.branch = new CGFappearance(this);
+        this.branch.setAmbient(153/255, 76/255, 0, 1.0);
+        this.branch.setDiffuse(153/255, 76/255, 0, 1.0);
+        this.branch.setSpecular(153/255, 76/255, 0, 1.0);
+        this.branch.setShininess(10.0);
+		
 		
     }
+	
+	doGenerate() {
+					this.lPlant.generate(
+						this.axiom,
+						{
+							"F": [ "FF" ],
+							"X": [ " F[-X][X]F[-X]+X", 
+									"F[-X][x]+X",
+									"F[+X]-X", 
+									"F[/X][X]F[\\X]+X",
+									"F[\\X][X]/X", 
+									"F[/X]\\X", 
+									"F[^X][X]F[&X]^X", 
+									"F[^X]&X", 
+									"F[&X]^X" 
+									]
+						},
+						
+						this.angle,
+						this.iterations,
+						this.scaleFactor
+					);
+				}
+	
 	// updates the selected object's wireframe mode
 	onWireframeChanged(v) {
 		if (v)
@@ -122,6 +179,7 @@ class MyScene extends CGFscene {
 
 	
 	
+	
 	setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -144,8 +202,17 @@ class MyScene extends CGFscene {
         // Draw axis
         this.axis.display();
 
+		for(var i = 0; i < 3; i++){
 		
-
+			
+		this.pushMatrix();
+			
+			this.translate(i,0,i);
+			this.lPlant.display();
+		this.popMatrix();
+		
+		}
+		
         //Apply default appearance
         this.setDefaultAppearance();
 
@@ -160,7 +227,7 @@ class MyScene extends CGFscene {
 			this.Cube.display();
         this.popMatrix();
 
-
+/*
 		this.pushMatrix();
 			this.translate(7,10,0)
 			this.scale(0.5, 0.5, 0.5);
@@ -177,7 +244,7 @@ class MyScene extends CGFscene {
 		this.pushMatrix();
 			this.scale(7, 7, 7);
 			this.house.display();
-        this.popMatrix();
+        this.popMatrix();*/
 	   
     // ---- END Primitive drawing section
 		
