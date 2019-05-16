@@ -38,7 +38,7 @@ class MyScene extends CGFscene {
 				this.ruleF =  "FF"; //
 				this.ruleX = "F[-X][X]F[-X]+FX";
 				this.angle = 30.0;
-				this.iterations = 5;
+				this.iterations = 3;
 				this.scaleFactor = .5;
 				
 				this.leafTest = new MyLeaf(this);
