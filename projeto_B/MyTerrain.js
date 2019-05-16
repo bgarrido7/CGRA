@@ -26,15 +26,15 @@ init(){
 		this.appearance.setTexture(this.terrainTex);
 		
 		this.testShaders = [
-			new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
-		];
+					new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
+				];
 		
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
 		this.testShaders[0].setUniformsValues({ uSampler2: 2 });
 		
 				
 		// force initial setup of shader code panels
-
+		
 		//this.onShaderCodeVizChanged(this.showShaderCode);
 		//this.onSelectedShaderChanged(this.selectedExampleShader);
     }
@@ -65,10 +65,10 @@ init(){
 /////////////////////////acho que o problema está aqui///////////
 
 		// activate selected shader
-        this.scene.setActiveShader(this.testShaders[0]); 
+        this.scene.setActiveShader(this.testShaders[0]);
 
 		// bind additional texture to texture unit 1
-		this.terrainTex.bind(2);
+		this.terrainMap.bind(2);
 
 ///////////////mas nao sei arranjar por causa do this.scene/////////		   
 	 

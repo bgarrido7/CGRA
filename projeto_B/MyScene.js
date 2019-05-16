@@ -6,8 +6,7 @@ class MyScene extends CGFscene {
     constructor() {
 		super();
 	
-		this.wireframe = false;
-		this.showShaderCode = true;
+		
 		
     }
     init(application) {
@@ -15,7 +14,8 @@ class MyScene extends CGFscene {
 				this.initCameras();
 				this.initLights();
 				this.initMaterials();
-					
+				this.wireframe = false;
+		this.showShaderCode = true;	
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -60,6 +60,7 @@ class MyScene extends CGFscene {
 				this.bird_nest.loadTexture('images/birdNest.jpg');
 				this.bird_nest.setTextureWrap('REPEAT', 'REPEAT');
 				
+					
     }
 	
     initLights() {
@@ -139,16 +140,19 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 		
-		
+		 
         // Draw axis
         this.axis.display();
+
+		
 
         //Apply default appearance
         this.setDefaultAppearance();
 
     // ---- BEGIN Primitive drawing section
         
-		this.terrain.display();
+		//this.terrain.display();   (Passase algo com isto, esta a por o passaro preto e a criar espacamentos entre as varias faces dos objetos
+		//Perguntar a professora o que podera ser o erro.)
 
         this.pushMatrix();
 			this.sky.apply();
@@ -156,7 +160,7 @@ class MyScene extends CGFscene {
 			this.Cube.display();
         this.popMatrix();
 
-/*
+
 		this.pushMatrix();
 			this.translate(7,10,0)
 			this.scale(0.5, 0.5, 0.5);
@@ -174,7 +178,7 @@ class MyScene extends CGFscene {
 			this.scale(7, 7, 7);
 			this.house.display();
         this.popMatrix();
-*/	   
+	   
     // ---- END Primitive drawing section
 		
 		

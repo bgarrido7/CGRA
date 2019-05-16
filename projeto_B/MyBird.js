@@ -3,7 +3,7 @@
 * @constructor
 */
 class MyBird extends CGFobject {
-    constructor(scene) {
+    constructor(scene, Tetayy, velocity, x,y,z ) {
         super(scene);
 
         this.cube = new MyUnitCubeQuad(this.scene);
