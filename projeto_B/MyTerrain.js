@@ -30,7 +30,7 @@ init(){
 				];
 		
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
-		this.testShaders[0].setUniformsValues({ uSampler2: 2 });
+		this.testShaders[0].setUniformsValues({ uSampler2: 1 });
 		
 				
 		// force initial setup of shader code panels
@@ -68,7 +68,7 @@ init(){
         this.scene.setActiveShader(this.testShaders[0]);
 
 		// bind additional texture to texture unit 1
-		this.terrainMap.bind(2);
+		this.terrainMap.bind(1);
 
 ///////////////mas nao sei arranjar por causa do this.scene/////////		   
 	 
@@ -78,7 +78,7 @@ init(){
 			this.scene.scale(60, 60, 1);
 			this.plane.display();
 		this.scene.popMatrix();
-		
+		this.scene.setActiveShader(this.scene.defaultShader);
     }
 
 }

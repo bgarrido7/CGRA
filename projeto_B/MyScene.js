@@ -15,7 +15,15 @@ class MyScene extends CGFscene {
 				this.initLights();
 				this.initMaterials();
 				this.wireframe = false;
-		this.showShaderCode = true;	
+				this.showShaderCode = true;	
+				this.countador = 0;
+				//movimentos do bixo
+				this.xpos=0;
+				this.ypos=0;
+				this.zpos=0;
+				this.velocity=0;
+				this.tetayy=0;
+
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -38,7 +46,7 @@ class MyScene extends CGFscene {
 				this.fShaderDiv = document.getElementById("fshader");
 
 				this.house = new MyHouse(this);
-				this.bird = new MyBird(this);
+				this.bird = new MyBird(this, this.tetayy, this.velocity, this.xpos, this.ypos, this.zpos);
 				this.terrain = new MyTerrain(this);        
 
 				this.nest = new MyPrism(this, 10, 1, 1);
@@ -59,7 +67,9 @@ class MyScene extends CGFscene {
 				this.bird_nest.setShininess(10.0);
 				this.bird_nest.loadTexture('images/birdNest.jpg');
 				this.bird_nest.setTextureWrap('REPEAT', 'REPEAT');
-				
+			
+				this.tanterior=0;
+			
 					
     }
 	
@@ -96,10 +106,24 @@ class MyScene extends CGFscene {
 	
 	update(t) {
 		this.checkKeys();
-	}
-		//dá erro num ; nao sei pq
+		this.t = t/ 200;
+	
 
-		/*------------para controlar animação------*/
+		this.dt=this.tanterior-this.t;
+
+		this.tanterior = this.t;
+
+		this.velocity =  this.countador;
+
+		this.xpos = this.xpos + Math.cos(this.tetayy)*this.velocity*this.dt;
+		
+		this.zpos = this.zpos + Math.sin(this.tetayy)*this.velocity*this.dt;
+		
+
+	}
+	
+
+/*------------para controlar animação------*/
 	checkKeys(){
 		var text="Keys pressed: ";
 		var keysPressed=false;
@@ -107,21 +131,35 @@ class MyScene extends CGFscene {
 		// Check for key codes e.g. in ​https://keycode.info/
 		if (this.gui.isKeyPressed("KeyW")) {
 			text+=" W ";
+			this.countador++;
+			this.bird.accelarate(this.countador);
 			keysPressed=true;
 		}
 		
 		if (this.gui.isKeyPressed("KeyS")){
 			text+=" S ";
+			this.countador--;
+			this.bird.accelarate(this.countador);
 			keysPressed=true;
 		}
 		
+		if (this.gui.isKeyPressed("KeyA")) {
+			text+=" A ";
+			this.tetayy = this.tetayy + Math.PI/10;
+			keysPressed=true;
+		}
+
+		if (this.gui.isKeyPressed("KeyD")) {
+			text+=" D ";
+			this.tetayy = this.tetayy - Math.PI/10;
+			keysPressed=true;
+		}
+
 		if (keysPressed)
 			console.log(text);
 	}
 	
 
-	
-	
 	setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -151,35 +189,42 @@ class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
         
-		//this.terrain.display();   (Passase algo com isto, esta a por o passaro preto e a criar espacamentos entre as varias faces dos objetos
-		//Perguntar a professora o que podera ser o erro.)
+		this.terrain.display(); 
 
-        this.pushMatrix();
+		this.pushMatrix();
 			this.sky.apply();
 			this.scale(100,100,100);
 			this.Cube.display();
-        this.popMatrix();
-
-
-		this.pushMatrix();
-			this.translate(7,10,0)
-			this.scale(0.5, 0.5, 0.5);
-			this.bird.display();
 		this.popMatrix();
+
+	//--------house with bird nest---------------
+	
+		this.pushMatrix();
 		
-		this.pushMatrix();
-			this.translate(7,10,0);
-			this.scale(2, 1.5, 2);
-			this.bird_nest.apply();
-			this.nest.display();
+			//this.translate(7,5,0);
+			this.scale(0.2, 0.2, 0.2);
+
+			this.pushMatrix();
+				this.scale(7, 7, 7);
+				this.house.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+				this.translate(7, 10,0);
+				this.scale(0.5, 0.5, 0.5);
+				this.bird.display();
+			this.popMatrix();
+			
+			this.pushMatrix();
+				this.translate(7,10,0);
+				this.scale(2, 1.5, 2);
+				this.bird_nest.apply();
+				this.nest.display();
+			this.popMatrix();
+
 		this.popMatrix();
 
-		this.pushMatrix();
-			this.scale(7, 7, 7);
-			this.house.display();
-        this.popMatrix();
-	   
-    // ---- END Primitive drawing section
+    //--------------------------------------------------
 		
 		
     }

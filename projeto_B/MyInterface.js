@@ -21,7 +21,7 @@ class MyInterface extends CGFinterface {
    }
     /*------------------para controlar animações-------------*/
     
-    //dá erro num ; nao sei pq
+    
     
     initKeys() {
         // create reference from the scene to the GUI
