@@ -11,6 +11,7 @@ class MyBird extends CGFobject {
         this.ypos = y;
         this.zpos = z;
 		this.tanterior=0;
+		this.velociti = 0;
 		
 		this.xposi = 0;
 		this.zposi = 0;
@@ -52,8 +53,16 @@ class MyBird extends CGFobject {
         this.olhos.setSpecular(64/255, 64/255, 64/255, 1);
         this.olhos.setShininess(10.0);
 
-		//this.update(this.scene.t);
+		
     }
+	
+	reset(){
+		this.xpos=14;
+		this.ypos=20;
+		this.zpos=0;
+		this.velocity=0;
+		this.tetayy=0;
+	}
 
     accelerate(v){
 		if (v)  
@@ -62,21 +71,24 @@ class MyBird extends CGFobject {
 		else 
 			this.velocity--;
 		
+		
+		//limitar velocidade para nao andar a speedy gonzalez por ai fora
 		if (this.velocity > 5){
 			this.velocity = 5;
 		}
 		else if (this.velocity < -3){
 			this.velocity = -3;
 		}
-		
+		this.velociti = this.velocity*this.scene.speedFactor;
+		this.velocity = this.velociti;
     }
 
     turn(v){
 		if (v) 
-			this.tetayy = this.tetayy + Math.PI/10;
+			this.tetayy = this.tetayy + Math.PI/10*this.scene.speedFactor;
 		
 		else 
-			this.tetayy = this.tetayy - Math.PI/10;
+			this.tetayy = this.tetayy - Math.PI/10*this.scene.speedFactor;
 
     }
 
@@ -87,14 +99,14 @@ class MyBird extends CGFobject {
 		this.tanterior = this.scene.t;
 
 		
-
-		this.xposi = this.xpos + Math.cos(this.tetayy)*this.velocity*this.dt;
-		
-		this.zposi = this.zpos - Math.sin(this.tetayy)*this.velocity*this.dt;
-		
+		//o xposi e o zposi sao 2 auxiliares porque isto nao deixa modificar uma variavel com a propria variavel
+		this.xposi = this.xpos + Math.cos(this.tetayy)*this.velocity*this.dt;	
+		this.zposi = this.zpos - Math.sin(this.tetayy)*this.velocity*this.dt;	
 		this.xpos = this.xposi;
 		this.zpos = this.zposi;
 		
+		
+		//limitar o movimento do passaro
 		if (this.xpos > 90)
 			this.xpos = 90;
 		else if (this.xpos < -90)
@@ -109,13 +121,14 @@ class MyBird extends CGFobject {
 
 	display() {
 		
+		
 		this.update(this.scene.t);
 					
 		this.scene.pushMatrix();
 		//mover passaro
 			this.scene.translate(this.xpos,this.ypos,this.zpos);
 			this.scene.rotate(this.tetayy, 0, 1, 0);
-			this.scene.translate(0, 5+ Math.sin(this.scene.t)*0.5, 0);
+			this.scene.translate(0, 5+ Math.sin(this.scene.t)*0.5*this.scene.speedFactor, 0);
 			//corpo 
 				this.scene.pushMatrix();
 					this.scene.translate(0.7,3,0);
@@ -172,7 +185,7 @@ class MyBird extends CGFobject {
 
 				this.scene.pushMatrix();
 
-					this.scene.rotate(-Math.sin(this.scene.t+Math.PI/6)*0.25 ,1,0,0);
+					this.scene.rotate(-Math.sin(this.scene.t+Math.PI/6)*0.25*this.scene.speedFactor ,1,0,0);
 					this.scene.rotate(Math.PI/8 ,1,0,0);
 					this.scene.translate(0, -0.8, -1);
 
@@ -197,7 +210,7 @@ class MyBird extends CGFobject {
 
 				this.scene.pushMatrix();
 				
-					this.scene.rotate(Math.sin(this.scene.t+Math.PI/6)*0.25 ,1,0,0);
+					this.scene.rotate(Math.sin(this.scene.t+Math.PI/6)*0.25*this.scene.speedFactor ,1,0,0);
 					this.scene.rotate(-Math.PI/8 ,1,0,0);
 					this.scene.translate(0, -0.8, 1);
 
@@ -220,6 +233,7 @@ class MyBird extends CGFobject {
 				this.scene.popMatrix();
 
 			this.scene.popMatrix();
+			
 		}
 
 }

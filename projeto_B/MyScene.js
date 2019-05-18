@@ -25,6 +25,8 @@ class MyScene extends CGFscene {
 				this.tetayy=0;
 				this.count = false;
 				this.turnVar = false;
+				this.scaleFactor = 1;
+				this.speedFactor = 1;
 
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -148,6 +150,13 @@ class MyScene extends CGFscene {
 			this.bird.turn(this.turnVar);
 			keysPressed=true;
 		}
+		
+		if (this.gui.isKeyPressed("KeyR")) {
+			text+=" R ";
+			
+			this.bird.reset();
+			keysPressed=true;
+		}
 
 		if (keysPressed)
 			console.log(text);
@@ -204,8 +213,8 @@ class MyScene extends CGFscene {
 			this.popMatrix();
 
 			this.pushMatrix();
-				//this.translate(7, 10,0);
-				this.scale(0.5, 0.5, 0.5);
+				
+				this.scale(0.5*this.scaleFactor, 0.5*this.scaleFactor, 0.5*this.scaleFactor);
 				this.bird.display();
 			this.popMatrix();
 			
