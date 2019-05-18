@@ -16,13 +16,15 @@ class MyScene extends CGFscene {
 				this.initMaterials();
 				this.wireframe = false;
 				this.showShaderCode = true;	
-				this.countador = 0;
+				
 				//movimentos do bixo
-				this.xpos=0;
-				this.ypos=0;
+				this.xpos=14;
+				this.ypos=20;
 				this.zpos=0;
 				this.velocity=0;
 				this.tetayy=0;
+				this.count = false;
+				this.turnVar = false;
 
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -108,16 +110,6 @@ class MyScene extends CGFscene {
 		this.checkKeys();
 		this.t = t/ 200;
 	
-
-		this.dt=this.tanterior-this.t;
-
-		this.tanterior = this.t;
-
-		this.velocity =  this.countador;
-
-		this.xpos = this.xpos + Math.cos(this.tetayy)*this.velocity*this.dt;
-		
-		this.zpos = this.zpos + Math.sin(this.tetayy)*this.velocity*this.dt;
 		
 
 	}
@@ -131,27 +123,29 @@ class MyScene extends CGFscene {
 		// Check for key codes e.g. in ​https://keycode.info/
 		if (this.gui.isKeyPressed("KeyW")) {
 			text+=" W ";
-			this.countador++;
-			this.bird.accelarate(this.countador);
+			this.count = true;
+			this.bird.accelerate(this.count);
 			keysPressed=true;
 		}
 		
 		if (this.gui.isKeyPressed("KeyS")){
 			text+=" S ";
-			this.countador--;
-			this.bird.accelarate(this.countador);
+			this.count = false;
+			this.bird.accelerate(this.count);
 			keysPressed=true;
 		}
 		
 		if (this.gui.isKeyPressed("KeyA")) {
 			text+=" A ";
-			this.tetayy = this.tetayy + Math.PI/10;
+			this.turnVar = true;
+			this.bird.turn(this.turnVar);
 			keysPressed=true;
 		}
 
 		if (this.gui.isKeyPressed("KeyD")) {
 			text+=" D ";
-			this.tetayy = this.tetayy - Math.PI/10;
+			this.turnVar = false;
+			this.bird.turn(this.turnVar);
 			keysPressed=true;
 		}
 
@@ -210,7 +204,7 @@ class MyScene extends CGFscene {
 			this.popMatrix();
 
 			this.pushMatrix();
-				this.translate(7, 10,0);
+				//this.translate(7, 10,0);
 				this.scale(0.5, 0.5, 0.5);
 				this.bird.display();
 			this.popMatrix();
