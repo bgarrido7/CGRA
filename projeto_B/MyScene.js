@@ -52,8 +52,8 @@ class MyScene extends CGFscene {
 				this.bird = new MyBird(this, this.tetayy, this.velocity, this.xpos, this.ypos, this.zpos);
 				this.terrain = new MyTerrain(this);        
 
-				this.nest = new MyPrism(this, 10, 1, 1);
-				this.birdsNest = new MyNest (this, 10, 1, 1);
+				this.nestTest = new MyCilinder(this, 10, 1, 1);
+				this.birdsNest = new MyNest(this, 10, 1, 1);
 
 
 				this.appearance = new CGFappearance(this);
@@ -62,15 +62,6 @@ class MyScene extends CGFscene {
 				this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
 				this.appearance.setShininess(120);
 
-
-				this.bird_nest = new CGFappearance(this);
-				this.bird_nest.setAmbient(0.1, 0.1, 0.1, 1);
-				this.bird_nest.setDiffuse(0.9, 0.9, 0.9, 1);
-				this.bird_nest.setSpecular(0.1, 0.1, 0.1, 1);
-				this.bird_nest.setShininess(10.0);
-				this.bird_nest.loadTexture('images/birdNest.jpg');
-				this.bird_nest.setTextureWrap('REPEAT', 'REPEAT');
-			
 				this.tanterior=0;
 			
 					
@@ -98,14 +89,22 @@ class MyScene extends CGFscene {
 
 		
         this.branch = new CGFappearance(this);
-        this.branch.setAmbient(153/255, 76/255, 0, 1.0);
-        this.branch.setDiffuse(153/255, 76/255, 0, 1.0);
-        this.branch.setSpecular(153/255, 76/255, 0, 1.0);
+        this.branch.setAmbient(0.1, 0.1, 0.1, 1.0);
+        this.branch.setDiffuse(0.9, 0.9, 0.9, 1.0);
+        this.branch.setSpecular(0.1, 0.1, 0.1, 1.0);
 		this.branch.setShininess(10.0);
 		this.branch.loadTexture('images/madeira.jpg');
-        this.branch.setTextureWrap('REPEAT', 'REPEAT');
+		this.branch.setTextureWrap('REPEAT', 'REPEAT');
 		
-    }
+		this.nest = new CGFappearance(this);
+		this.nest.setAmbient(0.1, 0.1, 0.1, 1);
+		this.nest.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.nest.setSpecular(0.1, 0.1, 0.1, 1);
+		this.nest.setShininess(10.0);
+		this.nest.loadTexture('images/birdNest.jpg');
+		this.nest.setTextureWrap('REPEAT', 'REPEAT');
+	}
+	
 	// updates the selected object's wireframe mode
 	onWireframeChanged(v) {
 		if (v)
@@ -232,11 +231,11 @@ class MyScene extends CGFscene {
 		this.popMatrix();
 */
 	//--------------------------------------------------
-	
+
 		this.pushMatrix();
-			this.translate(10,10,0);
+			this.translate(0,2,0);
 			this.scale(2, 1.5, 2);
-			this.bird_nest.apply();
+			this.nest.apply();
 			this.birdsNest.display();
 		this.popMatrix();
 			

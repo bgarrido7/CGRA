@@ -64,12 +64,13 @@ class MyNest extends CGFobject {
         }
 
 		this.texCoords = [	
+
 		]
 		
 		for(var i = 0; i < this.slices; i++){
-			this.texCoords.push(2, 0,);
-			this.texCoords.push(2, 0.5,);
-			this.texCoords.push(0, 0.5,);
+			this.texCoords.push(1, 0,);
+			this.texCoords.push(1, 1,);
+			this.texCoords.push(0, 1,);
 			this.texCoords.push(0, 0,);
 			
 		}
