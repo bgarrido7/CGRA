@@ -58,7 +58,7 @@ class ShaderScene extends CGFscene {
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
 
-	////////////////water//////////////////////	
+		////////////////water//////////////////////	
 		this.waterTex = new CGFtexture(this, "textures/waterTex.jpg");
 		this.waterBlue = new CGFtexture(this, "textures/waterMap.jpg");
 
@@ -196,7 +196,6 @@ class ShaderScene extends CGFscene {
 
 		// activate selected shader
 		this.setActiveShader(this.testShaders[this.selectedExampleShader]);
-		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
 		this.waterBlue.bind(2);

@@ -24,19 +24,16 @@ init(){
 		this.terrainTex = new CGFtexture(this.scene, "images/terrain.jpg");
 		this.terrainMap = new CGFtexture(this.scene, "images/heightmap.jpg");
 		this.appearance.setTexture(this.terrainTex);
+		this.altimetry = new CGFtexture(this.scene, "images/altimetry.png");
+
 		
 		this.testShaders = [
 					new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
+					new CGFshader(this.scene.gl, "shaders/terrainGradient.vert", "shaders/terrainGradient.frag"),
 				];
 		
-		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
 		this.testShaders[0].setUniformsValues({ uSampler2: 1 });
-		
-				
-		// force initial setup of shader code panels
-		
-		//this.onShaderCodeVizChanged(this.showShaderCode);
-		//this.onSelectedShaderChanged(this.selectedExampleShader);
+		this.testShaders[1].setUniformsValues({ uSampler2: 2 });
     }
 	
 	// Show/hide shader code
@@ -62,16 +59,12 @@ init(){
 		// aplly main appearance
 		this.appearance.apply();
 		
-/////////////////////////acho que o problema está aqui///////////
-
 		// activate selected shader
         this.scene.setActiveShader(this.testShaders[0]);
 
 		// bind additional texture to texture unit 1
 		this.terrainMap.bind(1);
-
-///////////////mas nao sei arranjar por causa do this.scene/////////		   
-	 
+		this.altimetry.bind(2);	 
 
 		this.scene.pushMatrix();
 			this.scene.rotate(-0.5*Math.PI, 1, 0, 0);

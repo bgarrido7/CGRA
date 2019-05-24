@@ -115,8 +115,6 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-      //  this.axis.display();
-
         this.setDefaultAppearance();
 
         this.lPlant.display();

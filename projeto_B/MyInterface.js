@@ -16,12 +16,12 @@ class MyInterface extends CGFinterface {
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
 		this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed Factor');
-		this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor');
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor');
 		this.initKeys();
 		return true;
    }
     /*------------------para controlar animações-------------*/
-    
+
     
     
     initKeys() {
