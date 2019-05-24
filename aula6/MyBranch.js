@@ -3,11 +3,10 @@
 * @constructor
 */
 class MyBranch extends CGFobject {
-    constructor(scene/*, slices,  height, radius*/) {
+    constructor(scene) {
         super(scene);
         this.slices = 8;
         this.radius = 0.4;
-//this.stacks = stacks;
         this.height = 1.5;
         this.initBuffers();
     }

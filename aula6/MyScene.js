@@ -28,10 +28,9 @@ class MyScene extends CGFscene {
         this.angle = 30.0;
         this.iterations = 5;
         this.scaleFactor = .5;
-        this.leafTest = new MyLeaf(this);
-        this.branchTest = new MyBranch(this);
+    //    this.leafTest = new MyLeaf(this);
+    //    this.branchTest = new MyBranch(this);
       
-      //  this.lSystem = new MyLSystem(this);
         this.lPlant = new MyLSPlant(this);
        
         this.doGenerate = function () {
@@ -65,12 +64,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
      
-        this.axiom = "X";
-        this.ruleF = "FF";
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.angle = 30.0;
-        this.iterations = 4;
-        this.scaleFactor = 0.5;
+     
     }
 
     initLights() {
@@ -130,7 +124,7 @@ class MyScene extends CGFscene {
         this.branch.apply();
         this.branchTest.display();    
     this.popMatrix();
-//------------------------------------------------------
+    
 */
     }
 }

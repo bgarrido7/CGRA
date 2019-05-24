@@ -6,8 +6,8 @@ class MyTreeBranch extends CGFobject {
     constructor(scene) {
         super(scene);
         this.slices = 8;
-        this.radius = 0.4;
-        this.height = 1.5;
+        this.radius = 0.09;
+        this.height = 2;
         this.initBuffers();
     }
     initBuffers() {
@@ -67,16 +67,15 @@ class MyTreeBranch extends CGFobject {
     updateBuffers(complexity){
         this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
 
-        // reinitialize buffers
         this.initBuffers();
         this.initNormalVizBuffers();
     }
-/*
+
     display(){
         this.scene.branch.apply();
         super.display();
 
-    }*/
+    }
 }
 
 

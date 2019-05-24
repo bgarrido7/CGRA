@@ -5,19 +5,23 @@
 class MyScene extends CGFscene {
     constructor() {
 		super();
+
+		
+	}
 	
-		
-		
-    }
     init(application) {
+
+		this.r=Math.floor((Math.random() * 7) + 1);
+
 				super.init(application);
 				this.initCameras();
 				this.initLights();
 				this.initMaterials();
 				this.wireframe = false;
 				this.showShaderCode = true;	
-				
-				//movimentos do bixo
+		
+			
+				//movimentos do bicho
 				this.xpos=14;
 				this.ypos=20;
 				this.zpos=0;
@@ -28,6 +32,22 @@ class MyScene extends CGFscene {
 				this.scaleFactor = 1;
 				this.speedFactor = 1;
 
+				//-----floresta-----
+				this.axiom =  "X"; 
+				this.ruleF =  "FF"; 
+				this.ruleX = "F[-X][X]F[-X]+FX";
+				this.angle = 30.0;
+				this.iterations = 5;
+
+				this.trees = [new MyTree(this),
+								new MyTree(this),
+								new MyTree(this),
+								new MyTree(this),
+								new MyTree(this),
+								new MyTree(this)
+							]
+				
+		
 				//Background color
 				this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 				this.gl.clearDepth(100.0);
@@ -63,10 +83,34 @@ class MyScene extends CGFscene {
 				this.appearance.setShininess(120);
 
 				this.tanterior=0;
-			
-					
-    }
-	
+				
+		//---------------floresta-------------------------
+		for(var i=0; i<6;i++){
+					this.trees[i].generate(
+						this.axiom,
+						{
+							"X": [ " F[-X][X]F[-X]+X", 
+									"F[-X][x]+X",
+									"F[+X]-X", 
+									"F[/X][X]F[\\X]+X",
+									"F[\\X][X]/X", 
+									"F[/X]\\X", 
+									"F[^X][X]F[&X]^X", 
+									"F[^X]&X", 
+									"F[&X]^X" 
+								]
+						},
+						
+						this.angle,
+						this.iterations,
+						this.scaleFactor
+				
+					);
+		}
+	//------------------------------------------------------
+
+	}
+	 
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -86,7 +130,6 @@ class MyScene extends CGFscene {
 		this.sky.setShininess(10.0);
 		this.sky.loadTexture('skybox/sky2.jpg');
         this.sky.setTextureWrap('REPEAT', 'REPEAT');
-
 		
         this.branch = new CGFappearance(this);
         this.branch.setAmbient(0.1, 0.1, 0.1, 1.0);
@@ -118,8 +161,6 @@ class MyScene extends CGFscene {
 		this.checkKeys();
 		this.t = t/ 200;
 	
-		
-
 	}
 	
 
@@ -174,9 +215,12 @@ class MyScene extends CGFscene {
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
-    }
-
+	}
+	
+	
+	
     display() {
+			
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -194,6 +238,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
 
+
     // ---- BEGIN Primitive drawing section	
 
 		this.pushMatrix();
@@ -203,12 +248,11 @@ class MyScene extends CGFscene {
 		this.popMatrix();
 
 		this.terrain.display(); 
-/*
+
 	//--------house with bird nest---------------
 	
 		this.pushMatrix();
 		
-			//this.translate(7,5,0);
 			this.scale(0.2, 0.2, 0.2);
 
 			this.pushMatrix();
@@ -222,27 +266,53 @@ class MyScene extends CGFscene {
 			this.popMatrix();
 			
 			this.pushMatrix();
-				this.translate(7,10,0);
-				this.scale(2, 1.5, 2);
-				this.bird_nest.apply();
-				this.nest.display();
+				this.translate(7,11,0);
+				this.scale(2.5, 2, 2.5);
+				this.nest.apply();
+				this.birdsNest.display();
 			this.popMatrix();
 
 		this.popMatrix();
-*/
-	//--------------------------------------------------
+	
+	
+	//---------------------floresta---------------------
 
 		this.pushMatrix();
-			this.translate(0,2,0);
-			this.scale(2, 1.5, 2);
-			this.nest.apply();
-			this.birdsNest.display();
+			this.translate(-3,0,-5);
+			this.scale(0.5, 0.5, 0.5);
+			this.trees[0].display();  
 		this.popMatrix();
-			
-	//---------------------arvoredo---------------------
+
 		this.pushMatrix();
-			this.branch.apply();
-			this.treeBranch.display();    
+			this.translate(5,0,-5);
+			this.scale(0.5, 0.5, 0.5);
+			this.trees[2].display();  
+		this.popMatrix();
+
+		this.pushMatrix();
+			this.translate(-7,0,1);
+			this.scale(0.5, 0.5, 0.5);
+			this.trees[1].display();   
+		this.popMatrix();
+ 
+	
+		this.pushMatrix();
+			this.translate(-8,0,-5);
+			this.scale(0.5, 0.5, 0.5);
+			this.trees[3].display();   
+		this.popMatrix();
+
+		
+		this.pushMatrix();
+			this.translate(-7,0,7);
+			this.scale(0.5, 0.5, 0.5);
+			this.trees[4].display();   
+		this.popMatrix();
+
+		this.pushMatrix();
+			this.translate(1, 0,-3);
+			this.scale(0.5, 0.5, 0.5);
+			this.trees[5].display();   
 		this.popMatrix();
 
 	//--------------------------------------------------

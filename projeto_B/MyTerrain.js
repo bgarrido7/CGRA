@@ -23,17 +23,16 @@ init(){
 		
 		this.terrainTex = new CGFtexture(this.scene, "images/terrain.jpg");
 		this.terrainMap = new CGFtexture(this.scene, "images/heightmap.jpg");
-		this.appearance.setTexture(this.terrainTex);
 		this.altimetry = new CGFtexture(this.scene, "images/altimetry.png");
+		this.appearance.setTexture(this.terrainTex);
 
 		
 		this.testShaders = [
-					new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
 					new CGFshader(this.scene.gl, "shaders/terrainGradient.vert", "shaders/terrainGradient.frag"),
 				];
 		
 		this.testShaders[0].setUniformsValues({ uSampler2: 1 });
-		this.testShaders[1].setUniformsValues({ uSampler2: 2 });
+		this.testShaders[0].setUniformsValues({ uSampler3: 2 });
     }
 	
 	// Show/hide shader code
@@ -62,7 +61,6 @@ init(){
 		// activate selected shader
         this.scene.setActiveShader(this.testShaders[0]);
 
-		// bind additional texture to texture unit 1
 		this.terrainMap.bind(1);
 		this.altimetry.bind(2);	 
 
