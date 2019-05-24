@@ -62,7 +62,33 @@ class MyScene extends CGFscene {
 				this.Cube = new MyCubeMap(this);
 				this.axis = new CGFaxis(this);
 				this.plane = new Plane(this, 32);
-				this.treeBranch  = new MyTreeBranch(this);
+				
+				
+				this.galhos = [new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this),
+								new MyTreeBranch(this)];
+
+				this.galhos_pos_x = [13]; 
+				for(let i=0; i<13; i++){
+					this.galhos_pos_x[i] = Math.random()*20-10;
+				}
+				this.galhos_pos_z = [13]; 
+				for(let i=0; i<13; i++){
+					this.galhos_pos_z[i] = Math.random()*20-10;
+				}
+										
+				this.pickit = false;
+				this.removei = -1;
 
 				this.shadersDiv = document.getElementById("shaders");
 				this.vShaderDiv = document.getElementById("vshader");
@@ -161,6 +187,10 @@ class MyScene extends CGFscene {
 		this.checkKeys();
 		this.t = t/ 200;
 	
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 2bc1d61e8b21f9f246ece5885333032792a22007
 	}
 	
 
@@ -202,6 +232,19 @@ class MyScene extends CGFscene {
 			text+=" R ";
 			
 			this.bird.reset();
+			keysPressed=true;
+		}
+		
+		if (this.gui.isKeyPressed("KeyP")) {
+			text+=" P ";
+			
+			for(let i=0; i<this.galhos.length; i++){
+				if(((this.bird.xpos <= this.galhos_pos_x[i]+10)||(this.bird.xpos <= this.galhos_pos_x[i]-10)) && ((this.bird.zpos <= this.galhos_pos_z[i]+10)||(this.bird.zpos <= this.galhos_pos_z[i]-10))) {
+					this.pickit = true;
+					this.removei = i;
+				}
+			}
+			this.bird.pickup(this.pickit);
 			keysPressed=true;
 		}
 
@@ -254,17 +297,18 @@ class MyScene extends CGFscene {
 		this.pushMatrix();
 		
 			this.scale(0.2, 0.2, 0.2);
-
+/*
 			this.pushMatrix();
 				this.scale(7, 7, 7);
 				this.house.display();
 			this.popMatrix();
-
+*/
 			this.pushMatrix();
 				this.scale(0.5*this.scaleFactor, 0.5*this.scaleFactor, 0.5*this.scaleFactor);
 				this.bird.display();
 			this.popMatrix();
 			
+<<<<<<< HEAD
 			this.pushMatrix();
 				this.translate(7,11,0);
 				this.scale(2.5, 2, 2.5);
@@ -276,12 +320,25 @@ class MyScene extends CGFscene {
 	
 	
 	//---------------------floresta---------------------
+=======
+			/*this.pushMatrix();
+				this.translate(7,10,0);
+				this.scale(2, 1.5, 2);
+				this.bird_nest.apply();
+				this.nest.display();
+			this.popMatrix();*/
 
+		this.popMatrix();
+>>>>>>> 2bc1d61e8b21f9f246ece5885333032792a22007
+
+	//--------------------ninho------------------------------
+/*
 		this.pushMatrix();
 			this.translate(-3,0,-5);
 			this.scale(0.5, 0.5, 0.5);
 			this.trees[0].display();  
 		this.popMatrix();
+<<<<<<< HEAD
 
 		this.pushMatrix();
 			this.translate(5,0,-5);
@@ -313,8 +370,23 @@ class MyScene extends CGFscene {
 			this.translate(1, 0,-3);
 			this.scale(0.5, 0.5, 0.5);
 			this.trees[5].display();   
+=======
+	*/		
+	//---------------------arvoredo---------------------
+		for(let i=0; i<this.galhos.length; i++){
+		
+		this.pushMatrix();
+			this.translate(this.galhos_pos_x[i],0,this.galhos_pos_z[i]);
+			this.rotate(Math.PI/14*i,0,1,0);
+			this.rotate(-Math.PI/2,1,0,0);
+			this.scale(0.1,1,0.1);
+			this.branch.apply();
+			if(i != this.removei){
+			this.galhos[i].display(); 
+			}			
+>>>>>>> 2bc1d61e8b21f9f246ece5885333032792a22007
 		this.popMatrix();
-
+		}
 	//--------------------------------------------------
     }
 }
