@@ -247,9 +247,9 @@ class MyScene extends CGFscene {
       for (let i = 0; i < this.galhos.length; i++) {
 /*if(((this.bird.xpos <= this.galhos_pos_x[i]+10)||(this.bird.xpos <= this.galhos_pos_x[i]-10)) && ((this.bird.zpos <= this.galhos_pos_z[i]+10)||(this.bird.zpos <= this.galhos_pos_z[i]-10))) {
  
-	estava assim mas acho que devia ser assim:
-	
-*/	if
+	estava assim mas acho que devia ser:
+*/
+	if
           ((this.bird.xpos <= this.galhos_pos_x[i] + 10 ||
 			this.bird.xpos >= this.galhos_pos_x[i] - 10)
 			
@@ -340,7 +340,7 @@ class MyScene extends CGFscene {
       this.translate(this.galhos_pos_x[i], 0, this.galhos_pos_z[i]);
       this.rotate((Math.PI / 14) * i, 0, 1, 0);
       this.rotate(-Math.PI / 2, 1, 0, 0);
-      this.scale(0.1, 0.5, 0.1);
+      this.scale(0.4, 0.5, 0.4);
       this.branch.apply();
       //	this.treeBranch.display();
 

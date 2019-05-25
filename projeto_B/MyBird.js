@@ -5,6 +5,7 @@
 class MyBird extends CGFobject {
   constructor(scene, tetayy, velocity, x, y, z) {
     super(scene);
+
     this.tetayy = tetayy;
     this.velocity = velocity;
     this.velocity_vert = 0;
@@ -103,12 +104,12 @@ class MyBird extends CGFobject {
     this.tanterior = this.scene.t;
 
     //o xposi e o zposi sao 2 auxiliares porque isto nao deixa modificar uma variavel com a propria variavel
-    this.xposi =
-      this.xpos +
-      Math.cos(this.tetayy) * this.velocity * this.dt * this.scene.speedFactor;
-    this.zposi =
-      this.zpos -
-      Math.sin(this.tetayy) * this.velocity * this.dt * this.scene.speedFactor;
+    this.xposi = this.xpos +
+                Math.cos(this.tetayy) * this.velocity * this.dt * this.scene.speedFactor;
+
+    this.zposi = this.zpos -
+                 Math.sin(this.tetayy) * this.velocity * this.dt * this.scene.speedFactor;
+
     this.yposi = this.ypos + this.velocity_vert * this.dt;
     this.xpos = this.xposi;
     this.zpos = this.zposi;
@@ -117,154 +118,157 @@ class MyBird extends CGFobject {
     //movimento de descida
     if (this.state == 1 && this.ypos <= 0) {
       this.state = 2;
-    } else if (this.state == 2 && this.ypos >= this.ypos_ini) {
+    } 
+    else if (this.state == 2 && this.ypos >= this.ypos_ini) {
       this.state = 0;
     }
 
     if (this.state == 1) {
       this.velocity_vert = -20 / 2;
-    } else if (this.state == 2) {
+    } 
+    else if (this.state == 2) {
       this.velocity_vert = 20 / 2;
-    } else if (this.state == 0) {
+    } 
+    else if (this.state == 0) {
       this.velocity_vert = 0;
     }
 
     //limitar o movimento do passaro
-    if (this.xpos > 90) this.xpos = 90;
-    else if (this.xpos < -90) this.xpos = -90;
+    if (this.xpos > 90) 
+        this.xpos = 90;
+    else if (this.xpos < -90) 
+        this.xpos = -90;
 
-    if (this.zpos > 90) this.zpos = 90;
-    else if (this.zpos < -90) this.zpos = -90;
+    if (this.zpos > 90) 
+        this.zpos = 90;
+    else if (this.zpos < -90) 
+        this.zpos = -90;
   }
 
   display() {
+
     this.update(this.scene.t);
 
     this.scene.pushMatrix();
-    //mover passaro
-    this.scene.translate(this.xpos, this.ypos, this.zpos);
-    this.scene.rotate(this.tetayy, 0, 1, 0);
-    this.scene.translate(
-      0,
-      5 + Math.sin(this.scene.t) * 0.5 * this.scene.speedFactor,
-      0
-    );
 
-    if (this.pickit == true) {
-      this.scene.pushMatrix();
-      this.scene.translate(4, 5.2, 0);
-      this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-      this.scene.scale(0.5, 5, 0.5);
-      this.scene.translate(0, -1, 0);
-      this.scene.branch.apply();
-      this.galho.display();
-      this.scene.popMatrix();
-    }
-    //corpo
-    this.scene.pushMatrix();
-    this.scene.translate(0.7, 3, 0);
-    this.scene.scale(3, 3, 3);
-    //	this.penas_corpo.apply();
-    this.penas.apply();
-    this.cube.display();
-    this.scene.popMatrix();
+        //animação do passaro a flutuar
+        this.scene.translate(this.xpos, this.ypos, this.zpos);
+        this.scene.rotate(this.tetayy, 0, 1, 0);
+        this.scene.translate(0,5 + Math.sin(this.scene.t) * 0.5 * this.scene.speedFactor,0);
 
-    //cabeça
-    this.scene.pushMatrix();
-    this.scene.translate(2.5, 6, 0);
-    this.scene.scale(3, 3, 3);
-    this.penas.apply();
-    this.cube.display();
-    this.scene.popMatrix();
+        //galho no bico
+        if (this.pickit) {
+          this.scene.pushMatrix();
+            this.scene.translate(4, 5.2, 0);
+            this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+            this.scene.scale(3, 4, 3);
+            this.scene.translate(0, -1, 0);
+            this.scene.branch.apply();
+            this.galho.display();
+          this.scene.popMatrix();
+        }
 
-    //bico
-    this.scene.pushMatrix();
-    this.scene.translate(4, 5.2, 0);
-    this.scene.rotate(-Math.PI / 2, 0, 0, 1);
-    this.scene.scale(0.7, 0.7, 0.7);
-    this.bico.apply();
-    this.pyramid.display();
-    this.scene.popMatrix();
+        //corpo
+        this.scene.pushMatrix();
+          this.scene.translate(0.7, 3, 0);
+          this.scene.scale(3, 3, 3);
+          this.penas.apply();
+          this.cube.display();
+        this.scene.popMatrix();
 
-    //olhos
-    this.scene.pushMatrix();
-    this.scene.translate(3.2, 6.2, 1.5);
-    this.scene.scale(0.7, 0.7, 0.7);
-    this.olhos.apply();
-    this.cube.display();
-    this.scene.popMatrix();
+        //cabeça
+        this.scene.pushMatrix();
+          this.scene.translate(2.5, 6, 0);
+          this.scene.scale(3, 3, 3);
+          this.penas.apply();
+          this.cube.display();
+        this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(3.2, 6.2, -1.5);
-    this.scene.scale(0.7, 0.7, 0.7);
-    this.olhos.apply();
-    this.cube.display();
-    this.scene.popMatrix();
+        //bico
+        this.scene.pushMatrix();
+          this.scene.translate(4, 5.2, 0);
+          this.scene.rotate(-Math.PI / 2, 0, 0, 1);
+          this.scene.scale(0.7, 0.7, 0.7);
+          this.bico.apply();
+          this.pyramid.display();
+        this.scene.popMatrix();
 
-    //cauda
-    this.scene.pushMatrix();
-    this.scene.translate(-0.5, 2.8, 0);
-    this.scene.rotate(-Math.PI, 0, 0, 1);
-    this.scene.rotate(-Math.PI, 1, 0, 0);
-    this.scene.scale(0.5, 0.5, 0.5);
-    this.penas.apply();
-    this.triangle.display();
-    this.scene.popMatrix();
+        //olhos
+        this.scene.pushMatrix();
+          this.scene.translate(3.2, 6.2, 1.5);
+          this.scene.scale(0.7, 0.7, 0.7);
+          this.olhos.apply();
+          this.cube.display();
+        this.scene.popMatrix();
 
-    //asas
+        this.scene.pushMatrix();
+          this.scene.translate(3.2, 6.2, -1.5);
+          this.scene.scale(0.7, 0.7, 0.7);
+          this.olhos.apply();
+          this.cube.display();
+        this.scene.popMatrix();
 
-    this.scene.pushMatrix();
+        //cauda
+        this.scene.pushMatrix();
+          this.scene.translate(-0.5, 2.8, 0);
+          this.scene.rotate(-Math.PI, 0, 0, 1);
+          this.scene.rotate(-Math.PI, 1, 0, 0);
+          this.scene.scale(0.5, 0.5, 0.5);
+          this.penas.apply();
+          this.triangle.display();
+        this.scene.popMatrix();
 
-    this.scene.rotate(Math.PI / 8, 1, 0, 0);
-    this.scene.translate(0, -0.8, -1);
-    this.scene.rotate(
-      -Math.sin(this.scene.t + Math.PI / 6) * 0.25 * this.scene.speedFactor,
-      1,
-      0,
-      0
-    );
+        //------------asas dum lado---------------
+        this.scene.pushMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(1, 4, 2);
-    this.scene.rotate(-Math.PI / 1.7, 1, 0, 0);
-    this.scene.scale(1.5, 3, 1);
-    this.penas.apply();
-    this.quad.display();
-    this.scene.popMatrix();
+            this.scene.rotate(Math.PI / 8, 1, 0, 0);
+            this.scene.translate(0, -0.8, -1);
+            this.scene.rotate(-Math.sin(this.scene.t + Math.PI / 6) * 0.25 * this.scene.speedFactor,
+                              1,0,0);
+            this.scene.pushMatrix();
+              this.scene.translate(1, 4, 2);
+              this.scene.rotate(-Math.PI / 1.7, 1, 0, 0);
+              this.scene.scale(1.5, 3, 1);
+              this.penas.apply();
+              this.quad.display();
+            this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(0.25, 4.4, 3.4);
-    this.scene.rotate(Math.PI / 1.5, 1, 0, 0);
-    this.scene.scale(0.5, 0.6, 1);
-    this.penas.apply();
-    this.triangle.display();
-    this.scene.popMatrix();
+            this.scene.pushMatrix();
+              this.scene.translate(0.25, 4.4, 3.4);
+              this.scene.rotate(Math.PI / 1.5, 1, 0, 0);
+              this.scene.scale(0.5, 0.6, 1);
+              this.penas.apply();
+              this.triangle.display();
+            this.scene.popMatrix();
 
-    this.scene.popMatrix();
+        this.scene.popMatrix();
+        //--------------------------------
 
-    this.scene.pushMatrix();
+        //---------asa do outro lado-------
+        this.scene.pushMatrix();
 
-    this.scene.rotate(-Math.PI / 8, 1, 0, 0);
-    this.scene.translate(0, -0.8, 1);
-    this.scene.rotate(Math.sin(this.scene.t + Math.PI / 6) * 0.25 * this.scene.speedFactor, 1,0,0);
+          this.scene.rotate(-Math.PI / 8, 1, 0, 0);
+          this.scene.translate(0, -0.8, 1);
+          this.scene.rotate(Math.sin(this.scene.t + Math.PI / 6) * 0.25 * this.scene.speedFactor, 1,0,0);
 
-    this.scene.pushMatrix();
-    this.scene.translate(1, 4, -2);
-    this.scene.rotate(Math.PI / 1.7, 1, 0, 0);
-    this.scene.scale(1.5, 3, 1);
-    this.penas.apply();
-    this.quad.display();
-    this.scene.popMatrix();
+          this.scene.pushMatrix();
+            this.scene.translate(1, 4, -2);
+            this.scene.rotate(Math.PI / 1.7, 1, 0, 0);
+            this.scene.scale(1.5, 3, 1);
+            this.penas.apply();
+            this.quad.display();
+          this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(0.25, 4.4, -3.4);
-    this.scene.rotate(-Math.PI / 1.5, 1, 0, 0);
-    this.scene.scale(0.5, 0.6, 1);
-    this.penas.apply();
-    this.triangle.display();
-    this.scene.popMatrix();
+          this.scene.pushMatrix();
+            this.scene.translate(0.25, 4.4, -3.4);
+            this.scene.rotate(-Math.PI / 1.5, 1, 0, 0);
+            this.scene.scale(0.5, 0.6, 1);
+            this.penas.apply();
+            this.triangle.display();
+          this.scene.popMatrix();
 
-    this.scene.popMatrix();
+        this.scene.popMatrix();
+        //---------------------------------
 
     this.scene.popMatrix();
   }
