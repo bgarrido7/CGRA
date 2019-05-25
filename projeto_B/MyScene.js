@@ -32,8 +32,10 @@ class MyScene extends CGFscene {
     this.scaleFactor = 1;
     this.speedFactor = 1;
 
-	  var n=0;
-
+    var n=0;
+    
+    this.branchTest = new MyTreeBranch(this);
+    
     //-----floresta-----
     this.axiom = "X";
     this.ruleF = "FF";
@@ -42,6 +44,7 @@ class MyScene extends CGFscene {
     this.iterationsTree = 5;
     this.scaleFactorTree = 1;
 
+    
     this.trees = [
       new MyTree(this),
       new MyTree(this),
@@ -386,18 +389,16 @@ class MyScene extends CGFscene {
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
       this.pushMatrix();
-		  this.translate(this.galhos_pos_x[i], 0, this.galhos_pos_z[i]);
-		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
-		  this.rotate(-Math.PI / 2, 1, 0, 0);
-		  this.scale(0.4, 0.5, 0.4);
-		  this.translate(0, -1, 0);
-		  this.branch.apply();
-		  //	this.treeBranch.display();
+          this.translate(this.galhos_pos_x[i], 0, this.galhos_pos_z[i]);
+          this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
+          this.rotate(-Math.PI / 2, 1, 0, 0);
+          this.scale(0.4, 0.5, 0.4);
+          this.translate(0, -1, 0);
+          this.branch.apply();
+          //	this.treeBranch.display();
+          
+          this.galhos[i].display();
 			
-		  
-			this.galhos[i].display();
-			
-
       this.popMatrix();
     }
 
@@ -405,39 +406,69 @@ class MyScene extends CGFscene {
     //---------------------floresta---------------------
 
     this.pushMatrix();
-    this.translate(-3, 0, -5);
-    this.scale(0.5, 0.5, 0.5);
-    this.trees[0].display();
+      this.translate(-3, 0, -5);
+      this.scale(0.5, 1.5, 0.5);
+      this.branchTest.display();
+    this.popMatrix();
+    this.pushMatrix();
+      this.translate(-3, 1, -5);
+      this.scale(0.5, 0.5, 0.5);
+      this.trees[0].display();
     this.popMatrix();
 
     this.pushMatrix();
-    this.translate(5, 0, -5);
-    this.scale(0.5, 0.5, 0.5);
-    this.trees[2].display();
+      this.translate(5, 0, -5);
+      this.scale(0.5, 1.5, 0.5);
+      this.branchTest.display();
+    this.popMatrix();
+    this.pushMatrix();
+      this.translate(5, 1, -5);
+      this.scale(0.5, 0.5, 0.5);
+      this.trees[2].display();
     this.popMatrix();
 
     this.pushMatrix();
-    this.translate(-7, 0, 1);
-    this.scale(0.5, 0.5, 0.5);
-    this.trees[1].display();
+      this.translate(-7, 0, 1);
+      this.scale(0.5, 1.5, 0.5);
+      this.branchTest.display();
+    this.popMatrix();
+    this.pushMatrix();
+      this.translate(-7, 1, 1);
+      this.scale(0.5, 0.5, 0.5);
+      this.trees[1].display();
     this.popMatrix();
 
     this.pushMatrix();
-    this.translate(-8, 0, -5);
-    this.scale(0.5, 0.5, 0.5);
-    this.trees[3].display();
+      this.translate(-8, 0, -5);
+      this.scale(0.5, 1.5, 0.5);
+      this.branchTest.display();
+    this.popMatrix();
+    this.pushMatrix();
+      this.translate(-8, 1, -5);
+      this.scale(0.5, 0.5, 0.5);
+      this.trees[3].display();
     this.popMatrix();
 
     this.pushMatrix();
-    this.translate(-7, 0, 7);
-    this.scale(0.5, 0.5, 0.5);
-    this.trees[4].display();
+      this.translate(-7, 0, 7);
+      this.scale(0.5, 1.5, 0.5);
+      this.branchTest.display();
+    this.popMatrix();
+    this.pushMatrix();
+      this.translate(-7, 1, 7);
+      this.scale(0.5, 0.5, 0.5);
+      this.trees[4].display();
     this.popMatrix();
 
     this.pushMatrix();
-    this.translate(1, 0, -3);
-    this.scale(0.5, 0.5, 0.5);
-    this.trees[5].display();
+      this.translate(1, 0, -3);
+      this.scale(0.5, 1, 0.5);
+      this.branchTest.display();
+    this.popMatrix();
+    this.pushMatrix();
+      this.translate(1, 1, -3);
+      this.scale(0.5, 0.5, 0.5);
+      this.trees[5].display();
     this.popMatrix();
 
 /*
