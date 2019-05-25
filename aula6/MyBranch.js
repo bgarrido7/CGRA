@@ -78,7 +78,6 @@ class MyBranch extends CGFobject {
     display(){
         this.scene.branch.apply();
         super.display();
-
     }
 }
 

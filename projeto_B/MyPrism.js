@@ -27,7 +27,6 @@ class MyPrism extends CGFobject {
             var saa=Math.sin(ang+alphaAng);
             var ca=Math.cos(ang);
             var caa=Math.cos(ang+alphaAng);
-
             
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
@@ -57,9 +56,12 @@ class MyPrism extends CGFobject {
             this.normals.push(...normal);
             this.normals.push(...normal);
 
-            //this.indices.push(3*i, (3*i+1) , (3*i+2) );
             this.indices.push(4*i, (4*i+1), (4*i+3));
             this.indices.push(4*i, (4*i+3), (4*i+2));
+
+            this.indices.push(4*i, (4*i+3), (4*i+1));
+            this.indices.push(4*i, (4*i+2), (4*i+3));
+
             ang+=alphaAng;
         }
 
@@ -67,9 +69,9 @@ class MyPrism extends CGFobject {
 		]
 		
 		for(var i = 0; i < this.slices; i++){
-			this.texCoords.push(2, 0,);
-			this.texCoords.push(2, 0.5,);
-			this.texCoords.push(0, 0.5,);
+			this.texCoords.push(1, 0,);
+			this.texCoords.push(1, 1,);
+			this.texCoords.push(0, 1,);
 			this.texCoords.push(0, 0,);
 			
 		}

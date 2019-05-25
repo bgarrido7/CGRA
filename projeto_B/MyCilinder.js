@@ -46,9 +46,11 @@ class MyCilinder extends CGFobject {
             // push normal once for each vertex of this triangle
          
 
-            //this.indices.push(3*i, (3*i+1) , (3*i+2) );
             this.indices.push(4*i, (4*i+1), (4*i+3));
             this.indices.push(4*i, (4*i+3), (4*i+2));
+
+            this.indices.push(4*i, (4*i+3), (4*i+1));
+            this.indices.push(4*i, (4*i+2), (4*i+3));
             ang+=alphaAng;
         }
 		
