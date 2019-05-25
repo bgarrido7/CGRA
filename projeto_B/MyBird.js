@@ -14,8 +14,10 @@ class MyBird extends CGFobject {
     this.zpos = z;
     this.tanterior = 0;
     this.velociti = 0;
-    this.state = 0;
-    this.pickit = false;
+    this.state_pick = 0;
+	this.state_drop = 0;
+	this.picked_it = false;
+    
 
     this.xposi = 0;
     this.zposi = 0;
@@ -68,7 +70,7 @@ class MyBird extends CGFobject {
   }
 
   accelerate(v) {
-    if (this.state == 0) {
+    if (this.state_pick == 0 && this.state_drop == 0) {
       if (v) this.velocity++;
       else this.velocity--;
 
@@ -86,16 +88,24 @@ class MyBird extends CGFobject {
     else this.tetayy = this.tetayy - (Math.PI / 10) * this.scene.speedFactor;
   }
 
-  pickup(v) {
+  pickup() {
     this.velocity = 0;
-    if (this.state == 0) {
-      this.state = 1;
+    if (this.state_pick == 0) {
+      this.state_pick = 1;
     }
 
-    if (v == true) {
-      this.pickit = true;
-    }
+    
   }
+  
+  dropit(){
+	  this.velocity = 0;
+    if (this.state_drop == 0) {
+      this.state_drop = 1;
+    }
+
+  }
+	  
+  
 
   update(t) {
     this.dt = this.scene.t - this.tanterior;
@@ -114,20 +124,39 @@ class MyBird extends CGFobject {
     this.zpos = this.zposi;
     this.ypos = this.yposi;
 
-    //movimento de descida
-    if (this.state == 1 && this.ypos <= 0) {
-      this.state = 2;
-    } else if (this.state == 2 && this.ypos >= this.ypos_ini) {
-      this.state = 0;
+    //movimento de apanhar
+    if (this.state_pick == 1 && this.ypos <= 0) {
+      this.state_pick = 2;
+	  this.picked_it = true;
+    } else if (this.state_pick == 2 && this.ypos >= this.ypos_ini) {
+      this.state_pick = 0;
+	  this.velocity_vert = 0;
     }
 
-    if (this.state == 1) {
+    if (this.state_pick == 1) {
       this.velocity_vert = -20 / 2;
-    } else if (this.state == 2) {
+    } else if (this.state_pick == 2) {
       this.velocity_vert = 20 / 2;
-    } else if (this.state == 0) {
-      this.velocity_vert = 0;
+	  
+    } 
+	
+	 //movimento de deixar
+	if (this.state_drop == 1 && this.ypos <= 11) {
+      this.state_drop = 2;
+	  this.picked_it = false;
+    } else if (this.state_drop == 2 && this.ypos >= this.ypos_ini) {
+      this.state_drop = 0;
+	  this.velocity_vert = 0;
+	   
     }
+
+    if (this.state_drop == 1) {
+      this.velocity_vert = -9 / 2;
+    } else if (this.state_drop == 2) {
+      this.velocity_vert = 9 / 2;
+	  
+    } 
+	
 
     //limitar o movimento do passaro
     if (this.xpos > 90) this.xpos = 90;
@@ -150,7 +179,7 @@ class MyBird extends CGFobject {
       0
     );
 
-    if (this.pickit == true) {
+    if (this.picked_it == true) {
       this.scene.pushMatrix();
       this.scene.translate(4, 5.2, 0);
       this.scene.rotate(-Math.PI / 2, 1, 0, 0);

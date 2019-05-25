@@ -21,12 +21,17 @@ class MyScene extends CGFscene {
     this.xpos = 14;
     this.ypos = 20;
     this.zpos = 0;
+	this.nest_xpos = 7;
+    this.nest_ypos = 11;
+    this.nest_zpos = 0; 
+	
     this.velocity = 0;
     this.tetayy = 0;
     this.count = false;
     this.turnVar = false;
     this.scaleFactor = 1;
     this.speedFactor = 1;
+	var n=0;
 
     //-----floresta-----
     this.axiom = "X";
@@ -85,7 +90,7 @@ class MyScene extends CGFscene {
     }
 
     this.pickit = false;
-    this.removei = -1;
+    this.removei = 0;
 
     this.shadersDiv = document.getElementById("shaders");
     this.vShaderDiv = document.getElementById("vshader");
@@ -187,6 +192,28 @@ class MyScene extends CGFscene {
     if (v) this.terrain.plane.setLineMode();
     else this.terrain.plane.setFillMode();
   }
+  
+  remove_branch(j){
+	/*  for(let k=i; k> this.galhos.length-1; k++){
+		  this.galhos[k] = this.galhos[k+1];
+		  this.galhos_pos_x[k] = this.galhos_pos_x[k+1];
+		  this.galhos_pos_z[k] = this.galhos_pos_z[k+1];
+	  }
+	   this.galhos.length= this.galhos.length - 1;
+	   this.galhos_pos_x.length = this.galhos_pos_x.length - 1;
+	   this.galhos_pos_z.length = this.galhos_pos_z.length - 1;*/
+	   this.galhos.splice(j, 1);
+	   this.galhos_pos_x.splice(j, 1);
+	   this.galhos_pos_z.splice(j, 1);
+	   this.removei = this.removei+1;
+	   
+	  /* this.removei[n] = j;
+		n=n+1;*/
+  }
+  
+		
+		//  this.galhos_pos_x[i] = 0;
+		//  this.galhos_pos_z[i] = 0;
 
   update(t) {
     this.checkKeys();
@@ -237,27 +264,41 @@ class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyP")) {
       text += " P ";
 
-      for (let i = 0; i < this.galhos.length; i++) {
-/*if(((this.bird.xpos <= this.galhos_pos_x[i]+10)||(this.bird.xpos <= this.galhos_pos_x[i]-10)) && ((this.bird.zpos <= this.galhos_pos_z[i]+10)||(this.bird.zpos <= this.galhos_pos_z[i]-10))) {
- 
-	estava assim mas acho que devia ser assim:
-	
-*/	if
-          ((this.bird.xpos <= this.galhos_pos_x[i] + 10 ||
-			this.bird.xpos >= this.galhos_pos_x[i] - 10)
+		if(this.bird.picked_it == false){
+			for (let i = 0; i < this.galhos.length; i++) {
+
+				if
+					  ((this.bird.xpos <= this.galhos_pos_x[i] + 10 ||
+						this.bird.xpos >= this.galhos_pos_x[i] - 10)
+						
+					&&
+					  (this.bird.zpos <= this.galhos_pos_z[i] + 10 ||
+						this.bird.zpos >= this.galhos_pos_z[i] - 10))
+
+				{
+					
+					text += " True ";
+					this.remove_branch(i);
+					this.bird.pickup();
+					break;
+				}
 			
-		&&
-          (this.bird.zpos <= this.galhos_pos_z[i] + 10 ||
-            this.bird.zpos >= this.galhos_pos_z[i] - 10)) 
+			}
+		} else if(this.bird.picked_it == true){
+			if 
+				((this.bird.xpos <= this.nest_xpos + 10 ||
+				this.bird.xpos <= this.nest_xpos + 10) 
+				
+				&&
+				(this.bird.zpos <= this.nest_zpos + 10 ||
+				this.bird.zpos <= this.nest_zpos + 10)){
+					
+					text += " False ";
+					this.bird.dropit();
+				}
+		}
 
-	{
-		this.pickit = true;
-		this.removei = i;
-	}
-		
-      }
-
-      this.bird.pickup(this.pickit);
+     
       keysPressed = true;
     }
 
@@ -291,9 +332,9 @@ class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
-    this.sky.apply();
-    this.scale(100, 100, 100);
-    this.Cube.display();
+		this.sky.apply();
+		this.scale(100, 100, 100);
+		this.Cube.display();
     this.popMatrix();
 
     this.terrain.display();
@@ -302,49 +343,50 @@ class MyScene extends CGFscene {
 
     this.pushMatrix();
 
-    this.scale(0.2, 0.2, 0.2);
+		this.scale(0.2, 0.2, 0.2);
 
     /*		this.pushMatrix();
 				this.scale(7, 7, 7);
 				this.house.display();
 			this.popMatrix();
 */
-    this.pushMatrix();
-    this.scale(
-      0.5 * this.scaleFactor,
-      0.5 * this.scaleFactor,
-      0.5 * this.scaleFactor
-    );
-    this.bird.display();
-    this.popMatrix();
+		this.pushMatrix();
+			this.scale(
+			  0.5 * this.scaleFactor,
+			  0.5 * this.scaleFactor,
+			  0.5 * this.scaleFactor
+			);
+			this.bird.display();
+		this.popMatrix();
 
-    this.pushMatrix();
-    this.translate(7, 11, 0);
-    this.scale(2.5, 2, 2.5);
-    this.nest.apply();
-    this.birdsNest.display();
-    this.popMatrix();
+		this.pushMatrix();
+			this.translate(this.nest_xpos, this.nest_ypos, this.nest_zpos);
+			this.scale(2.5, 2, 2.5);
+			this.nest.apply();
+			this.birdsNest.display();
+		this.popMatrix();
 
     this.popMatrix();
 
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
       this.pushMatrix();
-      this.translate(this.galhos_pos_x[i], 0, this.galhos_pos_z[i]);
-      this.rotate((Math.PI / 14) * i, 0, 1, 0);
-      this.rotate(-Math.PI / 2, 1, 0, 0);
-      this.scale(0.1, 1, 0.1);
-      this.branch.apply();
-      //	this.treeBranch.display();
-
-      if (i != this.removei) {
-        this.galhos[i].display();
-      }
+		  this.translate(this.galhos_pos_x[i], 0, this.galhos_pos_z[i]);
+		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
+		  this.rotate(-Math.PI / 2, 1, 0, 0);
+		  this.scale(0.1, 0.5, 0.1);
+		  this.translate(0, -1, 0);
+		  this.branch.apply();
+		  //	this.treeBranch.display();
+			
+		  
+			this.galhos[i].display();
+			
 
       this.popMatrix();
     }
     //---------------------floresta---------------------
-
+/*
     this.pushMatrix();
     this.translate(-3, 0, -5);
     this.scale(0.5, 0.5, 0.5);
@@ -379,6 +421,6 @@ class MyScene extends CGFscene {
     this.translate(1, 0, -3);
     this.scale(0.5, 0.5, 0.5);
     this.trees[5].display();
-    this.popMatrix();
+    this.popMatrix();*/
   }
 }
