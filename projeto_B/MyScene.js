@@ -33,7 +33,6 @@ class MyScene extends CGFscene {
     this.speedFactor = 1;
 
     var n=0;
-    this.bird2 = new MyBird2(this);
     this.branchTest = new MyTreeBranch(this);
 
     //-----floresta-----
@@ -356,7 +355,7 @@ class MyScene extends CGFscene {
     //Apply default appearance
     this.setDefaultAppearance();
 
-/*
+
     //-----skybox--------
     this.pushMatrix();
 		this.sky.apply();
@@ -364,7 +363,7 @@ class MyScene extends CGFscene {
 		this.Cube.display();
     this.popMatrix();
 
-  //  this.terrain.display();
+    this.terrain.display();
 
     //--------house with bird nest---------------
 
@@ -379,9 +378,9 @@ class MyScene extends CGFscene {
 
 		this.pushMatrix();
 			this.scale(
-			  0.5 * this.scaleFactor,
-			  0.5 * this.scaleFactor,
-			  0.5 * this.scaleFactor
+			  1.5 * this.scaleFactor,
+			  1.5 * this.scaleFactor,
+			  1.5 * this.scaleFactor
 			);
 			this.bird.display();
 		this.popMatrix();
@@ -479,7 +478,7 @@ class MyScene extends CGFscene {
       this.scale(0.5, 0.5, 0.5);
       this.trees[5].display();
     this.popMatrix();
-*/
+
 /*
     //-------------relampago----------
     this.pushMatrix();
@@ -487,9 +486,5 @@ class MyScene extends CGFscene {
      this.relampago.display();
     this.popMatrix();
 */
-this.pushMatrix();
-  this.bird2.display();
-this.popMatrix();
-
   }
 }
