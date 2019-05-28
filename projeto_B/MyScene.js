@@ -32,6 +32,8 @@ class MyScene extends CGFscene {
     this.scaleFactor = 1;
     this.speedFactor = 1;
 
+    this.relampago = new MyLightning(this);
+
     this.branchTest = new MyTreeBranch(this);
 
     //-----floresta-----
@@ -42,7 +44,7 @@ class MyScene extends CGFscene {
     this.iterationsTree = 5;
     this.scaleFactorTree = 1;
 
-    
+   
     this.trees = [
       new MyTree(this),
       new MyTree(this),
@@ -52,7 +54,7 @@ class MyScene extends CGFscene {
       new MyTree(this)
     ];
     //--------------
-    
+   
     //Background color
     this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
     this.gl.clearDepth(100.0);
@@ -68,7 +70,7 @@ class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.plane = new Plane(this, 32);
 
-  //------galhos no chao-----
+  //---------------galhos no chao---------------------
     this.galhos = [
       new MyTreeBranch(this),
       new MyTreeBranch(this),
@@ -97,35 +99,24 @@ class MyScene extends CGFscene {
 
     this.pickit = false;
     this.removei = 0;
-  //---------------
-    
+  //-------------------------------------------------------
+   
     this.shadersDiv = document.getElementById("shaders");
     this.vShaderDiv = document.getElementById("vshader");
     this.fShaderDiv = document.getElementById("fshader");
 
     this.house = new MyHouse(this);
 
-    this.bird = new MyBird(
-      this,
-      this.tetayy,
-      this.velocity,
-      this.xpos,
-      this.ypos,
-      this.zpos
-    );
+    this.bird = new MyBird(this, this.tetayy, this.velocity, this.xpos,this.ypos, this.zpos);
 
     this.birdsNest = new MyPrism(this, 15, 2, 1);
     this.terrain = new MyTerrain(this);
-    this.relampago = new MyLightning(this);
 
     this.appearance = new CGFappearance(this);
     this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
     this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
     this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
     this.appearance.setShininess(120);
-
-
-    this.tanterior = 0;
 
   //---------------floresta-------------------------
     for (var i = 0; i < 6; i++) {
@@ -161,20 +152,14 @@ class MyScene extends CGFscene {
   }
 
   initCameras() {
-    this.camera = new CGFcamera(
-      0.4,
-      0.1,
-      500,
-      vec3.fromValues(45, 45, 45),
-      vec3.fromValues(0, 0, 0)
-    );
+    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
   }
 
   initMaterials() {
     this.sky = new CGFappearance(this);
     this.sky.setAmbient(1, 1, 1, 1);
-    this.sky.setDiffuse(0, 0, 0, 1);
-    this.sky.setSpecular(0, 0, 0, 1);
+    this.sky.setDiffuse(1, 1, 1, 1);
+    this.sky.setSpecular(1, 1, 1, 1);
     this.sky.setShininess(10.0);
     this.sky.loadTexture("skybox/sky2.jpg");
     this.sky.setTextureWrap("REPEAT", "REPEAT");
@@ -218,12 +203,13 @@ class MyScene extends CGFscene {
 	  }
 	   this.galhos.length= this.galhos.length - 1;
 	   this.galhos_pos_x.length = this.galhos_pos_x.length - 1;
-	   this.galhos_pos_z.length = this.galhos_pos_z.length - 1;*/
+     this.galhos_pos_z.length = this.galhos_pos_z.length - 1;*/
+     
 	   this.galhos.splice(j, 1);
 	   this.galhos_pos_x.splice(j, 1);
 	   this.galhos_pos_z.splice(j, 1);
-	   this.removei = this.removei+1;
-	   
+	   this.removei = this.removei+1;  
+  
 	  /* this.removei[n] = j;
 		n=n+1;*/
   }
@@ -235,7 +221,7 @@ class MyScene extends CGFscene {
   update(t) {
     this.checkKeys();
     this.t = t / 200;
-    this.relampago.update(this.t);
+    this.relampago.update(t);
   }
 
   /*------------para controlar animação------*/
@@ -278,7 +264,7 @@ class MyScene extends CGFscene {
       this.bird.reset();
       keysPressed = true;
     }
-
+    
     if (this.gui.isKeyPressed("KeyL")) {
       text += " L ";
 
@@ -295,7 +281,6 @@ class MyScene extends CGFscene {
 				if
 					  ((this.bird.xpos <= this.galhos_pos_x[i] + 10 ||
 						this.bird.xpos >= this.galhos_pos_x[i] - 10)
-						
 					&&
 					  (this.bird.zpos <= this.galhos_pos_z[i] + 10 ||
 						this.bird.zpos >= this.galhos_pos_z[i] - 10))
@@ -322,7 +307,6 @@ class MyScene extends CGFscene {
 					this.bird.dropit();
 				}
 		}
-
      
       keysPressed = true;
     }
@@ -354,7 +338,7 @@ class MyScene extends CGFscene {
     //Apply default appearance
     this.setDefaultAppearance();
 
-/*
+
     //-----skybox--------
     this.pushMatrix();
 		this.sky.apply();
@@ -381,7 +365,7 @@ class MyScene extends CGFscene {
 			  1.5 * this.scaleFactor,
 			  1.5 * this.scaleFactor
 			);
-			this.bird.display();
+	  	this.bird.display();
 		this.popMatrix();
 
 		this.pushMatrix();
@@ -411,18 +395,6 @@ class MyScene extends CGFscene {
 
 
     //---------------------floresta---------------------
-
-    this.pushMatrix();
-      this.translate(-3, 0, -5);
-      this.scale(0.5, 1.5, 0.5);
-      this.branchTest.display();
-    this.popMatrix();
-    this.pushMatrix();
-      this.translate(-3, 1, -5);
-      this.scale(0.5, 0.5, 0.5);
-      this.trees[0].display();
-    this.popMatrix();
-
     this.pushMatrix();
       this.translate(6, 0, -5);
       this.scale(0.5, 1.5, 0.5);
@@ -478,7 +450,7 @@ class MyScene extends CGFscene {
       this.trees[5].display();
     this.popMatrix();
 
-*/
+
     //-------------relampago----------
      this.relampago.display();
 

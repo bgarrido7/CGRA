@@ -14,12 +14,14 @@ class MyLightning extends MyLSystem {
         };
         this.angle = 25.0 * Math.PI/180;
         this.iterations = 3;
-        this.scaleFactor =Math.pow(0.5, this.iterations-1);
+        this.scale = Math.pow(0.5, this.iterations-1);
 
         this.relampago = new MyQuad(this.scene);
 
-        this.startTime =0;
+        this.startTime = 0;
         this.depth;
+
+        this.animated = 0;
 
         this.light = new CGFappearance(this.scene);
         this.light.setAmbient(0, 0, 0, 1.0);
@@ -39,81 +41,95 @@ class MyLightning extends MyLSystem {
 
     
     update(t) {
-        this.dt = this.scene.t - this.tanterior;
-        this.tanterior = this.scene.t;
-    
+        this.lastTime = this.lastTime || this.startTime;
+        this.dt = t- this.lastTime
+        this.lastTime = t;
+
         this.depth += Math.round(this.dt * (this.axiom.length/1000));
+
+        if(this.depth>=this.axiom.length)
+            this.stopAnimation();
     }
 
     startAnimation(t) {
+        this.animated = true;
         this.iterate();
-        this.startTime = this.scene.t;
+        this.startTime = t;
         this.depth = 0;
     }
 
+
+    stopAnimation(){
+        this.animated = false;
+        this.axiom = "X";
+    }
+
     display(){
-        this.light.apply();
+      
         this.scene.pushMatrix();
-        this.scene.scale(this.scale, this.scale, this.scale);
+            this.light.apply();
 
-        var i;
-        // percorre a cadeia de caracteres
-        for (i=0; i<this.depth; ++i){
+            this.scene.scale(this.scale, this.scale, this.scale);
 
-            // verifica se sao caracteres especiais
-            switch(this.axiom[i]){
-                case "+":
-                    // roda a esquerda
-                    this.scene.rotate(this.angle, 0, 0, 1);
-                    break;
+            var i;
+            // percorre a cadeia de caracteres
+            for (i=0; i<this.depth; ++i){
 
-                case "-":
-                    // roda a direita
-                    this.scene.rotate(-this.angle, 0, 0, 1);
-                    break;
+                // verifica se sao caracteres especiais
+                switch(this.axiom[i]){
+                    case "+":
+                        // roda a esquerda
+                        this.scene.rotate(this.angle, 0, 0, 1);
+                        break;
 
-                case "[":
-                    // push
-                    this.scene.pushMatrix();
-                    break;
+                    case "-":
+                        // roda a direita
+                        this.scene.rotate(-this.angle, 0, 0, 1);
+                        break;
 
-                case "]":
-                    // pop
-                    this.scene.popMatrix();
-                    break;
+                    case "[":
+                        // push
+                        this.scene.pushMatrix();
+                        break;
 
-                case "\\":
-                    //rotação em sentido positivo sobre o eixo dos XX
-                    this.scene.rotate(this.angle, 1, 0, 0);
-                    break;   
+                    case "]":
+                        // pop
+                        this.scene.popMatrix();
+                        break;
 
-                case "/":
-                    //rotação em sentido negativo sobre o eixo dos XX
-                    this.scene.rotate(-this.angle, 1, 0, 0);
-                    break;
+                    case "\\":
+                        //rotação em sentido positivo sobre o eixo dos XX
+                        this.scene.rotate(this.angle, 1, 0, 0);
+                        break;   
 
-                case "^":
-                    //rotação em sentido positivo sobre o eixo dos YY
-                    this.scene.rotate(this.angle, 0, 1, 0);
-                    break;
+                    case "/":
+                        //rotação em sentido negativo sobre o eixo dos XX
+                        this.scene.rotate(-this.angle, 1, 0, 0);
+                        break;
 
-                case "&":
-                    //rotação em sentido negativo sobre o eixo dos YY
-                    this.scene.rotate(-this.angle, 0, 1, 0);
-                    break;
+                    case "^":
+                        //rotação em sentido positivo sobre o eixo dos YY
+                        this.scene.rotate(this.angle, 0, 1, 0);
+                        break;
 
-                // processa primitiva definida na gramatica, se existir
-                default:
-                    var primitive=this.grammar[this.axiom[i]];
+                    case "&":
+                        //rotação em sentido negativo sobre o eixo dos YY
+                        this.scene.rotate(-this.angle, 0, 1, 0);
+                        break;
 
-                    if ( primitive )
-                    {
-                        primitive.display();
-                        this.scene.translate(0, 1, 0);
-                    }
-                    break;
+                    // processa primitiva definida na gramatica, se existir
+                    default:
+                        var primitive=this.grammar[this.axiom[i]];
+
+                        if ( primitive )
+                        {
+                            primitive.display();
+                            this.scene.translate(0, 1, 0);
+                        }
+                        break;
+                }
             }
-        }
+
         this.scene.popMatrix();
     }
 

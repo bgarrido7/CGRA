@@ -1,7 +1,3 @@
-/**
- * MyPyramid
- * @constructor
- */
 class MyBird extends CGFobject {
   constructor(scene, tetayy, velocity, x, y, z) {
     super(scene);
