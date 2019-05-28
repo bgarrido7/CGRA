@@ -32,7 +32,6 @@ class MyScene extends CGFscene {
     this.scaleFactor = 1;
     this.speedFactor = 1;
 
-    var n=0;
     this.branchTest = new MyTreeBranch(this);
 
     //-----floresta-----
@@ -116,9 +115,7 @@ class MyScene extends CGFscene {
     );
 
     this.birdsNest = new MyPrism(this, 15, 2, 1);
-    
     this.terrain = new MyTerrain(this);
-
     this.relampago = new MyLightning(this);
 
     this.appearance = new CGFappearance(this);
@@ -189,12 +186,6 @@ class MyScene extends CGFscene {
     this.branch.setShininess(10.0);
     this.branch.loadTexture("images/madeira.jpg");
     this.branch.setTextureWrap("REPEAT", "REPEAT");
-
-    this.light = new CGFappearance(this);
-    this.light.setAmbient(1, 1, 1, 1.0);
-    this.light.setDiffuse(1, 1, 1, 1.0);
-    this.light.setSpecular(1, 1,1, 1.0);
-    this.light.setShininess(10.0);
     
     this.nest = new CGFappearance(this);
     this.nest.setAmbient(0.1, 0.1, 0.1, 1);
@@ -244,6 +235,7 @@ class MyScene extends CGFscene {
   update(t) {
     this.checkKeys();
     this.t = t / 200;
+    this.relampago.update(this.t);
   }
 
   /*------------para controlar animação------*/
@@ -284,6 +276,13 @@ class MyScene extends CGFscene {
       text += " R ";
 
       this.bird.reset();
+      keysPressed = true;
+    }
+
+    if (this.gui.isKeyPressed("KeyL")) {
+      text += " L ";
+
+      this.relampago.startAnimation();
       keysPressed = true;
     }
 
@@ -355,7 +354,7 @@ class MyScene extends CGFscene {
     //Apply default appearance
     this.setDefaultAppearance();
 
-
+/*
     //-----skybox--------
     this.pushMatrix();
 		this.sky.apply();
@@ -479,12 +478,9 @@ class MyScene extends CGFscene {
       this.trees[5].display();
     this.popMatrix();
 
-/*
-    //-------------relampago----------
-    this.pushMatrix();
-      this.translate(1, 5, 3);
-     this.relampago.display();
-    this.popMatrix();
 */
+    //-------------relampago----------
+     this.relampago.display();
+
   }
 }

@@ -7,15 +7,25 @@ class MyLightning extends MyLSystem {
 	constructor(scene) {
         super(scene);
  
-        this.axiom =  "X"; 
-        this.ruleF =  "FF"; 
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.angle = 25.0;
+        this.axiom =  "X";
+        this.productions = {
+            "X": [ "FF" ],
+            "F": [ "F[-X][X]F[-X]+FX" ]
+        };
+        this.angle = 25.0 * Math.PI/180;
         this.iterations = 3;
-        this.scaleFactor = .5;
+        this.scaleFactor =Math.pow(0.5, this.iterations-1);
 
         this.relampago = new MyQuad(this.scene);
 
+        this.startTime =0;
+        this.depth;
+
+        this.light = new CGFappearance(this.scene);
+        this.light.setAmbient(0, 0, 0, 1.0);
+        this.light.setDiffuse(0, 0, 0,  1.0);
+        this.light.setSpecular(0, 0, 0, 1.0);
+        this.light.setShininess(10.0);
     }
    
 
@@ -23,41 +33,88 @@ class MyLightning extends MyLSystem {
     initGrammar(){
         this.grammar = {
             "F": this.relampago,   
-            "X": this.relampago, 
+            "X": this.relampago
         };
     }
 
     
-/*
-     
-    this.generate(
-        this.axiom,
-        {
-          X: [
-            " F[-X][X]F[-X]+X",
-            "F[-X][x]+X",
-            "F[+X]-X",
-            "F[/X][X]F[\\X]+X",
-            "F[\\X][X]/X",
-            "F[/X]\\X",
-            "F[^X][X]F[&X]^X",
-            "F[^X]&X",
-            "F[&X]^X"
-          ]
-        },
+    update(t) {
+        this.dt = this.scene.t - this.tanterior;
+        this.tanterior = this.scene.t;
+    
+        this.depth += Math.round(this.dt * (this.axiom.length/1000));
+    }
 
-        this.angle,
-        this.iterations,
-        this.scaleFactor)
-*/
-   //acho que temos de mudar o this.productions do iterate() ou do generate() [ver MyLSystem]
-   //para dar um axioma qql aleatorio (tipo F[&X]^X) mas ainda nao sei bem fazer isso
-   //o aximoma nao pode ser aqueles que já definimos, têm de ser completamente aleatorio
-
+    startAnimation(t) {
+        this.iterate();
+        this.startTime = this.scene.t;
+        this.depth = 0;
+    }
 
     display(){
-        this.scene.light.apply();
-        super.display();
+        this.light.apply();
+        this.scene.pushMatrix();
+        this.scene.scale(this.scale, this.scale, this.scale);
+
+        var i;
+        // percorre a cadeia de caracteres
+        for (i=0; i<this.depth; ++i){
+
+            // verifica se sao caracteres especiais
+            switch(this.axiom[i]){
+                case "+":
+                    // roda a esquerda
+                    this.scene.rotate(this.angle, 0, 0, 1);
+                    break;
+
+                case "-":
+                    // roda a direita
+                    this.scene.rotate(-this.angle, 0, 0, 1);
+                    break;
+
+                case "[":
+                    // push
+                    this.scene.pushMatrix();
+                    break;
+
+                case "]":
+                    // pop
+                    this.scene.popMatrix();
+                    break;
+
+                case "\\":
+                    //rotação em sentido positivo sobre o eixo dos XX
+                    this.scene.rotate(this.angle, 1, 0, 0);
+                    break;   
+
+                case "/":
+                    //rotação em sentido negativo sobre o eixo dos XX
+                    this.scene.rotate(-this.angle, 1, 0, 0);
+                    break;
+
+                case "^":
+                    //rotação em sentido positivo sobre o eixo dos YY
+                    this.scene.rotate(this.angle, 0, 1, 0);
+                    break;
+
+                case "&":
+                    //rotação em sentido negativo sobre o eixo dos YY
+                    this.scene.rotate(-this.angle, 0, 1, 0);
+                    break;
+
+                // processa primitiva definida na gramatica, se existir
+                default:
+                    var primitive=this.grammar[this.axiom[i]];
+
+                    if ( primitive )
+                    {
+                        primitive.display();
+                        this.scene.translate(0, 1, 0);
+                    }
+                    break;
+            }
+        }
+        this.scene.popMatrix();
     }
 
 }
