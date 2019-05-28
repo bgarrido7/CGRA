@@ -33,9 +33,9 @@ class MyScene extends CGFscene {
     this.speedFactor = 1;
 
     var n=0;
-    
+    this.bird2 = new MyBird2(this);
     this.branchTest = new MyTreeBranch(this);
-    
+
     //-----floresta-----
     this.axiom = "X";
     this.ruleF = "FF";
@@ -56,7 +56,7 @@ class MyScene extends CGFscene {
     //--------------
     
     //Background color
-    this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
@@ -116,7 +116,7 @@ class MyScene extends CGFscene {
       this.zpos
     );
 
-    this.birdsNest = new MyCilinder(this, 7, 1, 1);
+    this.birdsNest = new MyPrism(this, 15, 2, 1);
     
     this.terrain = new MyTerrain(this);
 
@@ -127,6 +127,7 @@ class MyScene extends CGFscene {
     this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
     this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
     this.appearance.setShininess(120);
+
 
     this.tanterior = 0;
 
@@ -203,6 +204,14 @@ class MyScene extends CGFscene {
     this.nest.setShininess(10.0);
     this.nest.loadTexture("images/birdNest.jpg");
     this.nest.setTextureWrap("REPEAT", "REPEAT");
+
+    this.leaf = new CGFappearance(this);
+    this.leaf.setAmbient(0, 204/255, 0, 1);
+    this.leaf.setDiffuse(0, 204/255, 0, 1);
+    this.leaf.setSpecular(0, 204/255, 0, 1);
+    this.leaf.setShininess(10.0);
+    this.leaf.loadTexture("images/leaf.jpg");
+    this.leaf.setTextureWrap("REPEAT", "REPEAT");
   }
 
   // updates the selected object's wireframe mode
@@ -347,7 +356,7 @@ class MyScene extends CGFscene {
     //Apply default appearance
     this.setDefaultAppearance();
 
-
+/*
     //-----skybox--------
     this.pushMatrix();
 		this.sky.apply();
@@ -355,7 +364,7 @@ class MyScene extends CGFscene {
 		this.Cube.display();
     this.popMatrix();
 
-    this.terrain.display();
+  //  this.terrain.display();
 
     //--------house with bird nest---------------
 
@@ -417,12 +426,12 @@ class MyScene extends CGFscene {
     this.popMatrix();
 
     this.pushMatrix();
-      this.translate(5, 0, -5);
+      this.translate(6, 0, -5);
       this.scale(0.5, 1.5, 0.5);
       this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(5, 1, -5);
+      this.translate(6, 1, -5);
       this.scale(0.5, 0.5, 0.5);
       this.trees[2].display();
     this.popMatrix();
@@ -461,16 +470,16 @@ class MyScene extends CGFscene {
     this.popMatrix();
 
     this.pushMatrix();
-      this.translate(1, 0, -3);
+      this.translate(1, 0, -4);
       this.scale(0.5, 1, 0.5);
       this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(1, 1, -3);
+      this.translate(1, 1, -4);
       this.scale(0.5, 0.5, 0.5);
       this.trees[5].display();
     this.popMatrix();
-
+*/
 /*
     //-------------relampago----------
     this.pushMatrix();
@@ -478,7 +487,9 @@ class MyScene extends CGFscene {
      this.relampago.display();
     this.popMatrix();
 */
-
+this.pushMatrix();
+  this.bird2.display();
+this.popMatrix();
 
   }
 }

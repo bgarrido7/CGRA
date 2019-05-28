@@ -12,6 +12,7 @@ class MyTree extends MyLSystem {
     initGrammar(){
         this.grammar = {
             "F": new MyTreeBranch(this.scene),   //ramo    
+            "X" : new MyLeaf(this.scene),   //folha
         };
     }
 }
