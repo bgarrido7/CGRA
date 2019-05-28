@@ -18,10 +18,10 @@ class MyScene extends CGFscene {
     this.showShaderCode = true;
 
     //movimentos do bicho
-    this.xpos = 14;
-    this.ypos = 20;
+    this.xpos = 4;
+    this.ypos = 5;
     this.zpos = 0;
-	  this.nest_xpos = 7;
+	  this.nest_xpos = 5;
     this.nest_ypos = 11;
     this.nest_zpos = 0; 
 	
@@ -376,7 +376,7 @@ class MyScene extends CGFscene {
 				this.house.display();
 			this.popMatrix();
 
-		this.pushMatrix();
+    this.pushMatrix();
 			this.scale(
 			  1.5 * this.scaleFactor,
 			  1.5 * this.scaleFactor,

@@ -153,11 +153,11 @@ class MyBird extends CGFobject {
     }
 
     //limitar o movimento do passaro
-    if (this.xpos > 90) this.xpos = 90;
-    else if (this.xpos < -90) this.xpos = -90;
+    if (this.xpos > 30) this.xpos = 30;
+    else if (this.xpos < -30) this.xpos = -30;
 
-    if (this.zpos > 90) this.zpos = 90;
-    else if (this.zpos < -90) this.zpos = -90;
+    if (this.zpos > 30) this.zpos = 30;
+    else if (this.zpos < -30) this.zpos = -30;
   }
 
   display() {
@@ -165,145 +165,154 @@ class MyBird extends CGFobject {
 
     this.scene.pushMatrix();
 
-        //animação do passaro a flutuar
-        this.scene.translate(this.xpos, this.ypos, this.zpos);
-        this.scene.rotate(this.tetayy, 0, 1, 0);
-        this.scene.translate(0,
-                            5 + Math.sin(this.scene.t) * 0.5 * this.scene.speedFactor,
-                            0);
+    //animação do passaro a flutuar
+    this.scene.translate(this.xpos, this.ypos + 5, this.zpos);
+    this.scene.rotate(this.tetayy, 0, 1, 0);
+    /*   this.scene.translate(0,
+                          5 + Math.sin(this.scene.t) * 0.5 * this.scene.speedFactor,
+                          0);
+     */
 
-        //galho no bico
-        if (this.picked_it) {
-          this.scene.pushMatrix();
-            this.scene.translate(-1, 1.3, 0.7);
-            this.scene.rotate(-Math.PI / 2, 0, 0, 1);
-            this.scene.scale(0.3, 1, 0.3);
-            this.scene.branch.apply();
-            this.galho.display();
-          this.scene.popMatrix();
-        }
+    this.scene.rotate(Math.PI / 2, 0, 1, 0);
 
-        //corpo
-        this.scene.pushMatrix();
-          this.scene.scale(1, 2, 1);
-          this.penas.apply();
-          this.cube.display();
-        this.scene.popMatrix();
+    //galho no bico
+    if (this.picked_it) {
+      this.scene.pushMatrix();
+        this.scene.translate(-1, 1.3, 0.7);
+        this.scene.rotate(-Math.PI / 2, 0, 0, 1);
+        this.scene.scale(0.3, 1, 0.3);
+        this.scene.branch.apply();
+        this.galho.display();
+      this.scene.popMatrix();
+    }
 
-        this.scene.pushMatrix();
-          this.scene.scale(1.1, 0.9, 1.1);
-          this.scene.translate(0, 0.6, 0);
-          this.barriga.apply();
-          this.cube.display();
-        this.scene.popMatrix();
+    //corpo
+    this.scene.pushMatrix();
+      this.scene.scale(1, 2, 1);
+      this.penas.apply();
+      this.cube.display();
+    this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-          this.scene.translate(0, 0, -0.35);
-          this.scene.scale(1.2, 2.1, 1);
-          this.costas.apply();
-          this.cube.display();
-        this.scene.popMatrix();
+    this.scene.pushMatrix();
+      this.scene.scale(1.1, 0.9, 1.1);
+      this.scene.translate(0, 0.6, 0);
+      this.barriga.apply();
+      this.cube.display();
+    this.scene.popMatrix();
 
-        //cabeça
-        this.scene.pushMatrix();
-          this.scene.translate(0, 1.5, 0.2);
-          this.penas.apply();
-          this.cube.display();
-        this.scene.popMatrix();
+    this.scene.pushMatrix();
+      this.scene.translate(0, 0, -0.35);
+      this.scene.scale(1.2, 2.1, 1);
+      this.costas.apply();
+      this.cube.display();
+    this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-          this.scene.translate(0, 1.55, -0.1);
-          this.scene.scale(1.1, 1.1, 1);
-          this.costas.apply();
-          this.cube.display();
-        this.scene.popMatrix();
+    //cabeça
+    this.scene.pushMatrix();
+      this.scene.translate(0, 1.5, 0.2);
+      this.penas.apply();
+      this.cube.display();
+    this.scene.popMatrix();
 
-        //bico
-        this.scene.pushMatrix();
-          this.scene.translate(0, 1.3, 0.7);
-          this.scene.rotate(Math.PI / 2, 1, 0, 0);
-          this.scene.scale(0.15, 0.15, 0.15);
-          this.bico.apply();
-          this.beak.display();
-        this.scene.popMatrix();
+    this.scene.pushMatrix();
+      this.scene.translate(0, 1.55, -0.1);
+      this.scene.scale(1.1, 1.1, 1);
+      this.costas.apply();
+      this.cube.display();
+    this.scene.popMatrix();
 
-        //olhos
-        var i = -1;
-        while (i <= 1) {
-          this.scene.pushMatrix();
-            this.scene.translate(0.5 * i, 1.7, 0.7);
-            this.scene.scale(0.15, 0.15, 0.15);
-            this.olhos.apply();
-            this.cube.display();
-          this.scene.popMatrix();
-          i += 2;
-        }
+    //bico
+    this.scene.pushMatrix();
+      this.scene.translate(0, 1.3, 0.7);
+      this.scene.rotate(Math.PI / 2, 1, 0, 0);
+      this.scene.scale(0.15, 0.15, 0.15);
+      this.bico.apply();
+      this.beak.display();
+    this.scene.popMatrix();
 
-        //patas
-        i = -1;
-        while (i <= 1) {
-          this.scene.pushMatrix();
-            this.scene.translate(0.5 * i, -0.8, 0.45);
-            this.scene.rotate((Math.PI * 5) / 4, -1, 0, 0);
-            this.scene.scale(0.09, 0.65, 0.09);
-            this.olhos.apply();
-            this.pyramid.display();
-          this.scene.popMatrix();
-          i += 2;
-        }
+    //olhos
+    var i = -1;
+    while (i <= 1) {
+      this.scene.pushMatrix();
+        this.scene.translate(0.5 * i, 1.7, 0.7);
+        this.scene.scale(0.15, 0.15, 0.15);
+        this.olhos.apply();
+        this.cube.display();
+      this.scene.popMatrix();
+      i += 2;
+    }
 
-        //cauda
-        this.scene.pushMatrix();
-          this.scene.rotate(Math.PI / 6, 1, 0, 0);
-          i = -1;
-          var x = 1;
-          while (i <= 1) {
-            this.scene.pushMatrix();
-              this.scene.translate(0.05 * i, -0.8, -0.5);
-              this.scene.rotate(Math.PI, 0, 0, -1 * x);
-              this.scene.rotate(Math.PI / 2, -1, 0, 0);
-              this.scene.scale(0.15, 0.4, 0.7);
-              this.costas.apply();
-              this.triangle.display();
-            this.scene.popMatrix();
-            i += 2;
-            x--;
-          }
-        this.scene.popMatrix();
+    //patas
+    i = -1;
+    while (i <= 1) {
+      this.scene.pushMatrix();
+        this.scene.translate(0.5 * i, -0.8, 0.45);
+        this.scene.rotate((Math.PI * 5) / 4, -1, 0, 0);
+        this.scene.scale(0.09, 0.65, 0.09);
+        this.olhos.apply();
+        this.pyramid.display();
+      this.scene.popMatrix();
+      i += 2;
+    }
 
-        //-----------assas--------------
+    //cauda
+    this.scene.pushMatrix();
+    this.scene.rotate(Math.PI / 6, 1, 0, 0);
+    i = -1;
+    var x = 1;
+    while (i <= 1) {
+      this.scene.pushMatrix();
+        this.scene.translate(0.05 * i, -0.8, -0.5);
+        this.scene.rotate(Math.PI, 0, 0, -1 * x);
+        this.scene.rotate(Math.PI / 2, -1, 0, 0);
+        this.scene.scale(0.15, 0.4, 0.7);
+        this.costas.apply();
+        this.triangle.display();
+      this.scene.popMatrix();
+      i += 2;
+      x--;
+    }
+    this.scene.popMatrix();
+
+    //-----------assas--------------
+    this.scene.pushMatrix();
+
+      i = -1;
+      x = 1;
+      while (i <= 1) {
         this.scene.pushMatrix();
 
             this.scene.rotate(-Math.PI / 8, 1, 0, 0);
             this.scene.rotate(Math.sin(this.scene.t + Math.PI / 6) * 0.25 * this.scene.speedFactor,
-                              1,0,0);
-            i = -1;
-            x = -1;
-            while (i <= 1) {
-              this.scene.pushMatrix();
-                this.scene.translate(1 * i, 0.5, -0.3);
-                this.scene.rotate(Math.PI / 8, 0, 0, 1 * i);
-                this.scene.rotate(Math.PI / 2, -1, 0, 0);
-                this.scene.scale(1, 0.65, 1);
-                this.costas.apply();
-                this.quad.display();
-              this.scene.popMatrix();
+                            0, 0, 1 * i);
 
-              this.scene.pushMatrix();
-                this.scene.translate(1.45 * i, 0.7, 0.02);
-                this.scene.rotate(Math.PI / 8, 0, 0, -1 * i);
-                this.scene.rotate(Math.PI, 0, 0, 1 * x);
-                this.scene.rotate(Math.PI / 2, -1, 0, 0);
-                this.scene.scale(0.2, 0.2, 1);
-                this.costas.apply();
-                this.triangle.display();
-              this.scene.popMatrix();
-              i += 2;
-              x++;
-            }
+            this.scene.pushMatrix();
+              this.scene.translate(1 * i, 0.5, -0.3);
+              this.scene.rotate(Math.PI / 8, 0, 0, 1 * i);
+              this.scene.rotate(Math.PI / 2, -1, 0, 0);
+              this.scene.scale(1, 0.65, 1);
+              this.costas.apply();
+              this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+              this.scene.translate(1.45 * i, 0.7, 0.02);
+              this.scene.rotate(Math.PI / 8, 0, 0, -1 * i);
+              this.scene.rotate(Math.PI, 0, 0, 1 * x);
+              this.scene.rotate(Math.PI / 2, -1, 0, 0);
+              this.scene.scale(0.2, 0.2, 1);
+              this.costas.apply();
+              this.triangle.display();
+            this.scene.popMatrix();
 
         this.scene.popMatrix();
-        //---------------------------------
+
+        i += 2;
+        x--;
+      }
+    this.scene.popMatrix();
+
+    //---------------------------------
 
     this.scene.popMatrix();
   }
