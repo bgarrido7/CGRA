@@ -59,9 +59,9 @@ class MyBird extends CGFobject {
   }
 
   reset() {
-    this.xpos = 4;
-    this.ypos = 5;
-    this.zpos = 0;
+    this.xpos = this.scene.xpos;
+    this.ypos = this.scene.ypos;
+    this.zpos = this.scene.zpos;
     this.velocity = 0;
     this.tetayy = 0;
   }

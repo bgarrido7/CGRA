@@ -8,8 +8,10 @@ class MyScene extends CGFscene {
   }
 
   init(application) {
-    this.r = Math.floor(Math.random() * 7 + 1);
 
+    this.n=0;
+
+    this.r = Math.floor(Math.random() * 7 + 1);
     super.init(application);
     this.initCameras();
     this.initLights();
@@ -194,7 +196,6 @@ class MyScene extends CGFscene {
     if (v) this.terrain.plane.setLineMode();
     else this.terrain.plane.setFillMode();
   }
-  
   remove_branch(j){
 	/*  for(let k=i; k> this.galhos.length-1; k++){
 		  this.galhos[k] = this.galhos[k+1];
@@ -204,14 +205,16 @@ class MyScene extends CGFscene {
 	   this.galhos.length= this.galhos.length - 1;
 	   this.galhos_pos_x.length = this.galhos_pos_x.length - 1;
      this.galhos_pos_z.length = this.galhos_pos_z.length - 1;*/
-     
+/*     
 	   this.galhos.splice(j, 1);
 	   this.galhos_pos_x.splice(j, 1);
 	   this.galhos_pos_z.splice(j, 1);
 	   this.removei = this.removei+1;  
-  
-	  /* this.removei[n] = j;
-		n=n+1;*/
+     
+*/
+
+//	  this.removei[this.n] = j;
+//		this.n=this.n+1;
   }
   
 		
@@ -379,18 +382,40 @@ class MyScene extends CGFscene {
 
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
-      this.pushMatrix();
-          this.translate(this.galhos_pos_x[i], 0, this.galhos_pos_z[i]);
-          this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
-          this.rotate(-Math.PI / 2, 1, 0, 0);
-          this.scale(0.4, 0.5, 0.4);
-          this.translate(0, -1, 0);
-          this.branch.apply();
-          //	this.treeBranch.display();
-          
-          this.galhos[i].display();
-			
+/*
+		for (let v = 0; v < this.removei.length; v++) {
+			if (removei[v] == i){
+
+        this.birdsNest.display();
+
+        this.pushMatrix();
+
+				this.translate(this.nest_xpos, this.nest_ypos+0.2*i, this.nest_zpos);
+				this.rotate(-Math.PI / 2, 1, 0, 0);
+				this.scale(0.5, 2, 0.5);
+				this.translate(0, -1, 0);
+				this.branch.apply();
+        this.galhos[i].display();
+        this.popMatrix();
+
+		  
+			} else{	
+   */     this.pushMatrix();
+	  
+		  this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
+		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
+		  this.rotate(-Math.PI / 2, 1, 0, 0);
+		  this.scale(0.4, 0.5, 0.4);
+		  this.translate(0, -1, 0);
+      this.branch.apply();
+      this.galhos[i].display();
       this.popMatrix();
+
+
+	//		}
+				
+	//	}
+  
     }
 
 
