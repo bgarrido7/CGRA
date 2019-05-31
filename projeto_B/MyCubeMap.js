@@ -1,8 +1,20 @@
 class MyCubeMap extends CGFobject {
 	constructor(scene) {
 		super(scene);
+
 		this.initBuffers();
-		
+
+/*
+		this.sky = new CGFappearance(this);
+		this.sky.setAmbient(1, 1, 1, 1);
+		this.sky.setDiffuse(1, 1, 1, 1);
+		this.sky.setSpecular(1, 1, 1, 1);
+		this.sky.setShininess(10.0);
+		this.sky.loadTexture("skybox/sky2.jpg");
+		this.sky.setTextureWrap("REPEAT", "REPEAT");
+
+		this.sky.apply();
+*/
 
 
 
@@ -154,10 +166,16 @@ class MyCubeMap extends CGFobject {
 			1/4,1/3,	//12	22
 			2/4, 1/3, 	//15	23
 
-
 		]
 
+		this.initGLBuffers();
+	
+	//	this.scale(100, 100, 100);
 
-			this.initGLBuffers();
+
 	}
+//	display(){
+  //      super.display();
+  //  }
+	
 }

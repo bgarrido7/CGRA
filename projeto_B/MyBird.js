@@ -162,12 +162,10 @@ class MyBird extends CGFobject {
     this.scene.pushMatrix();
 
     //animação do passaro a flutuar
-    this.scene.translate(this.xpos, this.ypos + 5, this.zpos);
+    this.scene.translate(this.xpos, this.ypos, this.zpos);
     this.scene.rotate(this.tetayy, 0, 1, 0);
-    /*   this.scene.translate(0,
-                          5 + Math.sin(this.scene.t) * 0.5 * this.scene.speedFactor,
-                          0);
-     */
+    this.scene.translate(0, 5 + Math.sin(this.scene.t) * 0.5 * this.scene.speedFactor, 0);
+     
 
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
 
