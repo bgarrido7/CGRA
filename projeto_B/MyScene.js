@@ -9,9 +9,9 @@ class MyScene extends CGFscene {
 
   init(application) {
 
-    this.n=0;
+    var n=0;
 
-    this.r = Math.floor(Math.random() * 7 + 1);
+    var r = Math.floor(Math.random() * 7 + 1);
     super.init(application);
     this.initCameras();
     this.initLights();
@@ -45,16 +45,16 @@ class MyScene extends CGFscene {
     this.angleTree = 30.0;
     this.iterationsTree = 5;
     this.scaleFactorTree = 1;
-
-   
+    
+  
     this.trees = [
-      new MyTree(this),
       new MyTree(this),
       new MyTree(this),
       new MyTree(this),
       new MyTree(this),
       new MyTree(this)
     ];
+   
     //--------------
    
     //Background color
@@ -121,7 +121,7 @@ class MyScene extends CGFscene {
     this.appearance.setShininess(120);
 
   //---------------floresta-------------------------
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < this.trees.length; i++) {
       this.trees[i].generate(
         this.axiom,
         {
@@ -344,9 +344,9 @@ class MyScene extends CGFscene {
 
     //-----skybox--------
     this.pushMatrix();
-		this.sky.apply();
-		this.scale(100, 100, 100);
-		this.Cube.display();
+      this.sky.apply();
+      this.scale(100, 100, 100);
+      this.Cube.display();
     this.popMatrix();
 
     this.terrain.display();
@@ -359,7 +359,7 @@ class MyScene extends CGFscene {
 
     	this.pushMatrix();
 				this.scale(7, 7, 7);
-				this.house.display();
+			//	this.house.display();
 			this.popMatrix();
 
     this.pushMatrix();
@@ -382,6 +382,7 @@ class MyScene extends CGFscene {
 
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
+      this.pushMatrix();
 /*
 		for (let v = 0; v < this.removei.length; v++) {
 			if (removei[v] == i){
@@ -400,7 +401,7 @@ class MyScene extends CGFscene {
 
 		  
 			} else{	
-   */     this.pushMatrix();
+   */     
 	  
 		  this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
 		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
@@ -410,10 +411,7 @@ class MyScene extends CGFscene {
       this.branch.apply();
       this.galhos[i].display();
       this.popMatrix();
-
-
-	//		}
-				
+	//		}		
 	//	}
   
     }
@@ -428,7 +426,7 @@ class MyScene extends CGFscene {
     this.pushMatrix();
       this.translate(6, 1, -5);
       this.scale(0.5, 0.5, 0.5);
-      this.trees[2].display();
+      this.trees[0].display();
     this.popMatrix();
 
     this.pushMatrix();
@@ -450,7 +448,7 @@ class MyScene extends CGFscene {
     this.pushMatrix();
       this.translate(-8, 1, -5);
       this.scale(0.5, 0.5, 0.5);
-      this.trees[3].display();
+      this.trees[2].display();
     this.popMatrix();
 
     this.pushMatrix();
@@ -472,12 +470,15 @@ class MyScene extends CGFscene {
     this.pushMatrix();
       this.translate(1, 1, -4);
       this.scale(0.5, 0.5, 0.5);
-      this.trees[5].display();
+      this.trees[3].display();
     this.popMatrix();
 
 
     //-------------relampago----------
-     this.relampago.display();
+    this.pushMatrix();
+    this.scale(1,3,1);
 
+     this.relampago.display();
+this.popMatrix();
   }
 }
