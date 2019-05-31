@@ -10,6 +10,7 @@ class MyScene extends CGFscene {
   init(application) {
 
     this.n=0;
+    this.g=0;
 
     this.r = Math.floor(Math.random() * 7 + 1);
     super.init(application);
@@ -23,8 +24,8 @@ class MyScene extends CGFscene {
     this.xpos = 4;
     this.ypos = 5;
     this.zpos = 0;
-	  this.nest_xpos = 5;
-    this.nest_ypos = 11;
+	  this.nest_xpos = 1;
+    this.nest_ypos = 2,2;
     this.nest_zpos = 0; 
 	
     this.velocity = 0;
@@ -100,7 +101,8 @@ class MyScene extends CGFscene {
     }
 
     this.pickit = false;
-    this.removei = 0;
+    this.removei = [-1];
+    this.noNinho = [-1];
   //-------------------------------------------------------
    
     this.shadersDiv = document.getElementById("shaders");
@@ -197,24 +199,16 @@ class MyScene extends CGFscene {
     else this.terrain.plane.setFillMode();
   }
   remove_branch(j){
-	/*  for(let k=i; k> this.galhos.length-1; k++){
-		  this.galhos[k] = this.galhos[k+1];
-		  this.galhos_pos_x[k] = this.galhos_pos_x[k+1];
-		  this.galhos_pos_z[k] = this.galhos_pos_z[k+1];
-	  }
-	   this.galhos.length= this.galhos.length - 1;
-	   this.galhos_pos_x.length = this.galhos_pos_x.length - 1;
-     this.galhos_pos_z.length = this.galhos_pos_z.length - 1;*/
-/*     
-	   this.galhos.splice(j, 1);
-	   this.galhos_pos_x.splice(j, 1);
-	   this.galhos_pos_z.splice(j, 1);
-	   this.removei = this.removei+1;  
-     
-*/
 
-//	  this.removei[this.n] = j;
-//		this.n=this.n+1;
+	  this.removei[this.n] = j;
+		this.n=this.n+1;
+  }
+
+  poe_ninho(j){
+
+    this.noNinho[this.g] = j;
+		this.g=this.g+1;
+
   }
   
 		
@@ -278,37 +272,13 @@ class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyP")) {
       text += " P ";
 
-		if(this.bird.picked_it == false){
-			for (let i = 0; i < this.galhos.length; i++) {
-
-				if
-					  ((this.bird.xpos <= this.galhos_pos_x[i] + 10 ||
-						this.bird.xpos >= this.galhos_pos_x[i] - 10)
-					&&
-					  (this.bird.zpos <= this.galhos_pos_z[i] + 10 ||
-						this.bird.zpos >= this.galhos_pos_z[i] - 10))
-
-				{
-					
+		if(this.bird.picked_it == false){	
 					text += " True ";
-					this.remove_branch(i);
 					this.bird.pickup();
-					break;
-				}
-			
-			}
-		} else if(this.bird.picked_it == true){
-			if 
-				((this.bird.xpos <= this.nest_xpos + 10 ||
-				this.bird.xpos <= this.nest_xpos + 10) 
 				
-				&&
-				(this.bird.zpos <= this.nest_zpos + 10 ||
-				this.bird.zpos <= this.nest_zpos + 10)){
-					
+		} else if(this.bird.picked_it == true){					
 					text += " False ";
-					this.bird.dropit();
-				}
+					this.bird.dropit();		
 		}
      
       keysPressed = true;
@@ -355,62 +325,61 @@ class MyScene extends CGFscene {
 
     this.pushMatrix();
 
-		this.scale(0.2, 0.2, 0.2);
+      this.scale(0.2, 0.2, 0.2);
 
-    	this.pushMatrix();
-				this.scale(7, 7, 7);
-				this.house.display();
-			this.popMatrix();
+      /*	this.pushMatrix();
+          this.scale(7, 7, 7);
+          this.house.display();
+        this.popMatrix();*/
 
+      this.pushMatrix();
+        this.bird.display();
+      this.popMatrix();
+    this.popMatrix();
+    
     this.pushMatrix();
-			this.scale(
-			  1.5 * this.scaleFactor,
-			  1.5 * this.scaleFactor,
-			  1.5 * this.scaleFactor
-			);
-	  	this.bird.display();
-		this.popMatrix();
-
-		this.pushMatrix();
 			this.translate(this.nest_xpos, this.nest_ypos, this.nest_zpos);
-			this.scale(2.5, 2, 2.5);
+			this.scale(0.5, 0.4, 0.5);
 			this.nest.apply();
 			this.birdsNest.display();
 		this.popMatrix();
 
-    this.popMatrix();
+   
 
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
-/*
-		for (let v = 0; v < this.removei.length; v++) {
-			if (removei[v] == i){
+      
+     for (let v = 0; v < this.removei.length; v++) {
+        if (this.removei[v] == i){
 
-        this.birdsNest.display();
+          
+          for (let s = 0; s < this.removei.length; s++){
+            if (this.noNinho[v] == i){
+            this.pushMatrix();
 
-        this.pushMatrix();
-
-				this.translate(this.nest_xpos, this.nest_ypos+0.2*i, this.nest_zpos);
-				this.rotate(-Math.PI / 2, 1, 0, 0);
-				this.scale(0.5, 2, 0.5);
-				this.translate(0, -1, 0);
-				this.branch.apply();
-        this.galhos[i].display();
-        this.popMatrix();
-
-		  
-			} else{	
-   */     this.pushMatrix();
-	  
-		  this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
-		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
-		  this.rotate(-Math.PI / 2, 1, 0, 0);
-		  this.scale(0.4, 0.5, 0.4);
-		  this.translate(0, -1, 0);
-      this.branch.apply();
-      this.galhos[i].display();
-      this.popMatrix();
-
+            this.translate(this.nest_xpos, this.nest_ypos+0.2*i, this.nest_zpos);
+            this.rotate(-Math.PI / 2, 1, 0, 0);
+            this.scale(0.4, 0.5, 0.4);
+            this.translate(0, -1, 0);
+            this.branch.apply();
+            this.galhos[i].display();
+          this.popMatrix();
+            }
+        }
+        
+        } else{	
+          this.pushMatrix();
+        
+            this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
+            this.rotate((Math.PI / 14) * (i), 0, 1, 0);
+            this.rotate(-Math.PI / 2, 1, 0, 0);
+            this.scale(0.4, 0.5, 0.4);
+            this.translate(0, -1, 0);
+            this.branch.apply();
+            this.galhos[i].display();
+          this.popMatrix();
+        }
+      }
 
 	//		}
 				

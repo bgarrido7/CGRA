@@ -6,8 +6,7 @@ class MyBird extends CGFobject {
     this.velocity = velocity;
     this.velocity_vert = 0;
     this.xpos = x;
-    this.ypos_ini = y;
-    this.ypos = this.ypos_ini;
+    this.ypos = y;
     this.zpos = z;
     this.tanterior = 0;
     this.velociti = 0;
@@ -79,6 +78,35 @@ class MyBird extends CGFobject {
       }
     }
   }
+  
+
+  collision(v){
+    if(!v){
+      for (let i = 0; i < this.scene.galhos.length; i++) {
+        
+        this.d = Math.sqrt(  Math.pow((this.xpos-this.scene.galhos_pos_x[i]),2) + Math.pow((this.zpos-this.scene.galhos_pos_z[i]),2)  );
+        
+        if(this.d<=5){
+        this.scene.remove_branch(i);
+        this.picked_it = true;
+        return(1);
+      
+          }
+        }
+      }
+    else{
+        this.d = Math.sqrt(  Math.pow((this.xpos-this.scene.nest_zpos),2) + Math.pow((this.zpos-this.scene.nest_zpos),2)  );
+        if(this.d<=5){
+        this.scene.poe_ninho(i);
+        this.picked_it = false;
+        return(1);
+          }
+        
+    }
+
+    return(0);
+  }
+
 
   turn(v) {
     if (v) this.tetayy = this.tetayy + (Math.PI / 10) * this.scene.speedFactor;
@@ -86,18 +114,20 @@ class MyBird extends CGFobject {
   }
 
   pickup() {
-    this.velocity = 0;
+   
     if (this.state_pick == 0) {
       this.state_pick = 1;
     }
   }
 
   dropit() {
-    this.velocity = 0;
-    if (this.state_drop == 0) {
-      this.state_drop = 1;
+   
+    if (this.state_drop == 4) {
+      this.state_drop = 5;
     }
   }
+
+  
 
   update(t) {
     this.dt = this.scene.t - this.tanterior;
@@ -118,10 +148,48 @@ class MyBird extends CGFobject {
     this.zpos = this.zposi;
     this.ypos = this.yposi;
 
+    if (this.state_pick == 1 && this.ypos <= 0 && this.collision(0)) {
+      this.state_pick = 2;
+    }
+    else if(this.state_pick == 1 && this.ypos <= 0 && !this.collision(0) ){
+      this.state_pick = 3;
+    }
+    else if(this.state_pick == 2 && this.ypos >= this.scene.ypos){
+      this.state_pick = 4;
+    }
+    else if(this.state_pick == 3 && this.ypos >= this.scene.ypos){
+      this.state_pick = 0;
+    }
+    else if(this.state_pick == 5 && this.ypos <= 0 && this.collision(1)){
+      this.state_pick = 6;
+    }
+    else if(this.state_pick == 5 && this.ypos <= 0 && !this.collision(1)){
+      this.state_pick = 7;
+    }
+    else if(this.state_pick == 6 && this.ypos >= this.scene.ypos){
+      this.state_pick = 0;
+    }
+    else if(this.state_pick == 7 && this.ypos >= this.scene.ypos){
+      this.state_pick = 4;
+    }
+
+    if(this.state_pick == 1 || this.state_pick == 5){
+      this.velocity_vert = -20 / 2;
+    }
+    else if(this.state_pick == 2 || this.state_pick == 3 || this.state_pick == 6 || this.state_pick == 7){
+      this.velocity_vert = 20 / 2;
+    }
+    
+
+
+
+/*
     //movimento de apanhar
     if (this.state_pick == 1 && this.ypos <= 0) {
       this.state_pick = 2;
-      this.picked_it = true;
+      
+      this.collision(this.picked_it);
+      
     } else if (this.state_pick == 2 && this.ypos >= this.ypos_ini) {
       this.state_pick = 0;
       this.velocity_vert = 0;
@@ -136,7 +204,9 @@ class MyBird extends CGFobject {
     //movimento de deixar
     if (this.state_drop == 1 && this.ypos <= 11) {
       this.state_drop = 2;
-      this.picked_it = false;
+     
+      this.collision(this.picked_it);	
+     
     } else if (this.state_drop == 2 && this.ypos >= this.ypos_ini) {
       this.state_drop = 0;
       this.velocity_vert = 0;
@@ -154,6 +224,7 @@ class MyBird extends CGFobject {
 
     if (this.zpos > 30) this.zpos = 30;
     else if (this.zpos < -30) this.zpos = -30;
+    */
   }
 
   display() {
@@ -174,12 +245,18 @@ class MyBird extends CGFobject {
       this.scene.pushMatrix();
         this.scene.translate(-1, 1.3, 0.7);
         this.scene.rotate(-Math.PI / 2, 0, 0, 1);
-        this.scene.scale(0.3, 1, 0.3);
+        this.scene.scale(0.4, 0.5, 0.4);
         this.scene.branch.apply();
         this.galho.display();
       this.scene.popMatrix();
     }
-
+    this.scene.pushMatrix();
+   
+    this.scene.scale(
+      1.5 * this.scene.scaleFactor,
+      1.5 * this.scene.scaleFactor,
+      1.5 * this.scene.scaleFactor
+    );
     //corpo
     this.scene.pushMatrix();
       this.scene.scale(1, 2, 1);
@@ -304,6 +381,7 @@ class MyBird extends CGFobject {
         i += 2;
         x--;
       }
+    this.scene.popMatrix();
     this.scene.popMatrix();
 
     //---------------------------------
