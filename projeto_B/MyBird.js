@@ -13,6 +13,7 @@ class MyBird extends CGFobject {
     this.state_pick = 0;
     this.state_drop = 0;
     this.picked_it = false;
+	this.a = false;
 
     this.xposi = 0;
     this.zposi = 0;
@@ -62,11 +63,14 @@ class MyBird extends CGFobject {
     this.ypos = this.scene.ypos;
     this.zpos = this.scene.zpos;
     this.velocity = 0;
+	this.velocity_vert =0;
     this.tetayy = 0;
+	if(this.picked_it) state_pick = 4;
+	else state_pick = 0;
   }
 
   accelerate(v) {
-    if (this.state_pick == 0 && this.state_drop == 0) {
+    
       if (v) this.velocity++;
       else this.velocity--;
 
@@ -76,15 +80,23 @@ class MyBird extends CGFobject {
       } else if (this.velocity < -3 * this.scene.speedFactor) {
         this.velocity = -3;
       }
-    }
+    
   }
   
 
   collision(v){
-    if(!v){
+    if(v){
+        this.d = Math.sqrt(  Math.pow((this.xpos-this.scene.nest_zpos),2) + Math.pow((this.zpos-this.scene.nest_zpos),2)  );
+        if(this.d<=5){
+        this.scene.poe_ninho(i);
+        this.picked_it = false;
+        return(1);
+          }
+        
+    } else{
       for (let i = 0; i < this.scene.galhos.length; i++) {
         
-        this.d = Math.sqrt(  Math.pow((this.xpos-this.scene.galhos_pos_x[i]),2) + Math.pow((this.zpos-this.scene.galhos_pos_z[i]),2)  );
+        this.d = Math.sqrt(Math.pow((this.xpos-this.scene.galhos_pos_x[i]),2) + Math.pow((this.zpos-this.scene.galhos_pos_z[i]),2)  );
         
         if(this.d<=5){
         this.scene.remove_branch(i);
@@ -94,15 +106,7 @@ class MyBird extends CGFobject {
           }
         }
       }
-    else{
-        this.d = Math.sqrt(  Math.pow((this.xpos-this.scene.nest_zpos),2) + Math.pow((this.zpos-this.scene.nest_zpos),2)  );
-        if(this.d<=5){
-        this.scene.poe_ninho(i);
-        this.picked_it = false;
-        return(1);
-          }
-        
-    }
+    
 
     return(0);
   }
@@ -115,16 +119,21 @@ class MyBird extends CGFobject {
 
   pickup() {
    
-    if (this.state_pick == 0) {
-      this.state_pick = 1;
-    }
+    if (this.state_pick == 0) this.state_pick = 1;
+     else if (this.state_pick == 4) this.state_pick = 5;
+    
   }
 
-  dropit() {
-   
-    if (this.state_drop == 4) {
-      this.state_drop = 5;
-    }
+  
+  
+  limit(){
+	  //limitar o movimento do passaro
+    if (this.xpos > 45) this.xpos = 45;
+    else if (this.xpos < -45) this.xpos = -45;
+
+    if (this.zpos > 45) this.zpos = 45;
+    else if (this.zpos < -45) this.zpos = -45;
+	  
   }
 
   
@@ -148,83 +157,58 @@ class MyBird extends CGFobject {
     this.zpos = this.zposi;
     this.ypos = this.yposi;
 
-    if (this.state_pick == 1 && this.ypos <= 0 && this.collision(0)) {
-      this.state_pick = 2;
-    }
-    else if(this.state_pick == 1 && this.ypos <= 0 && !this.collision(0) ){
-      this.state_pick = 3;
+    if (this.state_pick == 1 && this.ypos <= 0) {
+      
+	  if(this.a) this.state_pick = 2;
+	   else this.state_pick = 3;
     }
     else if(this.state_pick == 2 && this.ypos >= this.scene.ypos){
       this.state_pick = 4;
+	  this.a = false;
     }
     else if(this.state_pick == 3 && this.ypos >= this.scene.ypos){
       this.state_pick = 0;
     }
-    else if(this.state_pick == 5 && this.ypos <= 0 && this.collision(1)){
-      this.state_pick = 6;
-    }
-    else if(this.state_pick == 5 && this.ypos <= 0 && !this.collision(1)){
-      this.state_pick = 7;
+    else if(this.state_pick == 5 && this.ypos <= 0){
+      
+	  if(this.a) this.state_pick = 6;
+	   else this.state_pick = 7;
     }
     else if(this.state_pick == 6 && this.ypos >= this.scene.ypos){
       this.state_pick = 0;
+	  this.a = false;
     }
     else if(this.state_pick == 7 && this.ypos >= this.scene.ypos){
       this.state_pick = 4;
     }
 
-    if(this.state_pick == 1 || this.state_pick == 5){
-      this.velocity_vert = -20 / 2;
+    if(this.state_pick == 1 ){
+      this.velocity_vert = -10 / 2;
+		if(this.ypos <= 5){
+			if(!this.a){
+			  this.a = this.collision(0);
+			  
+			}
+		}
     }
+	else if(this.state_pick == 5){
+		this.velocity_vert = -10 / 2;
+		if(this.ypos <= 5){
+			if(!this.a){
+			  this.a = this.collision(1);
+			  
+			}
+		}
+	}
     else if(this.state_pick == 2 || this.state_pick == 3 || this.state_pick == 6 || this.state_pick == 7){
-      this.velocity_vert = 20 / 2;
+      this.velocity_vert = 10 / 2;
     }
+	else if(this.state_pick == 0 || this.state_pick == 4){
+		this.velocity_vert = 0;
+	}
     
-
-
-
-/*
-    //movimento de apanhar
-    if (this.state_pick == 1 && this.ypos <= 0) {
-      this.state_pick = 2;
-      
-      this.collision(this.picked_it);
-      
-    } else if (this.state_pick == 2 && this.ypos >= this.ypos_ini) {
-      this.state_pick = 0;
-      this.velocity_vert = 0;
-    }
-
-    if (this.state_pick == 1) {
-      this.velocity_vert = -20 / 2;
-    } else if (this.state_pick == 2) {
-      this.velocity_vert = 20 / 2;
-    }
-
-    //movimento de deixar
-    if (this.state_drop == 1 && this.ypos <= 11) {
-      this.state_drop = 2;
-     
-      this.collision(this.picked_it);	
-     
-    } else if (this.state_drop == 2 && this.ypos >= this.ypos_ini) {
-      this.state_drop = 0;
-      this.velocity_vert = 0;
-    }
-
-    if (this.state_drop == 1) {
-      this.velocity_vert = -9 / 2;
-    } else if (this.state_drop == 2) {
-      this.velocity_vert = 9 / 2;
-    }
-
-    //limitar o movimento do passaro
-    if (this.xpos > 30) this.xpos = 30;
-    else if (this.xpos < -30) this.xpos = -30;
-
-    if (this.zpos > 30) this.zpos = 30;
-    else if (this.zpos < -30) this.zpos = -30;
-    */
+	this.limit();
+    
   }
 
   display() {
@@ -243,9 +227,15 @@ class MyBird extends CGFobject {
     //galho no bico
     if (this.picked_it) {
       this.scene.pushMatrix();
-        this.scene.translate(-1, 1.3, 0.7);
-        this.scene.rotate(-Math.PI / 2, 0, 0, 1);
-        this.scene.scale(0.4, 0.5, 0.4);
+        this.scene.translate(2, 1.3*1.5, 0.7*1.5);
+        
+		this.scene.scale(0.4, 0.5, 0.4);
+		
+		
+		this.scene.scale(1/0.2, 1/0.2, 1/0.2);
+		
+		this.scene.rotate(Math.PI / 2, 0, 1, 0);
+		this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.scene.branch.apply();
         this.galho.display();
       this.scene.popMatrix();

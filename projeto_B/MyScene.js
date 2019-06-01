@@ -21,8 +21,8 @@ class MyScene extends CGFscene {
     this.showShaderCode = true;
 
     //movimentos do bicho
-    this.xpos = 4;
-    this.ypos = 5;
+    this.xpos = 5;
+    this.ypos = 7;
     this.zpos = 0;
 	  this.nest_xpos = 1;
     this.nest_ypos = 2,2;
@@ -212,8 +212,7 @@ class MyScene extends CGFscene {
   }
   
 		
-		//  this.galhos_pos_x[i] = 0;
-		//  this.galhos_pos_z[i] = 0;
+		
 
   update(t) {
     this.checkKeys();
@@ -272,14 +271,7 @@ class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyP")) {
       text += " P ";
 
-		if(this.bird.picked_it == false){	
-					text += " True ";
-					this.bird.pickup();
-				
-		} else if(this.bird.picked_it == true){					
-					text += " False ";
-					this.bird.dropit();		
-		}
+		this.bird.pickup();
      
       keysPressed = true;
     }
@@ -353,7 +345,7 @@ class MyScene extends CGFscene {
         if (this.removei[v] == i){
 
           
-          for (let s = 0; s < this.removei.length; s++){
+          for (let s = 0; s < this.noNinho.length; s++){
             if (this.noNinho[v] == i){
             this.pushMatrix();
 
@@ -370,7 +362,7 @@ class MyScene extends CGFscene {
         } else{	
           this.pushMatrix();
         
-            this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
+            this.translate(this.galhos_pos_x[i], 0.1, this.galhos_pos_z[i]);
             this.rotate((Math.PI / 14) * (i), 0, 1, 0);
             this.rotate(-Math.PI / 2, 1, 0, 0);
             this.scale(0.4, 0.5, 0.4);
@@ -381,15 +373,13 @@ class MyScene extends CGFscene {
         }
       }
 
-	//		}
-				
-	//	}
+	
   
     }
 
 
     //---------------------floresta---------------------
-    this.pushMatrix();
+    /*this.pushMatrix();
       this.translate(6, 0, -5);
       this.scale(0.5, 1.5, 0.5);
       this.branchTest.display();
@@ -443,7 +433,7 @@ class MyScene extends CGFscene {
       this.scale(0.5, 0.5, 0.5);
       this.trees[5].display();
     this.popMatrix();
-
+*/
 
     //-------------relampago----------
      this.relampago.display();
