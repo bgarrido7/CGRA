@@ -24,9 +24,9 @@ class MyLightning extends MyLSystem {
         this.animated = 0;
 
         this.light = new CGFappearance(this.scene);
-        this.light.setAmbient(0, 0, 1, 1.0);
-        this.light.setDiffuse(0, 0, 1,  1.0);
-        this.light.setSpecular(0, 0, 1, 1.0);
+        this.light.setAmbient(102/255, 1, 1, 1.0);
+        this.light.setDiffuse(102/255, 1, 1,  1.0);
+        this.light.setSpecular(102/255, 1, 1, 1.0);
         this.light.setShininess(10.0);
 
         this.initGrammar();

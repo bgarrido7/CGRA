@@ -9,9 +9,9 @@ class MyScene extends CGFscene {
 
   init(application) {
 
-    var n=0;
+    this.n=0;
 
-    var r = Math.floor(Math.random() * 7 + 1);
+    this.r = Math.floor(Math.random() * 7 + 1);
     super.init(application);
     this.initCameras();
     this.initLights();
@@ -359,7 +359,7 @@ class MyScene extends CGFscene {
 
     	this.pushMatrix();
 				this.scale(7, 7, 7);
-			//	this.house.display();
+				this.house.display();
 			this.popMatrix();
 
     this.pushMatrix();
@@ -383,25 +383,7 @@ class MyScene extends CGFscene {
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
       this.pushMatrix();
-/*
-		for (let v = 0; v < this.removei.length; v++) {
-			if (removei[v] == i){
-
-        this.birdsNest.display();
-
-        this.pushMatrix();
-
-				this.translate(this.nest_xpos, this.nest_ypos+0.2*i, this.nest_zpos);
-				this.rotate(-Math.PI / 2, 1, 0, 0);
-				this.scale(0.5, 2, 0.5);
-				this.translate(0, -1, 0);
-				this.branch.apply();
-        this.galhos[i].display();
-        this.popMatrix();
-
-		  
-			} else{	
-   */     
+    
 	  
 		  this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
 		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
@@ -411,8 +393,7 @@ class MyScene extends CGFscene {
       this.branch.apply();
       this.galhos[i].display();
       this.popMatrix();
-	//		}		
-	//	}
+
   
     }
 
@@ -476,9 +457,8 @@ class MyScene extends CGFscene {
 
     //-------------relampago----------
     this.pushMatrix();
-    this.scale(1,3,1);
-
-     this.relampago.display();
-this.popMatrix();
+      this.scale(0.8,3,1);
+      this.relampago.display();
+    this.popMatrix();
   }
 }

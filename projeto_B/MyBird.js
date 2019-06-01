@@ -38,18 +38,25 @@ class MyBird extends CGFobject {
     this.penas.setDiffuse(240 / 255, 240 / 255, 240 / 255, 1);
     this.penas.setSpecular(240 / 255, 240 / 255, 240 / 255, 1);
     this.penas.setShininess(10.0);
+   
 
     this.barriga = new CGFappearance(this.scene);
     this.barriga.setAmbient(1, 0, 0, 1);
     this.barriga.setDiffuse(1, 0, 0, 1);
     this.barriga.setSpecular(1, 0, 0, 1);
     this.barriga.setShininess(10.0);
+    this.barriga.loadTexture("images/penas_barriga.png");
+    this.barriga.setTextureWrap("REPEAT", "REPEAT");
+   
 
     this.costas = new CGFappearance(this.scene);
-    this.costas.setAmbient(0, 0, 51 / 255, 1);
-    this.costas.setDiffuse(0, 0, 51 / 255, 1);
-    this.costas.setSpecular(0, 0, 51 / 255, 1);
+    this.costas.setAmbient(0, 0, 1, 1);
+    this.costas.setDiffuse(0, 0, 1, 1);
+    this.costas.setSpecular(0, 0, 1, 1);
     this.costas.setShininess(10.0);
+    this.costas.loadTexture("images/penas.png");
+    this.costas.setTextureWrap("REPEAT", "REPEAT");
+  
 
     this.olhos = new CGFappearance(this.scene);
     this.olhos.setAmbient(32 / 255, 32 / 255, 32 / 255, 1);
