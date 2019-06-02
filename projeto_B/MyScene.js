@@ -8,8 +8,8 @@ class MyScene extends CGFscene {
   }
 
   init(application) {
-
-    this.n=0;
+    this.n = 0;
+    this.g = 0;
 
     this.r = Math.floor(Math.random() * 7 + 1);
     super.init(application);
@@ -20,13 +20,13 @@ class MyScene extends CGFscene {
     this.showShaderCode = true;
 
     //movimentos do bicho
-    this.xpos = 4;
-    this.ypos = 5;
+    this.xpos = 5;
+    this.ypos = 10;
     this.zpos = 0;
-	  this.nest_xpos = 5;
+    this.nest_xpos = 5;
     this.nest_ypos = 11;
-    this.nest_zpos = 0; 
-	
+    this.nest_zpos = 0;
+
     this.velocity = 0;
     this.tetayy = 0;
     this.count = false;
@@ -45,8 +45,7 @@ class MyScene extends CGFscene {
     this.angleTree = 30.0;
     this.iterationsTree = 5;
     this.scaleFactorTree = 1;
-    
-  
+
     this.trees = [
       new MyTree(this),
       new MyTree(this),
@@ -54,9 +53,9 @@ class MyScene extends CGFscene {
       new MyTree(this),
       new MyTree(this)
     ];
-   
+
     //--------------
-   
+
     //Background color
     this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
     this.gl.clearDepth(100.0);
@@ -72,7 +71,7 @@ class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.plane = new Plane(this, 32);
 
-  //---------------galhos no chao---------------------
+    //---------------galhos no chao---------------------
     this.galhos = [
       new MyTreeBranch(this),
       new MyTreeBranch(this),
@@ -93,23 +92,31 @@ class MyScene extends CGFscene {
     for (let i = 0; i < 13; i++) {
       this.galhos_pos_x[i] = Math.random() * 20 - 10;
     }
-    
+
     this.galhos_pos_z = [13];
     for (let i = 0; i < 13; i++) {
       this.galhos_pos_z[i] = Math.random() * 20 - 10;
     }
 
     this.pickit = false;
-    this.removei = 0;
-  //-------------------------------------------------------
-   
+    this.removei = [-1];
+    this.noNinho = [-1];
+    //-------------------------------------------------------
+
     this.shadersDiv = document.getElementById("shaders");
     this.vShaderDiv = document.getElementById("vshader");
     this.fShaderDiv = document.getElementById("fshader");
 
     this.house = new MyHouse(this);
 
-    this.bird = new MyBird(this, this.tetayy, this.velocity, this.xpos,this.ypos, this.zpos);
+    this.bird = new MyBird(
+      this,
+      this.tetayy,
+      this.velocity,
+      this.xpos,
+      this.ypos,
+      this.zpos
+    );
 
     this.birdsNest = new MyPrism(this, 15, 2, 1);
     this.terrain = new MyTerrain(this);
@@ -120,7 +127,7 @@ class MyScene extends CGFscene {
     this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
     this.appearance.setShininess(120);
 
-  //---------------floresta-------------------------
+    //---------------floresta-------------------------
     for (var i = 0; i < this.trees.length; i++) {
       this.trees[i].generate(
         this.axiom,
@@ -143,7 +150,7 @@ class MyScene extends CGFscene {
         this.scaleFactorTree
       );
     }
-  //------------------------------------------------------
+    //------------------------------------------------------
   }
 
   initLights() {
@@ -154,7 +161,13 @@ class MyScene extends CGFscene {
   }
 
   initCameras() {
-    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+    this.camera = new CGFcamera(
+      0.4,
+      0.1,
+      500,
+      vec3.fromValues(45, 45, 45),
+      vec3.fromValues(0, 0, 0)
+    );
   }
 
   initMaterials() {
@@ -173,7 +186,7 @@ class MyScene extends CGFscene {
     this.branch.setShininess(10.0);
     this.branch.loadTexture("images/madeira.jpg");
     this.branch.setTextureWrap("REPEAT", "REPEAT");
-    
+
     this.nest = new CGFappearance(this);
     this.nest.setAmbient(0.1, 0.1, 0.1, 1);
     this.nest.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -183,9 +196,9 @@ class MyScene extends CGFscene {
     this.nest.setTextureWrap("REPEAT", "REPEAT");
 
     this.leaf = new CGFappearance(this);
-    this.leaf.setAmbient(0, 204/255, 0, 1);
-    this.leaf.setDiffuse(0, 204/255, 0, 1);
-    this.leaf.setSpecular(0, 204/255, 0, 1);
+    this.leaf.setAmbient(0, 204 / 255, 0, 1);
+    this.leaf.setDiffuse(0, 204 / 255, 0, 1);
+    this.leaf.setSpecular(0, 204 / 255, 0, 1);
     this.leaf.setShininess(10.0);
     this.leaf.loadTexture("images/leaf.jpg");
     this.leaf.setTextureWrap("REPEAT", "REPEAT");
@@ -196,30 +209,14 @@ class MyScene extends CGFscene {
     if (v) this.terrain.plane.setLineMode();
     else this.terrain.plane.setFillMode();
   }
-  remove_branch(j){
-	/*  for(let k=i; k> this.galhos.length-1; k++){
-		  this.galhos[k] = this.galhos[k+1];
-		  this.galhos_pos_x[k] = this.galhos_pos_x[k+1];
-		  this.galhos_pos_z[k] = this.galhos_pos_z[k+1];
-	  }
-	   this.galhos.length= this.galhos.length - 1;
-	   this.galhos_pos_x.length = this.galhos_pos_x.length - 1;
-     this.galhos_pos_z.length = this.galhos_pos_z.length - 1;*/
-/*     
-	   this.galhos.splice(j, 1);
-	   this.galhos_pos_x.splice(j, 1);
-	   this.galhos_pos_z.splice(j, 1);
-	   this.removei = this.removei+1;  
-     
-*/
-
-//	  this.removei[this.n] = j;
-//		this.n=this.n+1;
+  remove_branch(j) {
+    this.removei[this.n] = j;
+    this.n = this.n + 1;
   }
-  
-		
-		//  this.galhos_pos_x[i] = 0;
-		//  this.galhos_pos_z[i] = 0;
+  poe_ninho(j) {
+    this.noNinho[this.g] = j;
+    this.g = this.g + 1;
+  }
 
   update(t) {
     this.checkKeys();
@@ -267,7 +264,7 @@ class MyScene extends CGFscene {
       this.bird.reset();
       keysPressed = true;
     }
-    
+
     if (this.gui.isKeyPressed("KeyL")) {
       text += " L ";
 
@@ -277,40 +274,9 @@ class MyScene extends CGFscene {
 
     if (this.gui.isKeyPressed("KeyP")) {
       text += " P ";
+      this.bird.pickup();
 
-		if(this.bird.picked_it == false){
-			for (let i = 0; i < this.galhos.length; i++) {
-
-				if
-					  ((this.bird.xpos <= this.galhos_pos_x[i] + 10 ||
-						this.bird.xpos >= this.galhos_pos_x[i] - 10)
-					&&
-					  (this.bird.zpos <= this.galhos_pos_z[i] + 10 ||
-						this.bird.zpos >= this.galhos_pos_z[i] - 10))
-
-				{
-					
-					text += " True ";
-					this.remove_branch(i);
-					this.bird.pickup();
-					break;
-				}
-			
-			}
-		} else if(this.bird.picked_it == true){
-			if 
-				((this.bird.xpos <= this.nest_xpos + 10 ||
-				this.bird.xpos <= this.nest_xpos + 10) 
-				
-				&&
-				(this.bird.zpos <= this.nest_zpos + 10 ||
-				this.bird.zpos <= this.nest_zpos + 10)){
-					
-					text += " False ";
-					this.bird.dropit();
-				}
-		}
-     
+      text += " True ";
       keysPressed = true;
     }
 
@@ -341,124 +307,133 @@ class MyScene extends CGFscene {
     //Apply default appearance
     this.setDefaultAppearance();
 
+    this.terrain.display();
 
     //-----skybox--------
     this.pushMatrix();
-      this.sky.apply();
-      this.scale(100, 100, 100);
-      this.Cube.display();
+    this.sky.apply();
+    this.scale(100, 100, 100);
+    this.Cube.display();
     this.popMatrix();
-
-    this.terrain.display();
 
     //--------house with bird nest---------------
 
     this.pushMatrix();
 
-		this.scale(0.2, 0.2, 0.2);
-
-    	this.pushMatrix();
-				this.scale(7, 7, 7);
-				this.house.display();
-			this.popMatrix();
+    this.scale(0.2, 0.2, 0.2);
 
     this.pushMatrix();
-			this.scale(
-			  1.5 * this.scaleFactor,
-			  1.5 * this.scaleFactor,
-			  1.5 * this.scaleFactor
-			);
-	  	this.bird.display();
-		this.popMatrix();
+    this.scale(7, 7, 7);
+    this.house.display();
+    this.popMatrix();
 
-		this.pushMatrix();
-			this.translate(this.nest_xpos, this.nest_ypos, this.nest_zpos);
-			this.scale(2.5, 2, 2.5);
-			this.nest.apply();
-			this.birdsNest.display();
-		this.popMatrix();
+    this.bird.display();
+
+    this.pushMatrix();
+    this.translate(this.nest_xpos, this.nest_ypos, this.nest_zpos);
+    this.scale(2.5, 2, 2.5);
+    this.nest.apply();
+    this.birdsNest.display();
+    this.popMatrix();
 
     this.popMatrix();
 
     //---------------------galhos---------------------
     for (let i = 0; i < this.galhos.length; i++) {
-      this.pushMatrix();
-    
-	  
-		  this.translate(this.galhos_pos_x[i], 0.5, this.galhos_pos_z[i]);
-		  this.rotate((Math.PI / 14) * (i+this.removei), 0, 1, 0);
-		  this.rotate(-Math.PI / 2, 1, 0, 0);
-		  this.scale(0.4, 0.5, 0.4);
-		  this.translate(0, -1, 0);
-      this.branch.apply();
-      this.galhos[i].display();
-      this.popMatrix();
+      for (let v = 0; v < this.removei.length; v++) {
+        if (this.removei[v] == i) {
+          for (let s = 0; s < this.noNinho.length; s++) {
+            if (this.noNinho[v] == i) {
+              this.pushMatrix();
 
-  
+              this.translate(
+                this.nest_xpos,
+                this.nest_ypos + 0.2 * i,
+                this.nest_zpos
+              );
+              this.rotate(-Math.PI / 2, 1, 0, 0);
+              this.scale(0.4, 0.5, 0.4);
+              this.translate(0, -1, 0);
+              this.branch.apply();
+              this.galhos[i].display();
+              this.popMatrix();
+            }
+          }
+        } else {
+          this.pushMatrix();
+
+          this.translate(this.galhos_pos_x[i], 0.1, this.galhos_pos_z[i]);
+          this.rotate((Math.PI / 14) * i, 0, 1, 0);
+          this.rotate(-Math.PI / 2, 1, 0, 0);
+          this.scale(0.4, 0.5, 0.4);
+          this.translate(0, -1, 0);
+          this.branch.apply();
+          this.galhos[i].display();
+          this.popMatrix();
+        }
+      }
     }
-
 
     //---------------------floresta---------------------
     this.pushMatrix();
-      this.translate(6, 0, -5);
-      this.scale(0.5, 1.5, 0.5);
-      this.branchTest.display();
+    this.translate(6, 0, -5);
+    this.scale(0.5, 1.5, 0.5);
+    this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(6, 1, -5);
-      this.scale(0.5, 0.5, 0.5);
-      this.trees[0].display();
+    this.translate(6, 1, -5);
+    this.scale(0.5, 0.5, 0.5);
+    this.trees[0].display();
     this.popMatrix();
 
     this.pushMatrix();
-      this.translate(-7, 0, 1);
-      this.scale(0.5, 1.5, 0.5);
-      this.branchTest.display();
+    this.translate(-7, 0, 1);
+    this.scale(0.5, 1.5, 0.5);
+    this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(-7, 1, 1);
-      this.scale(0.5, 0.5, 0.5);
-      this.trees[1].display();
+    this.translate(-7, 1, 1);
+    this.scale(0.5, 0.5, 0.5);
+    this.trees[1].display();
     this.popMatrix();
 
     this.pushMatrix();
-      this.translate(-8, 0, -5);
-      this.scale(0.5, 1.5, 0.5);
-      this.branchTest.display();
+    this.translate(-8, 0, -5);
+    this.scale(0.5, 1.5, 0.5);
+    this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(-8, 1, -5);
-      this.scale(0.5, 0.5, 0.5);
-      this.trees[2].display();
+    this.translate(-8, 1, -5);
+    this.scale(0.5, 0.5, 0.5);
+    this.trees[2].display();
     this.popMatrix();
 
     this.pushMatrix();
-      this.translate(-7, 0, 7);
-      this.scale(0.5, 1.5, 0.5);
-      this.branchTest.display();
+    this.translate(-7, 0, 7);
+    this.scale(0.5, 1.5, 0.5);
+    this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(-7, 1, 7);
-      this.scale(0.5, 0.5, 0.5);
-      this.trees[4].display();
+    this.translate(-7, 1, 7);
+    this.scale(0.5, 0.5, 0.5);
+    this.trees[4].display();
     this.popMatrix();
 
     this.pushMatrix();
-      this.translate(1, 0, -4);
-      this.scale(0.5, 1, 0.5);
-      this.branchTest.display();
+    this.translate(1, 0, -4);
+    this.scale(0.5, 1, 0.5);
+    this.branchTest.display();
     this.popMatrix();
     this.pushMatrix();
-      this.translate(1, 1, -4);
-      this.scale(0.5, 0.5, 0.5);
-      this.trees[3].display();
+    this.translate(1, 1, -4);
+    this.scale(0.5, 0.5, 0.5);
+    this.trees[3].display();
     this.popMatrix();
-
 
     //-------------relampago----------
     this.pushMatrix();
-      this.scale(0.8,3,1);
-      this.relampago.display();
+    this.scale(0.8, 3, 1);
+    this.relampago.display();
     this.popMatrix();
   }
 }
