@@ -15,6 +15,7 @@ class MyBird extends CGFobject {
     this.state_drop = 0;
     this.picked_it = false;
     this.a = false;
+	this.guarda = 0;
 
     this.xposi = 0;
     this.zposi = 0;
@@ -75,7 +76,7 @@ class MyBird extends CGFobject {
   }
 
   accelerate(v) {
-    if (this.state_pick == 0 && this.state_drop == 0) {
+    
       if (v) this.velocity++;
       else this.velocity--;
 
@@ -85,7 +86,7 @@ class MyBird extends CGFobject {
       } else if (this.velocity < -3 * this.scene.speedFactor) {
         this.velocity = -3;
       }
-    }
+    
   }
   collision(v) {
     if (v) {
@@ -94,8 +95,9 @@ class MyBird extends CGFobject {
           Math.pow(this.zpos - this.scene.nest_zpos, 2)
       );
       if (this.d <= 5) {
-        this.scene.poe_ninho(i);
+        this.scene.poe_ninho(this.guarda);
         this.picked_it = false;
+		this.state_pick = 6;
         return 1;
       }
     } else {
@@ -108,6 +110,8 @@ class MyBird extends CGFobject {
         if (this.d <= 5) {
           this.scene.remove_branch(i);
           this.picked_it = true;
+		  this.guarda = i;
+		  
           return 1;
         }
       }
@@ -159,7 +163,16 @@ class MyBird extends CGFobject {
     this.zpos = this.zposi;
     this.ypos = this.yposi;
 
-    if (this.state_pick == 1 && this.ypos <= 0) {
+
+	//estado 0 = voo sem pau
+	//estado 1 = baixar sem pau (quando o y<5, comeca a testar colisoes, se houver colisao segue para o estado 2, senao para o 3)
+    //estado 2 = subir com pau
+	//estado 3 = subir sem pau, volta ao estado zero
+	//estado 4 = voo com pau
+	//estado 5 = baixar com pau (quando o y<5, comeca a testar colisoes, se houver colisao segue para o estado 6, senao para o 7)
+    //estado 6 = subir sem pau, volta ao estado zero
+	//estado 7 = subir com pau, volta ao estado 4
+	if (this.state_pick == 1 && this.ypos <= 0) {
       if (this.a) 
         this.state_pick = 2;
       else 
@@ -172,7 +185,7 @@ class MyBird extends CGFobject {
     else if (this.state_pick == 3 && this.ypos >= this.scene.ypos) {
       this.state_pick = 0;
     } 
-    else if (this.state_pick == 5 && this.ypos <= 0) {
+	else if (this.state_pick == 5 && this.ypos <= this.scene.nest_ypos) {
       if 
         (this.a) this.state_pick = 6;
       else 
@@ -182,10 +195,12 @@ class MyBird extends CGFobject {
       this.state_pick = 0;
       this.a = false;
     } 
+	//estado 7 = subir com pau, volta ao estado zero
     else if (this.state_pick == 7 && this.ypos >= this.scene.ypos) {
       this.state_pick = 4;
     }
 
+	
     if (this.state_pick == 1) {
       this.velocity_vert = -10 / 2;
       if (this.ypos <= 5) {

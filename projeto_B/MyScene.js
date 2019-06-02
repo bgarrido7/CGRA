@@ -23,8 +23,8 @@ class MyScene extends CGFscene {
     this.xpos = 5;
     this.ypos = 10;
     this.zpos = 0;
-    this.nest_xpos = 5;
-    this.nest_ypos = 11;
+    this.nest_xpos = 1;
+    this.nest_ypos = 2,2;
     this.nest_zpos = 0;
 
     this.velocity = 0;
@@ -321,21 +321,21 @@ class MyScene extends CGFscene {
     this.pushMatrix();
 
     this.scale(0.2, 0.2, 0.2);
-
+/*
     this.pushMatrix();
     this.scale(7, 7, 7);
     this.house.display();
-    this.popMatrix();
+    this.popMatrix();*/
 
     this.bird.display();
 
-    this.pushMatrix();
+    this.popMatrix();
+	
+	this.pushMatrix();
     this.translate(this.nest_xpos, this.nest_ypos, this.nest_zpos);
-    this.scale(2.5, 2, 2.5);
+    this.scale(0.5, 0.4, 0.5);
     this.nest.apply();
     this.birdsNest.display();
-    this.popMatrix();
-
     this.popMatrix();
 
     //---------------------galhos---------------------
@@ -343,12 +343,12 @@ class MyScene extends CGFscene {
       for (let v = 0; v < this.removei.length; v++) {
         if (this.removei[v] == i) {
           for (let s = 0; s < this.noNinho.length; s++) {
-            if (this.noNinho[v] == i) {
+            if (this.noNinho[s] == i) {
               this.pushMatrix();
 
               this.translate(
                 this.nest_xpos,
-                this.nest_ypos + 0.2 * i,
+                this.nest_ypos + 0.2 * i ,
                 this.nest_zpos
               );
               this.rotate(-Math.PI / 2, 1, 0, 0);
@@ -375,7 +375,7 @@ class MyScene extends CGFscene {
     }
 
     //---------------------floresta---------------------
-    this.pushMatrix();
+   /* this.pushMatrix();
     this.translate(6, 0, -5);
     this.scale(0.5, 1.5, 0.5);
     this.branchTest.display();
@@ -428,7 +428,7 @@ class MyScene extends CGFscene {
     this.translate(1, 1, -4);
     this.scale(0.5, 0.5, 0.5);
     this.trees[3].display();
-    this.popMatrix();
+    this.popMatrix();*/
 
     //-------------relampago----------
     this.pushMatrix();
