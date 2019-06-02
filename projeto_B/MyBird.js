@@ -111,6 +111,8 @@ class MyBird extends CGFobject {
           this.scene.remove_branch(i);
           this.picked_it = true;
 		  this.guarda = i;
+		  this.scene.galhos_pos_x[i] = 10000;
+		  this.scene.galhos_pos_z[i] = 10000;
 		  
           return 1;
         }
