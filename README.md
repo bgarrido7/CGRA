@@ -1,6 +1,6 @@
 # FEUP CGRA
 
-This repository contains all the Labs done in the course Computação Gráfica, a course choosen as a Minor from the **Integrated Master's Degree in Informatics and Computing Engineering** @ **FEUP**
+This repository contains all the Labs done in the course Computação Gráfica, a course choosen as a **Minor** from the Integrated Master's Degree in Informatics and Computing Engineering @ **FEUP**
 
 ## Course Information
 
