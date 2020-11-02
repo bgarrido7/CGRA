@@ -19,9 +19,8 @@ The goal was to build a
 
 The goal was to develop an
 
-<img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_B/projB-t1g6-1..PNG>
 <img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_B/projB-t1g6-2..PNG>
-<img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_B/projB-t1g6-3..PNG>
+<img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_B/projB-t1g6-1..PNG>
 
 
 ## Authors
