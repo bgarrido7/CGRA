@@ -11,8 +11,8 @@ All the course's information can be viewed [here](https://sigarra.up.pt/feup/pt/
 <img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_A/ex4-t1g6-1.PNG>
 <img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_A/ex4-t1g6-5.PNG>
 <img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_A/ex4-t1g6-2.PNG>
-<img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_A/ex4-t1g6-3.PNG>
 <img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_A/ex4-t1g6-4.PNG>
+<img src=https://github.com/bgarrido7/feup-cgra/blob/master/projeto_A/ex4-t1g6-3.PNG>
 
 ## Project B screenshots
 
